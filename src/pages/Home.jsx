@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom';
 import { AnimatedSection, AnimatedCard } from '../components/AnimatedSection';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Home() {
   return (
     <div className="w-full">
+      <SEO 
+        title="Intelligence Artificielle à Lubumbashi, RDC — Automatisation & Agents IA"
+        description="LUBIRA AI — Cabinet de conseil en intelligence artificielle à Lubumbashi, RDC. Automatisation des processus, agents IA sur mesure, conformité OCDE, bots WhatsApp. Livraison en 48h. Premier audit gratuit."
+        path="/"
+      />
       {/* HERO SECTION */}
       <AnimatedSection borderLeft className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
         <div className="max-w-4xl">

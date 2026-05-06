@@ -1,8 +1,15 @@
 import { AnimatedSection, AnimatedCard } from '../components/AnimatedSection';
+import SEO from '../components/SEO';
 
 export default function About() {
   return (
     <div className="w-full bg-white pb-0">
+      <SEO 
+        title="À Propos — Cabinet IA Congolais fondé par Darius Tshibangu"
+        description="LUBIRA AI est un cabinet de conseil en intelligence artificielle fondé à Lubumbashi, RDC par Darius Tshibangu. Né au Congo, construit pour l'Afrique. Découvrez notre histoire, nos valeurs et notre mission."
+        path="/a-propos"
+        keywords="LUBIRA AI fondateur, Darius Tshibangu, cabinet IA Congo, entreprise intelligence artificielle Lubumbashi, startup IA Afrique, consultant IA congolais, à propos LUBIRA AI"
+      />
       
       {/* STORY SECTION */}
       <section className="pt-24 pb-24">

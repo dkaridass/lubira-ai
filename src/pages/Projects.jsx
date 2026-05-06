@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom';
 import { AnimatedSection, AnimatedCard } from '../components/AnimatedSection';
 import { ArrowRight } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Projects() {
   return (
     <div className="w-full bg-white pb-0">
+      <SEO 
+        title="Réalisations — Études de Cas IA au Congo"
+        description="Découvrez comment LUBIRA AI a transformé les opérations de Hong Ning Mining SARL à Lubumbashi. Conformité OCDE automatisée, génération de documents en 10 secondes. Études de cas IA en RDC."
+        path="/realisations"
+        keywords="étude de cas IA Congo, réalisation intelligence artificielle RDC, Hong Ning Mining, conformité OCDE automatisée, IA secteur minier Lubumbashi, transformation digitale Congo"
+      />
       
       {/* PAGE HEADER */}
       <section className="pt-24 pb-16">

@@ -1,7 +1,22 @@
 import { useState } from 'react';
 import { AnimatedSection, AnimatedCard } from '../components/AnimatedSection';
+import SEO from '../components/SEO';
 
 export default function Contact() {
+  return (
+    <>
+      <SEO 
+        title="Contact — Demandez votre Audit IA Gratuit"
+        description="Contactez LUBIRA AI à Lubumbashi, RDC. Premier audit gratuit, réponse en 2 heures. WhatsApp: +243 99 597 47 70. Automatisation, agents IA, conformité OCDE pour votre entreprise."
+        path="/contact"
+        keywords="contacter LUBIRA AI, audit IA gratuit Congo, devis intelligence artificielle RDC, WhatsApp LUBIRA AI, consultant IA Lubumbashi, demande IA Congo"
+      />
+      <ContactForm />
+    </>
+  );
+}
+
+function ContactForm() {
   const [formData, setFormData] = useState({
     nom: '',
     email: '',

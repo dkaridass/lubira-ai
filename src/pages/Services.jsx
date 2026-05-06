@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AnimatedSection, AnimatedCard } from '../components/AnimatedSection';
 import { CheckCircle2 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const services = [
   {
@@ -56,6 +57,12 @@ const services = [
 export default function Services() {
   return (
     <div className="w-full bg-white pb-0">
+      <SEO 
+        title="Services IA — Automatisation, Agents IA, WhatsApp Bots, Conformité OCDE"
+        description="Découvrez les 8 services d'intelligence artificielle de LUBIRA AI à Lubumbashi, RDC : automatisation des processus, agents IA sur mesure, bots WhatsApp Business, conformité OCDE, tableaux de bord intelligents. Premier audit gratuit."
+        path="/services"
+        keywords="services IA Lubumbashi, automatisation processus Congo, agent IA sur mesure RDC, bot WhatsApp Business Congo, conformité OCDE IA, tableau de bord intelligent RDC, formation IA Congo, conseil stratégique IA Afrique"
+      />
       
       {/* PAGE HEADER */}
       <section className="pt-24 pb-20">
