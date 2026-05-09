@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AnimatedSection, AnimatedCard } from '../components/AnimatedSection';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, FileText, Clock, UserX, ShieldAlert, Headset, Database } from 'lucide-react';
 import SEO from '../components/SEO';
 
 export default function Home() {
@@ -12,47 +12,61 @@ export default function Home() {
         path="/"
       />
       {/* HERO SECTION */}
-      <AnimatedSection borderLeft className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
-        <div className="max-w-4xl">
-          <p className="eyebrow text-red-accent mb-6">INTELLIGENCE ARTIFICIELLE · LUBUMBASHI · 2026</p>
-          <h1 className="text-[40px] md:text-[56px] leading-[1.1] tracking-[-0.02em] font-bold mb-8">
-            <span className="block">L'IA qui</span>
-            <span className="inline-block bg-red-accent text-white px-2 mt-1 mb-1">répare</span>
-            <span className="block">le Congo.</span>
-          </h1>
-          <p className="text-[17px] text-gray-body leading-[1.7] max-w-2xl mb-10">
-            Des solutions d'IA construites ici, pour ici.<br/>
-            Livrées en 48 heures. Résultats garantis.
-          </p>
-          
-          <div className="flex flex-wrap items-center gap-6 mb-16">
-            <Link to="/contact" className="px-6 py-3 bg-red-accent text-white font-medium text-[15px] rounded-btn hover:bg-[#a62b15] transition-colors">
-              Démo Gratuite
-            </Link>
-            <Link to="/services" className="text-black-strong font-medium text-[15px] hover:text-red-accent flex items-center group transition-colors">
-              <span className="border-b border-black-strong group-hover:border-red-accent">Nos Services</span>
-              <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Column - Text */}
+            <AnimatedSection borderLeft>
+              <p className="eyebrow text-red-accent mb-6">INTELLIGENCE ARTIFICIELLE · LUBUMBASHI · 2026</p>
+              <h1 className="text-[40px] md:text-[56px] leading-[1.1] tracking-[-0.02em] font-bold mb-8">
+                <span className="block">L'IA qui</span>
+                <span className="inline-block bg-red-accent text-white px-2 mt-1 mb-1">répare</span>
+                <span className="block">le Congo.</span>
+              </h1>
+              <p className="text-[17px] text-gray-body leading-[1.7] max-w-2xl mb-10">
+                Des solutions d'IA construites ici, pour ici.<br/>
+                Livrées en 48 heures. Résultats garantis.
+              </p>
+              
+              <div className="flex flex-wrap items-center gap-6 mb-16">
+                <Link to="/contact" className="px-6 py-3 bg-red-accent text-white font-medium text-[15px] rounded-btn hover:bg-[#a62b15] transition-colors">
+                  Démo Gratuite
+                </Link>
+                <Link to="/services" className="text-black-strong font-medium text-[15px] hover:text-red-accent flex items-center group transition-colors">
+                  <span className="border-b border-black-strong group-hover:border-red-accent">Nos Services</span>
+                  <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
 
-          <hr className="border-gray-border mb-10" />
+              <hr className="border-gray-border mb-10" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-border">
-            <div className="md:pr-8 py-4 md:py-0">
-              <p className="font-playfair text-red-accent font-bold text-[32px] leading-none mb-2">48h</p>
-              <p className="text-[13px] font-medium text-black-strong">Délai de livraison moyen</p>
-            </div>
-            <div className="md:px-8 py-4 md:py-0">
-              <p className="font-playfair text-red-accent font-bold text-[32px] leading-none mb-2">100%</p>
-              <p className="text-[13px] font-medium text-black-strong">Fait en Afrique</p>
-            </div>
-            <div className="md:pl-8 py-4 md:py-0">
-              <p className="font-playfair text-red-accent font-bold text-[32px] leading-none mb-2">0</p>
-              <p className="text-[13px] font-medium text-black-strong">Paperasse inutile</p>
+              <div className="grid grid-cols-3 gap-0 divide-x divide-gray-border">
+                <div className="pr-6">
+                  <p className="font-playfair text-red-accent font-bold text-[28px] md:text-[32px] leading-none mb-2">48h</p>
+                  <p className="text-[12px] md:text-[13px] font-medium text-black-strong">Délai de livraison</p>
+                </div>
+                <div className="px-6">
+                  <p className="font-playfair text-red-accent font-bold text-[28px] md:text-[32px] leading-none mb-2">100%</p>
+                  <p className="text-[12px] md:text-[13px] font-medium text-black-strong">Fait en Afrique</p>
+                </div>
+                <div className="pl-6">
+                  <p className="font-playfair text-red-accent font-bold text-[28px] md:text-[32px] leading-none mb-2">0</p>
+                  <p className="text-[12px] md:text-[13px] font-medium text-black-strong">Paperasse inutile</p>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            {/* Right Column - Hero Visual */}
+            <div className="hidden lg:block">
+              <img 
+                src="/hero-visual.png" 
+                alt="LUBIRA AI - Intelligence Artificielle au Congo" 
+                className="w-full h-auto max-w-lg mx-auto drop-shadow-2xl"
+              />
             </div>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* PROBLEM SECTION */}
       <section className="bg-off-white border-t-[3px] border-red-accent py-24">
@@ -69,15 +83,18 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { n: "01", t: "Paperasse Sans Fin", d: "Des heures perdues sur des documents manuels chaque semaine." },
-                { n: "02", t: "Processus Trop Lents", d: "Des opérations qui prennent des jours au lieu de minutes." },
-                { n: "03", t: "Erreurs Humaines", d: "Des erreurs coûteuses causées par la saisie manuelle répétitive." },
-                { n: "04", t: "Conformité Difficile", d: "Des rapports complexes qui épuisent vos équipes chaque mois." },
-                { n: "05", t: "Service Client Lent", d: "Des clients qui attendent des heures pour des réponses simples." },
-                { n: "06", t: "Données Inexploitées", d: "Des données précieuses bloquées dans des fichiers Excel illisibles." }
+                { n: "01", t: "Paperasse Sans Fin", d: "Des heures perdues sur des documents manuels chaque semaine.", icon: FileText },
+                { n: "02", t: "Processus Trop Lents", d: "Des opérations qui prennent des jours au lieu de minutes.", icon: Clock },
+                { n: "03", t: "Erreurs Humaines", d: "Des erreurs coûteuses causées par la saisie manuelle répétitive.", icon: UserX },
+                { n: "04", t: "Conformité Difficile", d: "Des rapports complexes qui épuisent vos équipes chaque mois.", icon: ShieldAlert },
+                { n: "05", t: "Service Client Lent", d: "Des clients qui attendent des heures pour des réponses simples.", icon: Headset },
+                { n: "06", t: "Données Inexploitées", d: "Des données précieuses bloquées dans des fichiers Excel illisibles.", icon: Database }
               ].map((prob, i) => (
-                <AnimatedCard key={prob.n} index={i} className="bg-white border border-gray-border p-6 hover:border-l-[3px] hover:border-l-red-accent transition-all duration-300">
-                  <p className="font-playfair text-red-accent font-bold text-[20px] mb-4">{prob.n}</p>
+                <AnimatedCard key={prob.n} index={i} className="bg-white border border-gray-border p-6 hover:border-l-[3px] hover:border-l-red-accent transition-all duration-300 group">
+                  <div className="flex items-center justify-between mb-4">
+                    <p className="font-playfair text-red-accent font-bold text-[20px]">{prob.n}</p>
+                    <prob.icon className="w-5 h-5 text-gray-border group-hover:text-red-accent transition-colors" />
+                  </div>
                   <h3 className="font-inter font-bold text-black-strong text-[15px] mb-2">{prob.t}</h3>
                   <p className="text-gray-body text-[13px] leading-relaxed">{prob.d}</p>
                 </AnimatedCard>
@@ -173,7 +190,7 @@ export default function Home() {
             <p className="eyebrow text-red-accent mb-6">PREMIÈRE RÉALISATION</p>
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-8">
+              <div className="lg:col-span-7">
                 <div className="mb-8">
                   <h3 className="font-inter font-bold text-black-strong text-[24px] mb-1">Hong Ning Mining SARL</h3>
                   <span className="inline-block px-2 py-1 bg-off-white border border-gray-border text-[11px] font-medium text-gray-body uppercase tracking-wider">
@@ -189,34 +206,42 @@ export default function Home() {
                   Panneau d'administration IA avec génération automatique de documents conformes en moins de 10 secondes.
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                <div className="grid grid-cols-3 gap-8">
                   <div>
-                    <p className="font-playfair text-red-accent font-bold text-[32px] leading-none mb-2">10 sec</p>
-                    <p className="text-[13px] font-medium text-black-strong">Génération de documents</p>
+                    <p className="font-playfair text-red-accent font-bold text-[28px] md:text-[32px] leading-none mb-2">10 sec</p>
+                    <p className="text-[12px] md:text-[13px] font-medium text-black-strong">Génération de documents</p>
                   </div>
                   <div>
-                    <p className="font-playfair text-red-accent font-bold text-[32px] leading-none mb-2">100%</p>
-                    <p className="text-[13px] font-medium text-black-strong">Conformité OCDE</p>
+                    <p className="font-playfair text-red-accent font-bold text-[28px] md:text-[32px] leading-none mb-2">100%</p>
+                    <p className="text-[12px] md:text-[13px] font-medium text-black-strong">Conformité OCDE</p>
                   </div>
                   <div>
-                    <p className="font-playfair text-red-accent font-bold text-[32px] leading-none mb-2">3 jours</p>
-                    <p className="text-[13px] font-medium text-black-strong">Délai de livraison</p>
+                    <p className="font-playfair text-red-accent font-bold text-[28px] md:text-[32px] leading-none mb-2">3 jours</p>
+                    <p className="text-[12px] md:text-[13px] font-medium text-black-strong">Délai de livraison</p>
                   </div>
                 </div>
-              </div>
 
-              <div className="lg:col-span-4 flex flex-col justify-end lg:items-end">
-                <div className="flex flex-wrap gap-2 lg:justify-end">
+                <div className="flex flex-wrap gap-2 mt-10">
                   {['React', 'Supabase', 'Claude AI', 'jsPDF'].map(tech => (
                     <span key={tech} className="px-3 py-1.5 bg-off-white border border-gray-border text-gray-body text-[12px] font-medium">
                       {tech}
                     </span>
                   ))}
                 </div>
-                <Link to="/realisations" className="mt-8 text-[14px] font-medium text-red-accent hover:text-black-strong transition-colors flex items-center gap-1 group lg:justify-end">
+                <Link to="/realisations" className="mt-6 text-[14px] font-medium text-red-accent hover:text-black-strong transition-colors flex items-center gap-1 group">
                   Lire l'étude de cas complète
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </Link>
+              </div>
+
+              <div className="lg:col-span-5 flex items-center">
+                <div className="w-full bg-[#0D1117] p-4 shadow-2xl overflow-hidden">
+                  <img 
+                    src="/dashboard-mockup.png" 
+                    alt="Dashboard IA - Hong Ning Mining" 
+                    className="w-full h-auto"
+                  />
+                </div>
               </div>
             </div>
           </AnimatedSection>

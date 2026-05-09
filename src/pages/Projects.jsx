@@ -87,6 +87,15 @@ export default function Projects() {
                   </div>
                 </div>
 
+                {/* Dashboard Screenshot */}
+                <div className="bg-[#0D1117] p-3 shadow-xl mb-8 overflow-hidden">
+                  <img 
+                    src="/dashboard-mockup.png" 
+                    alt="Dashboard IA Hong Ning Mining - Panneau d'administration" 
+                    className="w-full h-auto"
+                  />
+                </div>
+
                 <div>
                   <h4 className="font-inter font-bold text-[13px] uppercase tracking-[0.12em] text-black-strong mb-4">Technologies Déployées</h4>
                   <div className="flex flex-wrap gap-2">
