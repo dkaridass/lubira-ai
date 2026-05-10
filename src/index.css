@@ -36,10 +36,10 @@
   --spacing-container-x: 40px;
 
   /* === Rayons === */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 22px;
   --radius-2xl: 24px;
 
   /* === Ombres (très subtiles, ton sépia) === */
@@ -137,24 +137,29 @@
 
   /* Bouton primaire (cuivre) */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md;
-    padding: 14px 22px;
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[15px] leading-none transition-all duration-200;
+    border-radius: 999px;
+    padding: 13px 22px;
   }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md bg-copper text-paper hover:bg-copper-deep;
-    padding: 14px 22px;
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[15px] leading-none transition-all duration-200 bg-copper text-paper hover:bg-copper-deep;
+    border-radius: 999px;
+    padding: 13px 22px;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md bg-transparent text-ink border border-ink/15 hover:border-ink hover:bg-ink hover:text-paper;
-    padding: 14px 22px;
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[15px] leading-none transition-all duration-200 bg-transparent text-ink border border-ink/15 hover:border-ink hover:bg-ink hover:text-paper;
+    border-radius: 999px;
+    padding: 13px 22px;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md bg-transparent text-ink hover:bg-ink/5;
-    padding: 14px 22px;
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[15px] leading-none transition-all duration-200 bg-transparent text-ink border border-transparent hover:border-ink/18 hover:bg-ink/5;
+    border-radius: 999px;
+    padding: 13px 22px;
   }
   .btn-on-dark {
-    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md bg-cream text-ink hover:bg-paper;
-    padding: 14px 22px;
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[15px] leading-none transition-all duration-200 bg-cream text-ink hover:bg-paper;
+    border-radius: 999px;
+    padding: 13px 22px;
   }
 
   /* Mono numéro (// 01, // 02) */
@@ -165,9 +170,11 @@
 
   /* Carte standard */
   .card {
-    @apply bg-paper border border-ink/8 rounded-2xl p-6 md:p-8 transition-all duration-200;
+    @apply bg-paper border border-ink/8 p-6 md:p-8 transition-all duration-200;
+    border-radius: var(--radius-lg);
   }
   .card-hoverable {
-    @apply bg-paper border border-ink/8 rounded-2xl p-6 md:p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-ink/14;
+    @apply bg-paper border border-ink/8 p-6 md:p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-ink/14;
+    border-radius: var(--radius-lg);
   }
 }

@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>LUBIRA AI — Système de logo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#0E0F12; --ink-soft:#1C1D22; --copper:#B8633A; --copper-deep:#8B4A2B;
+    --copper-glow:#D88A5E; --cream:#F5F0E8; --paper:#FBF8F2; --sand:#E8DDC9;
+    --slate:#6B6660; --stone:#A39E96;
+  }
+  body{font-family:"Geist",system-ui,sans-serif;background:#EFEAE0}
+  .lbl{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+  .desc{font-family:"Geist",sans-serif;font-size:13px;color:var(--slate);max-width:46ch;line-height:1.5}
+  .frame{display:flex;align-items:center;justify-content:center;height:100%;padding:48px;flex-direction:column;gap:24px}
+  .frame.dark{background:var(--ink)}
+  .frame.cream{background:var(--cream)}
+  .frame.paper{background:var(--paper)}
+  .frame.copper{background:var(--copper)}
+
+  /* === SYMBOLE === */
+  .mark-sun{display:flex;flex-direction:column;align-items:flex-start}
+  .mark-sun .disc{width:64px;height:64px;border-radius:50%;background:var(--copper);margin-bottom:-8px;margin-left:24px}
+  .mark-sun .L{display:flex;align-items:flex-end;color:var(--ink);font-family:"Instrument Serif",serif;font-size:160px;line-height:.78;letter-spacing:-.04em}
+  .mark-sun.lg .disc{width:96px;height:96px;margin-left:36px;margin-bottom:-12px}
+  .mark-sun.lg .L{font-size:240px}
+  .mark-sun.dark .L{color:var(--cream)}
+  .mark-sun.copperbg .disc{background:var(--ink)}
+  .mark-sun.copperbg .L{color:var(--paper)}
+  .mark-sun.mono .disc{background:var(--ink)}
+  .mark-sun.mono.dark .disc{background:var(--cream)}
+  .mark-sun.mono.dark .L{color:var(--cream)}
+
+  /* === WORDMARK === */
+  .wordmark{display:flex;align-items:baseline;gap:14px;color:var(--ink);font-family:"Instrument Serif",serif;font-weight:400}
+  .wordmark .name{font-size:84px;line-height:1;letter-spacing:-.02em}
+  .wordmark .ai{font-style:italic;color:var(--copper)}
+  .wordmark .ai-mono{
+    font-family:"Geist Mono",monospace;font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--copper-deep);padding:5px 8px;border:1px solid var(--copper-deep);border-radius:4px;
+    align-self:center;
+  }
+  .wordmark.dark{color:var(--cream)}
+  .wordmark.dark .ai{color:var(--copper-glow)}
+  .wordmark.dark .ai-mono{color:var(--copper-glow);border-color:var(--copper-glow)}
+  .wordmark.mono{color:var(--ink)}
+  .wordmark.mono .ai{color:var(--ink);font-style:italic}
+  .wordmark.mono .ai-mono{color:var(--ink);border-color:var(--ink)}
+  .wordmark.mono.dark{color:var(--cream)}
+  .wordmark.mono.dark .ai{color:var(--cream)}
+  .wordmark.mono.dark .ai-mono{color:var(--cream);border-color:var(--cream)}
+
+  /* === LOCKUP === */
+  .lockup{display:flex;align-items:center;gap:28px}
+  .lockup .symbol{width:80px;height:80px;border-radius:50%;background:var(--copper);position:relative;flex-shrink:0}
+  .lockup .symbol::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34px;height:1.5px;background:var(--paper)}
+  .lockup .text{display:flex;flex-direction:column;gap:2px}
+  .lockup .name{font-family:"Instrument Serif",serif;font-size:48px;line-height:1;letter-spacing:-.015em;color:var(--ink)}
+  .lockup .name em{font-style:italic;color:var(--copper-deep)}
+  .lockup .tag{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate)}
+  .lockup.dark .name{color:var(--cream)}
+  .lockup.dark .name em{color:var(--copper-glow)}
+  .lockup.dark .tag{color:var(--stone)}
+  .lockup.stacked{flex-direction:column;align-items:flex-start;gap:24px}
+
+  /* === MONOGRAM === */
+  .mono-box{
+    width:140px;height:140px;border-radius:14px;background:var(--ink);
+    display:flex;align-items:center;justify-content:center;color:var(--cream);
+    font-family:"Instrument Serif",serif;font-size:96px;line-height:1;letter-spacing:-.04em;
+    position:relative;overflow:hidden;
+  }
+  .mono-box em{font-style:italic;color:var(--copper-glow)}
+  .mono-box::after{content:"";position:absolute;bottom:14px;right:14px;width:14px;height:14px;border-radius:50%;background:var(--copper)}
+  .mono-box.copper{background:var(--copper);color:var(--paper)}
+  .mono-box.copper em{color:var(--ink)}
+  .mono-box.copper::after{background:var(--ink)}
+  .mono-box.cream{background:var(--cream);color:var(--ink);border:1px solid rgba(14,15,18,.08)}
+  .mono-box.cream em{color:var(--copper-deep)}
+
+  /* === FAVICON === */
+  .fav{width:64px;height:64px;border-radius:14px;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:"Instrument Serif",serif;color:var(--cream);font-size:42px;line-height:1;position:relative}
+  .fav::after{content:"";position:absolute;bottom:8px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--copper-glow)}
+  .fav.sm{width:32px;height:32px;font-size:22px;border-radius:7px}
+  .fav.sm::after{width:5px;height:5px;bottom:5px;right:5px}
+  .fav.xs{width:16px;height:16px;font-size:11px;border-radius:4px}
+  .fav.xs::after{display:none}
+
+  /* === DON'TS === */
+  .dont{position:relative;opacity:.85;filter:saturate(.4)}
+  .dont::after{content:"";position:absolute;inset:-12px;border:2px solid #B33A2A;border-radius:8px;pointer-events:none}
+  .dont::before{content:"✗";position:absolute;top:-22px;right:-12px;font-family:"Geist Mono",monospace;color:#B33A2A;font-size:18px;background:#EFEAE0;padding:0 6px;z-index:2}
+
+  /* === CARD HOLDER === */
+  .biz-card{
+    width:340px;height:200px;border-radius:8px;background:var(--cream);padding:28px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    box-shadow:0 12px 32px -12px rgba(14,15,18,.2);
+    border:1px solid rgba(14,15,18,.08);
+  }
+  .biz-card.dark{background:var(--ink);color:var(--cream);border-color:transparent}
+  .biz-card .name{font-family:"Instrument Serif",serif;font-size:28px;line-height:1;color:inherit}
+  .biz-card .name em{font-style:italic;color:var(--copper-deep)}
+  .biz-card.dark .name em{color:var(--copper-glow)}
+  .biz-card .info{font-family:"Geist",sans-serif;font-size:12px;line-height:1.5;color:var(--slate)}
+  .biz-card.dark .info{color:var(--stone)}
+  .biz-card .info b{color:inherit;font-weight:500}
+  .biz-card.dark .info b{color:var(--cream)}
+
+  /* favicon row */
+  .fav-row{display:flex;align-items:flex-end;gap:18px}
+
+  /* clear-space diagram */
+  .clear{position:relative;padding:48px}
+  .clear::before, .clear::after{content:"";position:absolute;border:1px dashed var(--copper);}
+  .clear::before{inset:24px}
+  .clear .ruler{position:absolute;left:6px;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:var(--copper)}
+  .clear .ruler-2{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:var(--copper)}
+  .clear .ruler-x{font-family:"Geist Mono",monospace;font-size:10px;color:var(--copper-deep);position:absolute;left:50%;top:6px;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel">
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+function App() {
+  return (
+    <DesignCanvas title="LUBIRA AI — Système de logo v1" subtitle="Symbole, wordmark, monogramme + applications · Mai 2026">
+
+      {/* ===================== CONCEPT ===================== */}
+      <DCSection id="concept" title="01 — Concept">
+        <DCArtboard id="story" label="L'idée" width={1200} height={520}>
+          <div style={{padding:64,display:"grid",gridTemplateColumns:"1fr 1fr",gap:64,alignItems:"center",height:"100%",background:"var(--paper)"}}>
+            <div>
+              <div className="lbl" style={{marginBottom:24}}>// CONCEPT</div>
+              <div style={{fontFamily:"Instrument Serif,serif",fontSize:54,lineHeight:1,letterSpacing:"-.01em",color:"var(--ink)",textWrap:"balance"}}>
+                Un <em style={{fontStyle:"italic",color:"var(--copper-deep)"}}>soleil de cuivre</em> qui se lève sur le Katanga.
+              </div>
+              <p style={{fontSize:15,color:"var(--slate)",marginTop:24,lineHeight:1.6,textWrap:"pretty"}}>
+                Le symbole combine deux signes simples : le <b style={{color:"var(--ink)"}}>L</b> de Lubira (et de Lubumbashi), et un <b style={{color:"var(--ink)"}}>disque de cuivre</b> qui flotte au-dessus comme un soleil. Référence directe au patrimoine minier local sans le caricaturer.
+              </p>
+            </div>
+            <div style={{display:"flex",justifyContent:"center"}}>
+              <div className="mark-sun lg">
+                <div className="disc"></div>
+                <div className="L">L</div>
+              </div>
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      {/* ===================== SYMBOLE ===================== */}
+      <DCSection id="symbol" title="02 — Symbole">
+        <DCArtboard id="sym-light" label="Sur fond clair" width={520} height={520}>
+          <div className="frame paper">
+            <div className="mark-sun">
+              <div className="disc"></div>
+              <div className="L">L</div>
+            </div>
+            <div className="lbl">// VERSION PRINCIPALE</div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="sym-dark" label="Sur fond sombre" width={520} height={520}>
+          <div className="frame dark">
+            <div className="mark-sun dark">
+              <div className="disc"></div>
+              <div className="L">L</div>
+            </div>
+            <div className="lbl" style={{color:"var(--stone)"}}>// VERSION SOMBRE</div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="sym-copper" label="Sur fond cuivre" width={520} height={520}>
+          <div className="frame copper">
+            <div className="mark-sun copperbg">
+              <div className="disc"></div>
+              <div className="L" style={{color:"var(--paper)"}}>L</div>
+            </div>
+            <div className="lbl" style={{color:"rgba(251,248,242,.7)"}}>// VERSION ACCENT</div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="sym-mono-l" label="Mono encre — impression 1 couleur" width={520} height={520}>
+          <div className="frame paper">
+            <div className="mark-sun">
+              <div className="disc" style={{background:"var(--ink)"}}></div>
+              <div className="L">L</div>
+            </div>
+            <div className="lbl">// MONO ENCRE</div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="sym-mono-d" label="Mono crème — sur sombre" width={520} height={520}>
+          <div className="frame dark">
+            <div className="mark-sun dark">
+              <div className="disc" style={{background:"var(--cream)"}}></div>
+              <div className="L">L</div>
+            </div>
+            <div className="lbl" style={{color:"var(--stone)"}}>// MONO CRÈME</div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="clear-space" label="Espace de garde" width={520} height={520}>
+          <div className="frame paper" style={{padding:64}}>
+            <div className="clear">
+              <div className="mark-sun" style={{transform:"scale(.7)"}}>
+                <div className="disc"></div>
+                <div className="L">L</div>
+              </div>
+            </div>
+            <p className="desc" style={{textAlign:"center"}}>L'espace minimum autour du symbole est égal au diamètre du disque cuivre. Ne jamais empiéter cette zone avec du texte ou un autre élément.</p>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      {/* ===================== WORDMARK ===================== */}
+      <DCSection id="wordmark" title="03 — Wordmark">
+        <DCArtboard id="wm-italic" label="Wordmark — AI italique (principal)" width={1200} height={400}>
+          <div className="frame paper">
+            <div className="wordmark">
+              <span className="name">LUBIRA</span>
+              <span className="name ai">AI</span>
+            </div>
+            <p className="desc" style={{textAlign:"center"}}>Version principale. Italique sur "AI" en cuivre. Usage : web, supports éditoriaux, signature.</p>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="wm-mono-tag" label="Wordmark + étiquette mono" width={1200} height={400}>
+          <div className="frame paper">
+            <div className="wordmark">
+              <span className="name">LUBIRA</span>
+              <span className="ai-mono">AI</span>
+            </div>
+            <p className="desc" style={{textAlign:"center"}}>Variante technique. L'"AI" devient une étiquette mono. Usage : documents techniques, audits, livrables.</p>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="wm-dark" label="Wordmark sur fond sombre" width={1200} height={400}>
+          <div className="frame dark">
+            <div className="wordmark dark">
+              <span className="name">LUBIRA</span>
+              <span className="name ai">AI</span>
+            </div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="wm-cream" label="Wordmark sur cuivre" width={1200} height={400}>
+          <div className="frame copper">
+            <div className="wordmark mono dark" style={{color:"var(--paper)"}}>
+              <span className="name" style={{color:"var(--paper)"}}>LUBIRA</span>
+              <span className="name" style={{color:"var(--ink)",fontStyle:"italic"}}>AI</span>
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      {/* ===================== LOCKUP ===================== */}
+      <DCSection id="lockup" title="04 — Lockup (symbole + nom)">
+        <DCArtboard id="lk-h" label="Horizontal avec tagline" width={1200} height={400}>
+          <div className="frame paper">
+            <div className="lockup">
+              <div className="symbol"></div>
+              <div className="text">
+                <div className="name">LUBIRA <em>AI</em></div>
+                <div className="tag">// CABINET IA · LUBUMBASHI</div>
+              </div>
+            </div>
+            <p className="desc" style={{textAlign:"center"}}>Lockup principal pour signatures email, headers de site, cartes de visite.</p>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="lk-stacked" label="Empilé — usage vertical" width={520} height={520}>
+          <div className="frame paper">
+            <div className="lockup stacked">
+              <div className="symbol" style={{width:96,height:96}}></div>
+              <div className="text" style={{alignItems:"flex-start"}}>
+                <div className="name">LUBIRA <em>AI</em></div>
+                <div className="tag">// CABINET IA · LUBUMBASHI</div>
+              </div>
+            </div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="lk-dark" label="Horizontal sur sombre" width={1200} height={400}>
+          <div className="frame dark">
+            <div className="lockup dark">
+              <div className="symbol"></div>
+              <div className="text">
+                <div className="name">LUBIRA <em>AI</em></div>
+                <div className="tag">// CABINET IA · LUBUMBASHI</div>
+              </div>
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      {/* ===================== MONOGRAM ===================== */}
+      <DCSection id="monogram" title="05 — Monogramme">
+        <DCArtboard id="mono-ink" label="Monogramme encre" width={520} height={520}>
+          <div className="frame paper">
+            <div className="mono-box"><span>L<em>A</em></span></div>
+            <p className="desc" style={{textAlign:"center"}}>Pour favicons, avatars sociaux, app icons.</p>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="mono-copper" label="Monogramme cuivre" width={520} height={520}>
+          <div className="frame paper">
+            <div className="mono-box copper"><span>L<em>A</em></span></div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="mono-cream" label="Monogramme crème" width={520} height={520}>
+          <div className="frame dark">
+            <div className="mono-box cream"><span>L<em>A</em></span></div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      {/* ===================== FAVICON & TAILLES ===================== */}
+      <DCSection id="favicon" title="06 — Favicons & tailles minimum">
+        <DCArtboard id="fav-stack" label="Échelle des tailles" width={1200} height={360}>
+          <div className="frame paper" style={{flexDirection:"column"}}>
+            <div className="fav-row">
+              <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
+                <div className="fav xs">L</div>
+                <span className="lbl">16 PX</span>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
+                <div className="fav sm">L</div>
+                <span className="lbl">32 PX</span>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
+                <div className="fav">L</div>
+                <span className="lbl">64 PX</span>
+              </div>
+              <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
+                <div className="fav" style={{width:128,height:128,fontSize:84,borderRadius:24}}>L</div>
+                <span className="lbl">128 PX</span>
+              </div>
+            </div>
+            <p className="desc" style={{textAlign:"center",marginTop:18}}>En dessous de 24 px, retirer le point cuivre (favicon 16 px monochrome).</p>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="fav-context" label="Onglet navigateur" width={520} height={300}>
+          <div className="frame paper" style={{padding:24}}>
+            <div style={{background:"#EAE5DA",borderRadius:8,padding:8,width:"100%",display:"flex",gap:6}}>
+              <div style={{background:"var(--paper)",borderRadius:6,padding:"8px 12px",display:"flex",alignItems:"center",gap:8,fontSize:12,color:"var(--graphite)",fontFamily:"Geist,sans-serif",border:"1px solid rgba(0,0,0,.06)"}}>
+                <div className="fav xs">L</div>
+                <span>LUBIRA AI — Cabinet IA</span>
+                <span style={{color:"var(--slate)",marginLeft:4}}>×</span>
+              </div>
+            </div>
+            <p className="desc" style={{textAlign:"center",marginTop:12}}>Aperçu en onglet de navigateur.</p>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      {/* ===================== APPLICATIONS ===================== */}
+      <DCSection id="applications" title="07 — Applications">
+        <DCArtboard id="bizcard" label="Carte de visite — recto" width={520} height={420}>
+          <div className="frame" style={{background:"#E5DFD0"}}>
+            <div className="biz-card">
+              <div className="lockup" style={{gap:14}}>
+                <div className="symbol" style={{width:44,height:44}}></div>
+                <div className="text">
+                  <div className="name" style={{fontSize:22}}>LUBIRA <em>AI</em></div>
+                  <div className="tag" style={{fontSize:9}}>// CABINET IA · LUBUMBASHI</div>
+                </div>
+              </div>
+              <div className="info">
+                <b>Darius Tshibangu</b><br/>
+                Fondateur · Conseil IA<br/>
+                +243 ··· · darius@lubira.ai
+              </div>
+            </div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="bizcard-back" label="Carte de visite — verso" width={520} height={420}>
+          <div className="frame" style={{background:"#E5DFD0"}}>
+            <div className="biz-card dark">
+              <div style={{display:"flex",justifyContent:"flex-end"}}>
+                <div className="mono-box copper" style={{width:60,height:60,fontSize:42,borderRadius:8}}><span>L<em>A</em></span></div>
+              </div>
+              <div>
+                <div style={{fontFamily:"Instrument Serif,serif",fontSize:32,lineHeight:1,color:"var(--cream)"}}>L'IA livrée<br/>en <em style={{fontStyle:"italic",color:"var(--copper-glow)"}}>48 heures</em>.</div>
+                <div className="info" style={{marginTop:10}}>lubira-ai.netlify.app</div>
+              </div>
+            </div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="email" label="Signature email" width={520} height={300}>
+          <div className="frame paper" style={{padding:32,alignItems:"flex-start"}}>
+            <div style={{paddingLeft:0,borderLeft:"2px solid var(--copper)",paddingLeftInline:14,paddingLeft:14,fontFamily:"Geist,sans-serif",fontSize:13,color:"var(--graphite)",lineHeight:1.6}}>
+              <div style={{fontFamily:"Instrument Serif,serif",fontSize:22,color:"var(--ink)",lineHeight:1}}><b style={{fontWeight:400}}>Darius Tshibangu</b></div>
+              <div style={{color:"var(--slate)",fontSize:12}}>Fondateur · LUBIRA <i style={{color:"var(--copper-deep)"}}>AI</i></div>
+              <div style={{fontFamily:"Geist Mono,monospace",fontSize:11,color:"var(--slate)",letterSpacing:".08em",marginTop:8}}>// CABINET IA · LUBUMBASHI · CD-KA</div>
+              <div style={{fontSize:12,marginTop:8}}>darius@lubira.ai · lubira-ai.netlify.app</div>
+            </div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="og" label="Image OG / réseaux sociaux" width={1200} height={630}>
+          <div style={{width:"100%",height:"100%",background:"var(--ink)",padding:64,display:"flex",flexDirection:"column",justifyContent:"space-between",position:"relative",overflow:"hidden"}}>
+            <div style={{position:"absolute",inset:0,background:"radial-gradient(700px 400px at 85% 0%, rgba(184,99,58,.25), transparent 60%)"}}></div>
+            <div className="lockup dark" style={{position:"relative"}}>
+              <div className="symbol"></div>
+              <div className="text">
+                <div className="name" style={{color:"var(--cream)",fontSize:36}}>LUBIRA <em style={{color:"var(--copper-glow)"}}>AI</em></div>
+                <div className="tag" style={{color:"var(--stone)"}}>// CABINET IA · LUBUMBASHI</div>
+              </div>
+            </div>
+            <div style={{position:"relative"}}>
+              <div style={{fontFamily:"Instrument Serif,serif",fontSize:88,lineHeight:1,letterSpacing:"-.015em",color:"var(--cream)",textWrap:"balance"}}>
+                Des solutions d'IA<br/><em style={{fontStyle:"italic",color:"var(--copper-glow)"}}>construites ici</em>, pour ici.
+              </div>
+              <div style={{fontFamily:"Geist Mono,monospace",fontSize:13,letterSpacing:".18em",color:"var(--copper-glow)",marginTop:32}}>// AUDIT GRATUIT · LIVRAISON 48 H</div>
+            </div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="app-icon" label="App icon (iOS/Android)" width={520} height={520}>
+          <div className="frame paper">
+            <div style={{width:200,height:200,borderRadius:48,background:"var(--ink)",display:"flex",alignItems:"center",justifyContent:"center",position:"relative",boxShadow:"0 24px 48px -16px rgba(14,15,18,.3)"}}>
+              <span style={{fontFamily:"Instrument Serif,serif",fontSize:140,color:"var(--cream)",lineHeight:1}}>L<em style={{fontStyle:"italic",color:"var(--copper-glow)"}}>A</em></span>
+              <div style={{position:"absolute",bottom:24,right:24,width:18,height:18,borderRadius:"50%",background:"var(--copper)"}}></div>
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      {/* ===================== DON'TS ===================== */}
+      <DCSection id="donts" title="08 — À ne pas faire">
+        <DCArtboard id="dont-stretch" label="Ne pas étirer" width={520} height={400}>
+          <div className="frame paper">
+            <div className="dont">
+              <div className="wordmark" style={{transform:"scaleX(1.4)",transformOrigin:"left"}}>
+                <span className="name">LUBIRA</span>
+                <span className="name ai">AI</span>
+              </div>
+            </div>
+            <p className="desc" style={{textAlign:"center"}}>Le wordmark conserve toujours ses proportions natives.</p>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="dont-color" label="Ne pas changer la couleur" width={520} height={400}>
+          <div className="frame paper">
+            <div className="dont">
+              <div className="wordmark" style={{color:"#3A6FB8"}}>
+                <span className="name" style={{color:"#3A6FB8"}}>LUBIRA</span>
+                <span className="name" style={{color:"#7AB83A",fontStyle:"italic"}}>AI</span>
+              </div>
+            </div>
+            <p className="desc" style={{textAlign:"center"}}>Seule la palette officielle est autorisée. Pas de bleu, vert, violet.</p>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="dont-shadow" label="Ne pas ajouter d'ombre" width={520} height={400}>
+          <div className="frame paper">
+            <div className="dont">
+              <div className="wordmark" style={{textShadow:"4px 4px 0 var(--copper)"}}>
+                <span className="name" style={{textShadow:"4px 4px 0 var(--copper)"}}>LUBIRA</span>
+                <span className="name ai" style={{textShadow:"4px 4px 0 var(--ink)"}}>AI</span>
+              </div>
+            </div>
+            <p className="desc" style={{textAlign:"center"}}>Pas d'ombre portée, contour, biseau, néon ou effet 3D.</p>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="dont-rotate" label="Ne pas faire pivoter" width={520} height={400}>
+          <div className="frame paper">
+            <div className="dont">
+              <div className="mark-sun" style={{transform:"rotate(-12deg)"}}>
+                <div className="disc"></div>
+                <div className="L">L</div>
+              </div>
+            </div>
+            <p className="desc" style={{textAlign:"center"}}>Le symbole reste toujours d'aplomb.</p>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="dont-photo" label="Ne pas placer sur photo non contrastée" width={520} height={400}>
+          <div className="frame" style={{background:"linear-gradient(135deg,#A89070,#6B5544 70%,#3A2D24)"}}>
+            <div className="dont">
+              <div className="lockup" style={{color:"var(--ink)"}}>
+                <div className="symbol"></div>
+                <div className="text">
+                  <div className="name">LUBIRA <em>AI</em></div>
+                  <div className="tag" style={{color:"var(--ink)"}}>// CABINET IA · LUBUMBASHI</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="dont-emoji" label="Ne pas remplacer le point" width={520} height={400}>
+          <div className="frame paper">
+            <div className="dont">
+              <div style={{display:"flex",alignItems:"baseline",gap:14,fontFamily:"Instrument Serif,serif",fontSize:84,color:"var(--ink)"}}>
+                <span>LUBIRA</span>
+                <span style={{fontStyle:"italic"}}>🤖I</span>
+              </div>
+            </div>
+            <p className="desc" style={{textAlign:"center"}}>Aucun emoji, aucune mascotte, aucun cerveau, aucun robot.</p>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LUBIRA AI — Livrables design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E0F12; --slate:#6B6660; --stone:#A39E96;
+    --cream:#F5F0E8; --paper:#FBF8F2; --sand:#E8DDC9;
+    --copper:#B8633A; --copper-deep:#8B4A2B; --copper-glow:#D88A5E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--copper);color:var(--paper)}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  @media(max-width:720px){.wrap{padding:0 22px}}
+  .eyebrow{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-deep);display:inline-flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:currentColor}
+
+  /* HEAD */
+  .head{padding:96px 0 64px;border-bottom:1px solid rgba(14,15,18,.08)}
+  .logo{display:flex;width:fit-content;align-items:center;gap:14px;font-family:"Instrument Serif",serif;font-size:28px;line-height:1;color:var(--ink);margin-bottom:48px}
+  .logo em{font-style:italic;color:var(--copper-deep)}
+  .logo .dot{width:36px;height:36px;border-radius:50%;background:var(--copper);position:relative;flex-shrink:0}
+  .logo .dot::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:16px;height:1.5px;background:var(--paper)}
+
+  .head h1{font-family:"Instrument Serif",serif;font-weight:400;font-size:clamp(48px,7vw,88px);line-height:.95;letter-spacing:-.015em;text-wrap:balance;margin-top:24px}
+  .head h1 em{font-style:italic;color:var(--copper-deep)}
+  .head .lede{margin-top:24px;font-size:18px;color:var(--slate);max-width:54ch;line-height:1.6;text-wrap:pretty}
+
+  /* META */
+  .meta{display:flex;gap:48px;margin-top:48px;flex-wrap:wrap;font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+  .meta strong{display:block;font-family:"Geist",sans-serif;font-weight:500;font-size:14px;color:var(--ink);letter-spacing:0;margin-top:6px;text-transform:none}
+
+  /* SECTIONS */
+  section.set{padding:80px 0;border-bottom:1px solid rgba(14,15,18,.08)}
+  .set-head{display:grid;grid-template-columns:240px 1fr;gap:48px;margin-bottom:40px;align-items:end}
+  @media(max-width:820px){.set-head{grid-template-columns:1fr;gap:18px}}
+  .set-head h2{font-family:"Instrument Serif",serif;font-weight:400;font-size:clamp(32px,4.2vw,48px);line-height:1;letter-spacing:-.01em}
+  .set-head h2 em{font-style:italic;color:var(--copper-deep)}
+  .set-head p{color:var(--slate);font-size:15px;max-width:48ch;text-wrap:pretty}
+
+  /* CARDS */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:980px){.grid.three{grid-template-columns:1fr 1fr}}
+  @media(max-width:640px){.grid.three{grid-template-columns:1fr}}
+
+  .card{display:flex;flex-direction:column;background:#fff;border:1px solid rgba(14,15,18,.08);border-radius:16px;overflow:hidden;transition:all .25s ease;min-height:340px;position:relative}
+  .card:hover{transform:translateY(-3px);box-shadow:0 16px 40px -16px rgba(14,15,18,.18);border-color:rgba(14,15,18,.14)}
+  .card .preview{aspect-ratio:16/9;position:relative;overflow:hidden;border-bottom:1px solid rgba(14,15,18,.06);background:var(--cream)}
+  .card .body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .card .num{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper-deep)}
+  .card h3{font-family:"Instrument Serif",serif;font-size:28px;line-height:1.05;color:var(--ink);text-wrap:balance}
+  .card h3 em{font-style:italic;color:var(--copper-deep)}
+  .card p{font-size:14px;color:var(--slate);text-wrap:pretty}
+  .card .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:18px;border-top:1px solid rgba(14,15,18,.08);font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.12em;color:var(--slate);text-transform:uppercase}
+  .card .foot .arrow{transition:transform .2s ease;color:var(--ink)}
+  .card:hover .foot .arrow{transform:translateX(4px);color:var(--copper-deep)}
+
+  /* PREVIEWS — chacune un mini-mock distinct */
+  .pv-charte{background:var(--cream);position:relative}
+  .pv-charte .swatches{position:absolute;left:24px;bottom:24px;display:flex;gap:8px}
+  .pv-charte .swatches span{width:36px;height:36px;border-radius:8px}
+  .pv-charte .typo{position:absolute;right:24px;top:24px;font-family:"Instrument Serif",serif;font-size:64px;color:var(--ink);line-height:.85}
+  .pv-charte .typo em{font-style:italic;color:var(--copper-deep)}
+  .pv-charte .tag{position:absolute;left:24px;top:24px;font-family:"Geist Mono",monospace;font-size:10px;letter-spacing:.16em;color:var(--slate);text-transform:uppercase}
+
+  .pv-logo{background:var(--paper);position:relative;display:flex;align-items:center;justify-content:center}
+  .pv-logo .mark{display:flex;flex-direction:column;align-items:flex-start;transform:scale(.7)}
+  .pv-logo .disc{width:48px;height:48px;border-radius:50%;background:var(--copper);margin-left:18px;margin-bottom:-6px}
+  .pv-logo .L{font-family:"Instrument Serif",serif;font-size:120px;line-height:.78;color:var(--ink);letter-spacing:-.04em}
+  .pv-logo .tag{position:absolute;left:24px;top:24px;font-family:"Geist Mono",monospace;font-size:10px;letter-spacing:.16em;color:var(--slate);text-transform:uppercase}
+
+  .pv-home{background:var(--ink);position:relative;color:var(--cream)}
+  .pv-home::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 240px at 90% 0%,rgba(184,99,58,.35),transparent 60%)}
+  .pv-home .h{position:absolute;left:32px;bottom:32px;font-family:"Instrument Serif",serif;font-size:44px;line-height:.95;letter-spacing:-.015em;color:var(--cream);max-width:80%;text-wrap:balance}
+  .pv-home .h em{font-style:italic;color:var(--copper-glow)}
+  .pv-home .nav{position:absolute;left:32px;top:32px;font-family:"Geist Mono",monospace;font-size:10px;letter-spacing:.16em;color:var(--copper-glow);text-transform:uppercase}
+
+  .pv-services{background:var(--paper);position:relative}
+  .pv-services .cards{position:absolute;inset:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .pv-services .cards > div{background:#fff;border:1px solid rgba(14,15,18,.08);border-radius:8px;padding:14px;display:flex;flex-direction:column;justify-content:space-between}
+  .pv-services .num{font-family:"Geist Mono",monospace;font-size:9px;letter-spacing:.14em;color:var(--copper-deep)}
+  .pv-services .ttl{font-family:"Instrument Serif",serif;font-size:14px;line-height:1.05;color:var(--ink)}
+
+  .pv-case{background:var(--cream);position:relative}
+  .pv-case::before{content:"";position:absolute;left:24px;top:24px;width:60px;height:60px;border-radius:50%;background:var(--copper);opacity:.85}
+  .pv-case .num{position:absolute;right:24px;top:24px;font-family:"Instrument Serif",serif;font-style:italic;font-size:96px;line-height:.85;color:var(--ink);opacity:.18;letter-spacing:-.04em}
+  .pv-case .label{position:absolute;left:24px;bottom:24px;font-family:"Instrument Serif",serif;font-size:24px;line-height:1.05;color:var(--ink);text-wrap:balance;max-width:70%}
+  .pv-case .label em{font-style:italic;color:var(--copper-deep)}
+
+  /* footer */
+  footer{padding:64px 0 32px}
+  footer .row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--slate);text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<!-- HEAD -->
+<header class="head">
+  <div class="wrap">
+    <a href="#" class="logo"><span class="dot"></span>LUBIRA <em>AI</em></a>
+    <span class="eyebrow">// LIVRABLES DESIGN · v1.0 · MAI 2026</span>
+    <h1>L'identité visuelle, déclinée<br/>en <em>cinq livrables</em>.</h1>
+    <p class="lede">Charte graphique, système de logo, et trois templates de page (accueil, services, étude de cas) — tous prêts à partager avec votre équipe de développement et de communication.</p>
+    <div class="meta">
+      <div>// Cabinet<strong>LUBIRA AI</strong></div>
+      <div>// Localisation<strong>Lubumbashi · CD-KA</strong></div>
+      <div>// Direction artistique<strong>Cuivre × Encre × Crème</strong></div>
+    </div>
+  </div>
+</header>
+
+<!-- FONDATIONS -->
+<section class="set">
+  <div class="wrap">
+    <div class="set-head">
+      <span class="eyebrow">// 01 — FONDATIONS</span>
+      <div>
+        <h2>Charte &amp; <em>logo</em>.</h2>
+        <p>Les références à partager d'abord avec n'importe quel partenaire qui produit du contenu pour la marque.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <a href="Charte Graphique.html" class="card">
+        <div class="preview pv-charte">
+          <span class="tag">// CHARTE</span>
+          <div class="typo">A<em>a</em></div>
+          <div class="swatches">
+            <span style="background:#0E0F12"></span>
+            <span style="background:#B8633A"></span>
+            <span style="background:#F5F0E8;border:1px solid rgba(14,15,18,.1)"></span>
+            <span style="background:#E8DDC9"></span>
+          </div>
+        </div>
+        <div class="body">
+          <span class="num">// 01 · CHARTE GRAPHIQUE</span>
+          <h3>Palette, typographies, composants et ton de voix.</h3>
+          <p>Le document maître. 10 sections : positionnement, palette, typo, boutons, cartes, sections types, espacements, iconographie, voix, tokens développeurs.</p>
+          <div class="foot">
+            <span>FR · 1 page · ~5 min de lecture</span>
+            <span class="arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="Logo System.html" class="card">
+        <div class="preview pv-logo">
+          <span class="tag">// LOGO</span>
+          <div class="mark">
+            <div class="disc"></div>
+            <div class="L">L</div>
+          </div>
+        </div>
+        <div class="body">
+          <span class="num">// 02 · SYSTÈME DE LOGO</span>
+          <h3>Symbole, wordmark, monogramme, applications.</h3>
+          <p>Toutes les variantes du logo (clair, sombre, mono, cuivre), le monogramme pour favicons, les applications type (carte de visite, OG, app icon), et les <em>à ne pas faire</em>.</p>
+          <div class="foot">
+            <span>FR · Design canvas · 8 sections</span>
+            <span class="arrow">→</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section class="set">
+  <div class="wrap">
+    <div class="set-head">
+      <span class="eyebrow">// 02 — TEMPLATES DE PAGE</span>
+      <div>
+        <h2>Trois pages, <em>un même rythme</em>.</h2>
+        <p>Pages prêtes à être branchées sur un CMS ou réécrites en composants. Toutes utilisent les tokens définis dans la charte.</p>
+      </div>
+    </div>
+
+    <div class="grid three">
+      <a href="templates/Home.html" class="card">
+        <div class="preview pv-home">
+          <span class="nav">// LUBIRA AI</span>
+          <div class="h">L'IA <em>construite</em> ici, pour ici.</div>
+        </div>
+        <div class="body">
+          <span class="num">// 03 · ACCUEIL</span>
+          <h3>Page d'accueil.</h3>
+          <p>Hero, services, méthode (sombre), études de cas, manifeste, FAQ, contact.</p>
+          <div class="foot"><span>HOME.HTML</span><span class="arrow">→</span></div>
+        </div>
+      </a>
+
+      <a href="templates/Services.html" class="card">
+        <div class="preview pv-services">
+          <div class="cards">
+            <div><div class="num">// 01</div><div class="ttl">Audit IA</div></div>
+            <div><div class="num">// 02</div><div class="ttl">Agents IA</div></div>
+            <div><div class="num">// 03</div><div class="ttl">WhatsApp</div></div>
+          </div>
+        </div>
+        <div class="body">
+          <span class="num">// 04 · SERVICES</span>
+          <h3>Page services.</h3>
+          <p>Détail des trois prestations, comparatif, secteurs servis, calendrier type.</p>
+          <div class="foot"><span>SERVICES.HTML</span><span class="arrow">→</span></div>
+        </div>
+      </a>
+
+      <a href="templates/case-study.html" class="card">
+        <div class="preview pv-case">
+          <div class="num">01</div>
+          <div class="label">Suivi <em>qualité</em> automatisé.</div>
+        </div>
+        <div class="body">
+          <span class="num">// 05 · ÉTUDE DE CAS</span>
+          <h3>Page étude de cas.</h3>
+          <p>Contexte, approche, solution (avant/après), témoignage, stack technique, résultats, études liées.</p>
+          <div class="foot"><span>CASE-STUDY.HTML</span><span class="arrow">→</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT -->
+<section class="set" style="border-bottom:none">
+  <div class="wrap">
+    <div class="set-head">
+      <span class="eyebrow">// 03 — POUR ALLER PLUS LOIN</span>
+      <div>
+        <h2>Suites <em>possibles</em>.</h2>
+        <p>Quelques pistes d'extension du système, à ouvrir sur demande.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card" style="cursor:default">
+        <div class="body" style="padding:32px">
+          <span class="num">// PISTE A</span>
+          <h3>Décliner en composants Figma.</h3>
+          <p>Library Figma reprenant les boutons, cartes, sections types — utilisable par un designer interne ou un partenaire de comm.</p>
+        </div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="body" style="padding:32px">
+          <span class="num">// PISTE B</span>
+          <h3>Templates supplémentaires.</h3>
+          <p>Page « À propos » + portrait du fondateur, blog / publications, page contact dédiée avec formulaire qualifié.</p>
+        </div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="body" style="padding:32px">
+          <span class="num">// PISTE C</span>
+          <h3>Exports print.</h3>
+          <p>Plaquette commerciale 8 pages, modèle de proposition technique, modèle d'étude de cas PDF imprimable.</p>
+        </div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="body" style="padding:32px">
+          <span class="num">// PISTE D</span>
+          <h3>Système de slides.</h3>
+          <p>Deck commercial 16:9 reprenant la charte — pour les présentations clients, audits, et démos sur site.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>// LUBIRA AI · CHARTE V1.0 · MAI 2026</span>
+    <span>LUBUMBASHI · HAUT-KATANGA · RDC</span>
+  </div>
+</footer>
+
+</body>
+</html>

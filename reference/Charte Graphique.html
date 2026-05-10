@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LUBIRA AI — Charte Graphique v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Palette */
+    --ink:        #0E0F12;
+    --ink-soft:   #1C1D22;
+    --graphite:   #2A2B30;
+    --slate:      #6B6660;
+    --stone:      #A39E96;
+    --sand:       #E8DDC9;
+    --cream:      #F5F0E8;
+    --paper:      #FBF8F2;
+    --copper:     #B8633A;
+    --copper-deep:#8B4A2B;
+    --copper-glow:#D88A5E;
+    --signal:     #2F6B4F; /* Vert forêt — état OK / conformité */
+    --alert:      #B33A2A; /* Brique — état urgence */
+
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 14px;
+    --r-xl: 22px;
+
+    --shadow-card: 0 1px 0 rgba(14,15,18,.04), 0 1px 2px rgba(14,15,18,.06);
+    --shadow-lift: 0 1px 0 rgba(14,15,18,.04), 0 12px 32px -12px rgba(14,15,18,.18);
+
+    --maxw: 1180px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:"Geist",system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+  body{font-size:16px;line-height:1.55}
+  ::selection{background:var(--copper);color:var(--paper)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px}
+  @media (max-width:720px){.wrap{padding:0 22px}}
+
+  /* ========== HERO ========== */
+  .hero{
+    background:var(--ink);
+    color:var(--cream);
+    padding:96px 0 88px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(1200px 500px at 85% 0%, rgba(184,99,58,.18), transparent 60%),
+      radial-gradient(700px 400px at 5% 100%, rgba(184,99,58,.08), transparent 60%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative}
+  .eyebrow{
+    font-family:"Geist Mono",monospace;
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--copper-glow);
+    display:flex;align-items:center;gap:14px;margin-bottom:36px;
+  }
+  .eyebrow::before{content:"";width:32px;height:1px;background:var(--copper-glow)}
+  .hero h1{
+    font-family:"Instrument Serif",serif;
+    font-weight:400;
+    font-size:clamp(48px,7.4vw,108px);
+    line-height:.95;
+    letter-spacing:-.015em;
+    text-wrap:balance;
+    margin-bottom:28px;
+  }
+  .hero h1 em{font-style:italic;color:var(--copper-glow)}
+  .hero .lede{
+    max-width:640px;
+    font-size:19px;line-height:1.55;
+    color:rgba(245,240,232,.74);
+    text-wrap:pretty;
+  }
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:36px 48px;margin-top:64px;
+    border-top:1px solid rgba(245,240,232,.14);
+    padding-top:28px;
+  }
+  .hero-meta div{font-family:"Geist Mono",monospace;font-size:12px;color:var(--stone);letter-spacing:.06em}
+  .hero-meta strong{display:block;font-family:"Geist",sans-serif;font-weight:500;font-size:14px;color:var(--cream);letter-spacing:0;margin-top:6px}
+
+  /* ========== SECTION SHELL ========== */
+  section.block{padding:104px 0;border-top:1px solid rgba(14,15,18,.08)}
+  section.block:first-of-type{border-top:none}
+  .sec-head{display:grid;grid-template-columns:240px 1fr;gap:48px;margin-bottom:56px;align-items:start}
+  @media (max-width:820px){.sec-head{grid-template-columns:1fr;gap:18px}}
+  .sec-num{
+    font-family:"Geist Mono",monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);
+    padding-top:14px;border-top:1px solid var(--ink);display:inline-block;
+  }
+  .sec-title{
+    font-family:"Instrument Serif",serif;font-weight:400;
+    font-size:clamp(32px,4.2vw,52px);line-height:1;letter-spacing:-.01em;
+    text-wrap:balance;
+  }
+  .sec-title em{font-style:italic;color:var(--copper-deep)}
+  .sec-intro{font-size:17px;color:var(--slate);max-width:62ch;margin-top:18px;text-wrap:pretty}
+
+  /* ========== COLOR ========== */
+  .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media (max-width:980px){.swatch-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.swatch-grid{grid-template-columns:1fr}}
+  .swatch{
+    border:1px solid rgba(14,15,18,.08);
+    border-radius:var(--r-md);
+    overflow:hidden;background:#fff;
+    display:flex;flex-direction:column;
+    box-shadow:var(--shadow-card);
+  }
+  .swatch .chip{height:148px;display:flex;align-items:flex-end;padding:14px;font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  .swatch .meta{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px}
+  .swatch .name{font-family:"Geist",sans-serif;font-weight:500;font-size:14px;color:var(--ink)}
+  .swatch .hex{font-family:"Geist Mono",monospace;font-size:12px;color:var(--slate);letter-spacing:.04em}
+  .swatch .role{font-size:12px;color:var(--slate);margin-top:6px;line-height:1.45}
+
+  .pal-row{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-top:32px}
+  @media (max-width:820px){.pal-row{grid-template-columns:1fr}}
+  .pal-card{border:1px solid rgba(14,15,18,.08);border-radius:var(--r-lg);padding:28px;background:#fff}
+  .pal-card h4{font-family:"Geist",sans-serif;font-weight:500;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--slate);margin-bottom:16px}
+  .pal-card p{font-size:15px;color:var(--graphite);text-wrap:pretty}
+
+  .ratio-row{display:flex;height:64px;border-radius:var(--r-md);overflow:hidden;margin-top:18px;border:1px solid rgba(14,15,18,.08)}
+  .ratio-row > div{display:flex;align-items:center;justify-content:center;font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.08em}
+
+  /* ========== TYPE ========== */
+  .type-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+  @media (max-width:820px){.type-grid{grid-template-columns:1fr}}
+  .type-card{border:1px solid rgba(14,15,18,.08);border-radius:var(--r-lg);padding:32px;background:#fff}
+  .type-card .label{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-bottom:18px}
+  .type-card .specimen-serif{font-family:"Instrument Serif",serif;font-size:64px;line-height:1;letter-spacing:-.01em;color:var(--ink)}
+  .type-card .specimen-sans{font-family:"Geist",sans-serif;font-size:48px;font-weight:500;line-height:1.05;letter-spacing:-.015em;color:var(--ink)}
+  .type-card .specimen-mono{font-family:"Geist Mono",monospace;font-size:24px;line-height:1.3;color:var(--ink)}
+  .type-card .stack{margin-top:22px;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--slate)}
+  .type-card .stack code{font-family:"Geist Mono",monospace;font-size:12px;color:var(--graphite);background:var(--cream);padding:1px 6px;border-radius:4px}
+
+  .scale{margin-top:36px;border:1px solid rgba(14,15,18,.08);border-radius:var(--r-lg);background:#fff;overflow:hidden}
+  .scale-row{display:grid;grid-template-columns:120px 80px 80px 1fr;gap:24px;align-items:baseline;padding:18px 24px;border-bottom:1px solid rgba(14,15,18,.06)}
+  .scale-row:last-child{border-bottom:none}
+  .scale-row .role{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+  .scale-row .px{font-family:"Geist Mono",monospace;font-size:12px;color:var(--graphite)}
+  .scale-row .lh{font-family:"Geist Mono",monospace;font-size:12px;color:var(--slate)}
+  .scale-row .demo{color:var(--ink);text-wrap:balance}
+  @media (max-width:720px){.scale-row{grid-template-columns:1fr;gap:6px}}
+
+  /* ========== BUTTONS ========== */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-family:"Geist",sans-serif;font-weight:500;font-size:15px;letter-spacing:-.005em;
+    padding:13px 22px;border-radius:999px;border:1px solid transparent;
+    cursor:pointer;transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+    text-decoration:none;line-height:1;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn .arrow{font-family:"Geist Mono",monospace;font-size:14px;display:inline-block;transition:transform .2s ease}
+  .btn:hover .arrow{transform:translateX(3px)}
+
+  .btn--primary{background:var(--ink);color:var(--cream)}
+  .btn--primary:hover{background:var(--copper-deep)}
+
+  .btn--accent{background:var(--copper);color:var(--paper)}
+  .btn--accent:hover{background:var(--copper-deep)}
+
+  .btn--ghost{background:transparent;color:var(--ink);border-color:rgba(14,15,18,.18)}
+  .btn--ghost:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+
+  .btn--link{background:transparent;color:var(--ink);padding:13px 4px;border-radius:0;border-bottom:1px solid var(--ink)}
+  .btn--link:hover{color:var(--copper-deep);border-color:var(--copper-deep)}
+
+  .btn--sm{padding:9px 16px;font-size:13px}
+  .btn--lg{padding:18px 28px;font-size:17px}
+  .btn[disabled]{opacity:.4;cursor:not-allowed}
+
+  .btn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media (max-width:720px){.btn-grid{grid-template-columns:1fr}}
+  .btn-cell{
+    border:1px solid rgba(14,15,18,.08);border-radius:var(--r-lg);
+    padding:24px;background:#fff;display:flex;flex-direction:column;gap:14px;
+  }
+  .btn-cell .label{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+  .btn-cell .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .btn-cell .note{font-size:13px;color:var(--slate);margin-top:auto}
+
+  /* ========== CARDS ========== */
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media (max-width:980px){.card-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:640px){.card-grid{grid-template-columns:1fr}}
+
+  .card{
+    border:1px solid rgba(14,15,18,.08);
+    border-radius:var(--r-lg);
+    background:#fff;padding:28px;
+    display:flex;flex-direction:column;gap:18px;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:rgba(14,15,18,.14)}
+  .card .kicker{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper-deep)}
+  .card h3{font-family:"Instrument Serif",serif;font-weight:400;font-size:28px;line-height:1.05;letter-spacing:-.005em;color:var(--ink);text-wrap:balance}
+  .card p{color:var(--slate);font-size:15px;text-wrap:pretty}
+  .card .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid rgba(14,15,18,.08)}
+  .card .foot .meta{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+
+  /* card variants */
+  .card--ink{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+  .card--ink h3{color:var(--cream)}
+  .card--ink p{color:rgba(245,240,232,.7)}
+  .card--ink .kicker{color:var(--copper-glow)}
+  .card--ink .foot{border-top-color:rgba(245,240,232,.14)}
+  .card--ink .foot .meta{color:rgba(245,240,232,.6)}
+
+  .card--copper{background:var(--copper);color:var(--paper);border-color:var(--copper)}
+  .card--copper h3{color:var(--paper)}
+  .card--copper p{color:rgba(251,248,242,.85)}
+  .card--copper .kicker{color:rgba(251,248,242,.75)}
+  .card--copper .foot{border-top-color:rgba(251,248,242,.25)}
+  .card--copper .foot .meta{color:rgba(251,248,242,.75)}
+
+  /* stat card */
+  .stat-card{
+    border:1px solid rgba(14,15,18,.08);border-radius:var(--r-lg);background:#fff;
+    padding:32px;display:flex;flex-direction:column;gap:6px;
+  }
+  .stat-card .num{font-family:"Instrument Serif",serif;font-size:72px;line-height:.95;color:var(--ink);letter-spacing:-.02em}
+  .stat-card .num em{font-style:italic;color:var(--copper-deep)}
+  .stat-card .desc{font-size:14px;color:var(--slate)}
+
+  /* ========== SECTION PATTERNS ========== */
+  .section-demo{display:grid;gap:18px}
+  .demo-frame{border:1px dashed rgba(14,15,18,.18);border-radius:var(--r-lg);padding:18px;background:repeating-linear-gradient(45deg,transparent 0 11px,rgba(14,15,18,.025) 11px 12px)}
+  .demo-frame .frame-label{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-bottom:12px}
+  .demo-content{background:#fff;border-radius:var(--r-md);padding:48px}
+
+  .pattern-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+  @media(max-width:820px){.pattern-hero{grid-template-columns:1fr}}
+  .pattern-hero .h{font-family:"Instrument Serif",serif;font-size:56px;line-height:.95;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
+  .pattern-hero .h em{font-style:italic;color:var(--copper-deep)}
+  .pattern-hero .p{margin-top:18px;color:var(--slate);font-size:16px;max-width:42ch;text-wrap:pretty}
+  .pattern-hero .actions{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+  .pattern-hero .visual{
+    aspect-ratio:4/5;border-radius:var(--r-lg);background:linear-gradient(180deg,var(--cream),var(--sand));
+    border:1px solid rgba(14,15,18,.08);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:24px;
+  }
+  .pattern-hero .visual::before{
+    content:"";position:absolute;inset:0;background:
+      radial-gradient(400px 240px at 80% 20%,rgba(184,99,58,.35),transparent 60%);
+  }
+  .pattern-hero .visual span{font-family:"Geist Mono",monospace;font-size:12px;color:var(--slate);position:relative;z-index:1}
+
+  .pattern-section{padding:48px;border-radius:var(--r-lg);background:var(--ink);color:var(--cream)}
+  .pattern-section .eyebrow{margin-bottom:24px;color:var(--copper-glow)}
+  .pattern-section h3{font-family:"Instrument Serif",serif;font-size:44px;line-height:1;color:var(--cream);max-width:24ch;text-wrap:balance}
+  .pattern-section .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+  @media (max-width:720px){.pattern-section .grid3{grid-template-columns:1fr}}
+  .pattern-section .item{padding-top:18px;border-top:1px solid rgba(245,240,232,.18)}
+  .pattern-section .item .n{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--copper-glow)}
+  .pattern-section .item h4{font-family:"Geist",sans-serif;font-size:17px;font-weight:500;margin-top:10px;color:var(--cream)}
+  .pattern-section .item p{font-size:14px;color:rgba(245,240,232,.65);margin-top:8px}
+
+  /* ========== TON / VOIX ========== */
+  .voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.voice-grid{grid-template-columns:1fr}}
+  .voice{
+    border:1px solid rgba(14,15,18,.08);border-radius:var(--r-lg);
+    background:#fff;padding:28px;
+  }
+  .voice h4{font-family:"Geist",sans-serif;font-weight:500;font-size:14px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+  .voice--do h4{color:var(--signal)}
+  .voice--dont h4{color:var(--alert)}
+  .voice ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+  .voice li{display:grid;grid-template-columns:18px 1fr;gap:12px;font-size:15px;color:var(--graphite);text-wrap:pretty;line-height:1.5}
+  .voice li::before{
+    content:"";width:14px;height:14px;border-radius:50%;margin-top:5px;
+    border:1px solid currentColor;
+  }
+  .voice--do li{color:var(--graphite)} .voice--do li::before{border-color:var(--signal);background:radial-gradient(circle,var(--signal) 30%,transparent 31%)}
+  .voice--dont li::before{border-color:var(--alert);background:radial-gradient(circle,var(--alert) 30%,transparent 31%)}
+
+  .quote{
+    margin-top:28px;padding:32px;border-radius:var(--r-lg);
+    background:var(--cream);border-left:3px solid var(--copper);
+  }
+  .quote p{font-family:"Instrument Serif",serif;font-size:28px;line-height:1.2;color:var(--ink);text-wrap:balance}
+  .quote .by{font-family:"Geist Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-top:18px}
+
+  /* ========== SPACING / RADII ========== */
+  .tokens{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+  @media(max-width:820px){.tokens{grid-template-columns:1fr}}
+  .token-card{border:1px solid rgba(14,15,18,.08);border-radius:var(--r-lg);padding:28px;background:#fff}
+  .token-card h4{font-family:"Geist",sans-serif;font-weight:500;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--slate);margin-bottom:18px}
+  .token-row{display:grid;grid-template-columns:80px 1fr 80px;gap:18px;align-items:center;padding:10px 0;border-top:1px dashed rgba(14,15,18,.1)}
+  .token-row:first-of-type{border-top:none}
+  .token-row code{font-family:"Geist Mono",monospace;font-size:12px;color:var(--graphite)}
+  .token-row .bar{height:14px;background:var(--cream);border-radius:4px}
+  .token-row .px{font-family:"Geist Mono",monospace;font-size:12px;color:var(--slate);text-align:right}
+  .token-row .radius{height:48px;background:var(--cream);border:1px solid var(--sand)}
+
+  /* ========== ICONOGRAPHIE ========== */
+  .icon-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:720px){.icon-row{grid-template-columns:repeat(2,1fr)}}
+  .icon-card{border:1px solid rgba(14,15,18,.08);border-radius:var(--r-md);background:#fff;padding:22px;display:flex;flex-direction:column;align-items:flex-start;gap:14px;min-height:140px}
+  .icon-card svg{width:28px;height:28px;color:var(--ink);stroke-width:1.5}
+  .icon-card .name{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+
+  /* ========== FOOTER ========== */
+  footer{background:var(--ink);color:rgba(245,240,232,.6);padding:64px 0;margin-top:80px;font-size:13px;font-family:"Geist Mono",monospace;letter-spacing:.04em}
+  footer .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:baseline}
+  footer strong{color:var(--copper-glow);font-weight:500}
+
+  /* utility */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:720px){.grid-2{grid-template-columns:1fr}}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .pill--copper{background:rgba(184,99,58,.12);color:var(--copper-deep)}
+  .pill--ink{background:var(--ink);color:var(--cream)}
+</style>
+</head>
+<body>
+
+<!-- ============== HERO ============== -->
+<header class="hero" data-screen-label="01 Hero">
+  <div class="wrap">
+    <div class="eyebrow">Charte graphique · v1.0 · Mai 2026</div>
+    <h1>Une marque <em>posée</em>,<br/>tech, et ancrée<br/>dans le Katanga.</h1>
+    <p class="lede">Ce document définit l'identité visuelle de LUBIRA AI : palette, typographies, composants et ton de voix. Il sert de référence aux développeurs, designers et partenaires de communication.</p>
+
+    <div class="hero-meta">
+      <div>Cabinet<strong>LUBIRA AI</strong></div>
+      <div>Basé à<strong>Lubumbashi, RDC</strong></div>
+      <div>Direction artistique<strong>Cuivre × Encre × Crème</strong></div>
+      <div>Typographies<strong>Instrument Serif · Geist · Geist Mono</strong></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============== 01 — POSITIONNEMENT ============== -->
+<section class="block" data-screen-label="02 Positionnement">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01 — Positionnement</span>
+      <div>
+        <h2 class="sec-title">L'IA <em>construite ici</em>, pour ici.</h2>
+        <p class="sec-intro">LUBIRA AI est un cabinet de conseil en intelligence artificielle. La marque doit transmettre la rigueur d'un cabinet professionnel, la fiabilité d'une livraison rapide (48h) et la légitimité d'un acteur local du Katanga. On évite l'esthétique « tech-startup » générique et les superlatifs IA. On préfère la clarté, la matière, et la preuve.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="pal-card">
+        <h4>Attributs de marque</h4>
+        <p style="margin-bottom:14px">Sérieux · Technique · Premium · Local · Direct · Mesuré</p>
+        <p style="color:var(--slate)">La voix doit rappeler celle d'un cabinet de conseil — pas celle d'un produit SaaS. On parle résultats, conformité, livraisons. On ne survend pas l'IA.</p>
+      </div>
+      <div class="pal-card">
+        <h4>À éviter</h4>
+        <p style="margin-bottom:14px;color:var(--alert)">Néons, dégradés violet/bleu, glassmorphism, cerveaux 3D, robots, emojis 🤖</p>
+        <p style="color:var(--slate)">L'imagerie générique de l'IA dilue la singularité du cabinet. On garde une matière sobre — encre, papier, métal — et on laisse le contenu parler.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 02 — COULEURS ============== -->
+<section class="block" data-screen-label="03 Couleurs">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02 — Palette</span>
+      <div>
+        <h2 class="sec-title">Cuivre, encre, <em>crème</em>.</h2>
+        <p class="sec-intro">La palette s'inspire du patrimoine industriel du Katanga (cuivre extrait localement) et de la rigueur éditoriale d'un rapport de cabinet (encre noire, papier crème). Le cuivre n'est jamais utilisé en aplats massifs : c'est un accent, pas un fond.</p>
+      </div>
+    </div>
+
+    <!-- couleurs principales -->
+    <div class="swatch-grid" style="margin-bottom:20px">
+      <div class="swatch">
+        <div class="chip" style="background:#0E0F12;color:#F5F0E8">PRIMAIRE</div>
+        <div class="meta">
+          <span class="name">Encre</span>
+          <span class="hex">#0E0F12</span>
+          <span class="role">Texte principal, fonds sombres, boutons primaires.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#B8633A;color:#FBF8F2">ACCENT</div>
+        <div class="meta">
+          <span class="name">Cuivre</span>
+          <span class="hex">#B8633A</span>
+          <span class="role">Accents, hover, mots-clés en italique, indicateurs.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#F5F0E8;color:#0E0F12;border-bottom:1px solid rgba(14,15,18,.08)">FOND</div>
+        <div class="meta">
+          <span class="name">Crème</span>
+          <span class="hex">#F5F0E8</span>
+          <span class="role">Fond principal, surfaces apaisées, citations.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#FBF8F2;color:#0E0F12;border-bottom:1px solid rgba(14,15,18,.08)">FOND ALT</div>
+        <div class="meta">
+          <span class="name">Papier</span>
+          <span class="hex">#FBF8F2</span>
+          <span class="role">Fond document, blanc cassé chaud, cartes claires.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- secondaires -->
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="chip" style="background:#1C1D22;color:#F5F0E8">SOMBRE +</div>
+        <div class="meta"><span class="name">Encre douce</span><span class="hex">#1C1D22</span><span class="role">Cartes sombres, hover sur encre.</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#8B4A2B;color:#FBF8F2">CUIVRE -</div>
+        <div class="meta"><span class="name">Cuivre profond</span><span class="hex">#8B4A2B</span><span class="role">Hover de l'accent, texte cuivré sur clair.</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#D88A5E;color:#0E0F12">CUIVRE +</div>
+        <div class="meta"><span class="name">Cuivre clair</span><span class="hex">#D88A5E</span><span class="role">Eyebrows et accents sur fond sombre.</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#E8DDC9;color:#0E0F12">SABLE</div>
+        <div class="meta"><span class="name">Sable</span><span class="hex">#E8DDC9</span><span class="role">Séparateurs, fond de citations, surfaces calmes.</span></div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#6B6660;color:#FBF8F2">TEXTE 60</div>
+        <div class="meta"><span class="name">Ardoise</span><span class="hex">#6B6660</span><span class="role">Texte secondaire, métadonnées.</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#A39E96;color:#0E0F12">TEXTE 40</div>
+        <div class="meta"><span class="name">Pierre</span><span class="hex">#A39E96</span><span class="role">Texte tertiaire, légendes mono.</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#2F6B4F;color:#FBF8F2">SUCCÈS</div>
+        <div class="meta"><span class="name">Vert forêt</span><span class="hex">#2F6B4F</span><span class="role">État OK, conformité OCDE, validations.</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#B33A2A;color:#FBF8F2">ALERTE</div>
+        <div class="meta"><span class="name">Brique</span><span class="hex">#B33A2A</span><span class="role">Erreurs, alertes — usage rare.</span></div>
+      </div>
+    </div>
+
+    <div class="pal-row">
+      <div class="pal-card">
+        <h4>Règle de proportion 60 / 30 / 10</h4>
+        <p>60 % crème ou papier, 30 % encre, 10 % cuivre. Le cuivre est précieux : il signale, il ne décore pas.</p>
+        <div class="ratio-row">
+          <div style="flex:6;background:#F5F0E8;color:#6B6660">60% CRÈME</div>
+          <div style="flex:3;background:#0E0F12;color:#F5F0E8">30% ENCRE</div>
+          <div style="flex:1;background:#B8633A;color:#FBF8F2">10%</div>
+        </div>
+      </div>
+      <div class="pal-card">
+        <h4>Accessibilité</h4>
+        <p>Encre <code style="font-family:'Geist Mono',monospace;font-size:12px">#0E0F12</code> sur Crème <code style="font-family:'Geist Mono',monospace;font-size:12px">#F5F0E8</code> = ratio 17.8 (AAA). Cuivre <code style="font-family:'Geist Mono',monospace;font-size:12px">#B8633A</code> sur Crème = ratio 4.6 (AA, texte ≥ 16 px). Ne pas utiliser le cuivre clair pour du corps de texte.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 03 — TYPOGRAPHIE ============== -->
+<section class="block" data-screen-label="04 Typographie">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03 — Typographie</span>
+      <div>
+        <h2 class="sec-title">Un serif <em>éditorial</em>, un sans technique, un mono pour les preuves.</h2>
+        <p class="sec-intro">La hiérarchie repose sur trois familles Google Fonts. L'italique du serif est utilisé pour mettre en valeur un mot ou deux par titre — jamais une phrase entière.</p>
+      </div>
+    </div>
+
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="label">Display · Instrument Serif</div>
+        <div class="specimen-serif">Aa <em style="font-style:italic;color:var(--copper-deep)">Ii</em></div>
+        <div class="stack">
+          <div>Usage : titres H1–H3, chiffres clés, citations.</div>
+          <div>Graisses : Regular 400 + Italic.</div>
+          <div>Import : <code>family=Instrument+Serif:ital@0;1</code></div>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="label">Texte · Geist</div>
+        <div class="specimen-sans">Aa Ii</div>
+        <div class="stack">
+          <div>Usage : corps de texte, navigation, UI, boutons.</div>
+          <div>Graisses : 400 (corps), 500 (UI), 600 (emphase).</div>
+          <div>Import : <code>family=Geist:wght@300;400;500;600;700</code></div>
+        </div>
+      </div>
+      <div class="type-card" style="grid-column:span 2">
+        <div class="label">Mono · Geist Mono</div>
+        <div class="specimen-mono">// 48h · OCDE · v1.0 · WhatsApp · #B8633A</div>
+        <div class="stack">
+          <div>Usage : eyebrows, étiquettes, métadonnées, commentaires techniques, codes hex affichés.</div>
+          <div>Tracking +0.1em à +0.18em selon contexte. UPPERCASE pour les eyebrows.</div>
+          <div>Import : <code>family=Geist+Mono:wght@400;500</code></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scale">
+      <div class="scale-row">
+        <span class="role">Display XL</span>
+        <span class="px">96 / 108 px</span>
+        <span class="lh">LH 0.95</span>
+        <span class="demo" style="font-family:'Instrument Serif',serif;font-size:48px;line-height:1">L'IA livrée en 48 heures.</span>
+      </div>
+      <div class="scale-row">
+        <span class="role">H1</span>
+        <span class="px">56 px</span>
+        <span class="lh">LH 1.0</span>
+        <span class="demo" style="font-family:'Instrument Serif',serif;font-size:36px;line-height:1">Conformité OCDE, sans friction.</span>
+      </div>
+      <div class="scale-row">
+        <span class="role">H2</span>
+        <span class="px">36 px</span>
+        <span class="lh">LH 1.05</span>
+        <span class="demo" style="font-family:'Instrument Serif',serif;font-size:26px;line-height:1.05">Agents IA construits sur mesure.</span>
+      </div>
+      <div class="scale-row">
+        <span class="role">H3</span>
+        <span class="px">24 px</span>
+        <span class="lh">LH 1.2</span>
+        <span class="demo" style="font-family:'Geist',sans-serif;font-weight:500;font-size:20px">Audits, automatisations et bots WhatsApp Business.</span>
+      </div>
+      <div class="scale-row">
+        <span class="role">Lead</span>
+        <span class="px">19 px</span>
+        <span class="lh">LH 1.55</span>
+        <span class="demo" style="font-family:'Geist',sans-serif;font-size:17px;color:var(--slate)">Cabinet de conseil basé à Lubumbashi. Premier audit gratuit.</span>
+      </div>
+      <div class="scale-row">
+        <span class="role">Body</span>
+        <span class="px">16 px</span>
+        <span class="lh">LH 1.6</span>
+        <span class="demo" style="font-size:15px">Nous partons toujours d'un processus existant — pas d'une démo. Le livrable est mesurable.</span>
+      </div>
+      <div class="scale-row">
+        <span class="role">Small / Mono</span>
+        <span class="px">12 px</span>
+        <span class="lh">LH 1.4</span>
+        <span class="demo" style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)">// AUDIT · 48H · KATANGA · CD-KA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 04 — BOUTONS ============== -->
+<section class="block" data-screen-label="05 Boutons">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04 — Boutons</span>
+      <div>
+        <h2 class="sec-title">Quatre styles, <em>un seul rythme</em>.</h2>
+        <p class="sec-intro">Tous les boutons sont en pilule (radius 999). Hauteur fixe : 44 px (md) / 52 px (lg). Une page contient au plus un bouton primaire visible à la fois — c'est le CTA principal.</p>
+      </div>
+    </div>
+
+    <div class="btn-grid">
+      <div class="btn-cell">
+        <div class="label">Primaire — Encre</div>
+        <div class="row">
+          <button class="btn btn--primary">Réserver l'audit <span class="arrow">→</span></button>
+          <button class="btn btn--primary btn--sm">Action</button>
+          <button class="btn btn--primary" disabled>Désactivé</button>
+        </div>
+        <div class="note">CTA principal de la page. Hover : passe en cuivre profond.</div>
+      </div>
+
+      <div class="btn-cell">
+        <div class="label">Accent — Cuivre</div>
+        <div class="row">
+          <button class="btn btn--accent">Démarrer maintenant <span class="arrow">→</span></button>
+          <button class="btn btn--accent btn--sm">Action</button>
+        </div>
+        <div class="note">Utiliser avec parcimonie. Réservé aux moments de conversion forte (offre, prix, urgence).</div>
+      </div>
+
+      <div class="btn-cell">
+        <div class="label">Fantôme — Bordure</div>
+        <div class="row">
+          <button class="btn btn--ghost">Voir les services</button>
+          <button class="btn btn--ghost btn--sm">Lire l'étude</button>
+        </div>
+        <div class="note">Action secondaire. Hover : se remplit d'encre.</div>
+      </div>
+
+      <div class="btn-cell">
+        <div class="label">Lien souligné</div>
+        <div class="row">
+          <a class="btn btn--link" href="#">Télécharger le PDF</a>
+          <a class="btn btn--link" href="#">En savoir plus</a>
+        </div>
+        <div class="note">Pour les actions tertiaires en flux de texte.</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:24px">
+      <div class="btn-cell">
+        <div class="label">Tailles</div>
+        <div class="row">
+          <button class="btn btn--primary btn--sm">SM · 36px</button>
+          <button class="btn btn--primary">MD · 44px</button>
+          <button class="btn btn--primary btn--lg">LG · 52px</button>
+        </div>
+      </div>
+      <div class="btn-cell">
+        <div class="label">Sur fond sombre</div>
+        <div class="row" style="background:var(--ink);padding:18px;border-radius:var(--r-md);margin:-4px">
+          <button class="btn btn--accent">Réserver <span class="arrow">→</span></button>
+          <button class="btn" style="background:transparent;color:var(--cream);border-color:rgba(245,240,232,.3)">Secondaire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 05 — CARTES ============== -->
+<section class="block" data-screen-label="06 Cartes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05 — Cartes</span>
+      <div>
+        <h2 class="sec-title">Trois variantes, <em>un même squelette</em>.</h2>
+        <p class="sec-intro">Toutes les cartes partagent la même structure : kicker mono → titre serif → texte sans → pied (méta + flèche). On varie la couleur de fond, jamais la mise en page.</p>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <article class="card">
+        <span class="kicker">// SERVICE 01</span>
+        <h3>Audit IA d'un processus existant.</h3>
+        <p>Cartographie d'un workflow, identification des points d'automatisation, livrables sous 48 heures.</p>
+        <div class="foot">
+          <span class="meta">48 H · GRATUIT</span>
+          <span class="arrow" style="font-family:'Geist Mono',monospace">→</span>
+        </div>
+      </article>
+
+      <article class="card card--ink">
+        <span class="kicker">// SERVICE 02</span>
+        <h3>Agents IA sur mesure pour le secteur minier.</h3>
+        <p>Modèles entraînés sur vos rapports, vos KPIs, votre vocabulaire métier. Conformes OCDE.</p>
+        <div class="foot">
+          <span class="meta">SUR DEVIS</span>
+          <span class="arrow" style="font-family:'Geist Mono',monospace">→</span>
+        </div>
+      </article>
+
+      <article class="card card--copper">
+        <span class="kicker">// SERVICE 03</span>
+        <h3>Bots WhatsApp Business pour PME.</h3>
+        <p>Déploiement clé en main, FAQ automatisée, prise de rendez-vous, intégration CRM légère.</p>
+        <div class="foot">
+          <span class="meta">DÈS 48 H</span>
+          <span class="arrow" style="font-family:'Geist Mono',monospace">→</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="card-grid" style="margin-top:20px">
+      <div class="stat-card">
+        <span class="num">48<em>h</em></span>
+        <span class="desc">Délai de livraison du premier prototype.</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">100<em>%</em></span>
+        <span class="desc">Audit initial gratuit, sans engagement.</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">CD<em>-KA</em></span>
+        <span class="desc">Basé à Lubumbashi, province du Haut-Katanga.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 06 — SECTIONS / PATTERNS ============== -->
+<section class="block" data-screen-label="07 Sections">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">06 — Sections types</span>
+      <div>
+        <h2 class="sec-title">Trois patterns <em>réutilisables</em>.</h2>
+        <p class="sec-intro">Pour garder un rythme cohérent, toute page se compose à partir de trois patterns : Hero éditorial, Bandeau sombre, Grille de cartes. On alterne fond crème / encre — jamais deux sections sombres consécutives.</p>
+      </div>
+    </div>
+
+    <!-- Pattern 1 : Hero -->
+    <div class="demo-frame" style="margin-bottom:28px">
+      <div class="frame-label">Pattern A · Hero éditorial — fond clair</div>
+      <div class="demo-content">
+        <div class="pattern-hero">
+          <div>
+            <span class="pill pill--copper">// LUBUMBASHI · KATANGA</span>
+            <div class="h" style="margin-top:18px">Des solutions d'IA <em>construites ici</em>, pour ici.</div>
+            <p class="p">Audit, automatisation et agents IA livrés sous 48 heures. Premier diagnostic offert pour les entreprises du Katanga.</p>
+            <div class="actions">
+              <button class="btn btn--primary">Réserver l'audit <span class="arrow">→</span></button>
+              <button class="btn btn--ghost">Voir les services</button>
+            </div>
+          </div>
+          <div class="visual"><span>// PHOTO — vue de Lubumbashi, atelier ou portrait du fondateur</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pattern 2 : bandeau sombre -->
+    <div class="demo-frame" style="margin-bottom:28px">
+      <div class="frame-label">Pattern B · Bandeau sombre — méthodologie / valeurs</div>
+      <div class="demo-content" style="padding:0">
+        <div class="pattern-section">
+          <div class="eyebrow" style="margin-bottom:18px">// MÉTHODE</div>
+          <h3>Trois étapes, une livraison <em style="font-style:italic;color:var(--copper-glow)">mesurable</em>.</h3>
+          <div class="grid3">
+            <div class="item"><div class="n">01</div><h4>Audit</h4><p>Cartographie de l'existant et identification du gain.</p></div>
+            <div class="item"><div class="n">02</div><h4>Prototype</h4><p>Livraison sous 48 heures sur un cas concret.</p></div>
+            <div class="item"><div class="n">03</div><h4>Mise à l'échelle</h4><p>Conformité OCDE, formation interne, suivi.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pattern 3 : grille -->
+    <div class="demo-frame">
+      <div class="frame-label">Pattern C · Grille de cartes — services / études de cas</div>
+      <div class="demo-content">
+        <div class="card-grid">
+          <article class="card"><span class="kicker">// CAS 01</span><h3>Mine de cuivre, suivi qualité.</h3><p>Agent IA qui lit les rapports d'analyse et signale les écarts en temps réel.</p><div class="foot"><span class="meta">MINIER · 6 SEMAINES</span><span class="arrow" style="font-family:'Geist Mono',monospace">→</span></div></article>
+          <article class="card"><span class="kicker">// CAS 02</span><h3>Pharmacie, gestion stock.</h3><p>Bot WhatsApp pour les commandes inter-officines et alertes ruptures.</p><div class="foot"><span class="meta">SANTÉ · 48 H</span><span class="arrow" style="font-family:'Geist Mono',monospace">→</span></div></article>
+          <article class="card"><span class="kicker">// CAS 03</span><h3>Cabinet juridique, veille.</h3><p>Synthèse hebdomadaire des textes OCDE et lois congolaises pertinentes.</p><div class="foot"><span class="meta">DROIT · MENSUEL</span><span class="arrow" style="font-family:'Geist Mono',monospace">→</span></div></article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 07 — TOKENS ============== -->
+<section class="block" data-screen-label="08 Espacements & Rayons">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">07 — Espaces & rayons</span>
+      <div>
+        <h2 class="sec-title">Échelle <em>4 / 8</em>.</h2>
+        <p class="sec-intro">Tout espacement est un multiple de 4 px. Les rayons suivent une échelle stricte de 4 niveaux. Aucun rayon supérieur à 22 px, sauf les pilules de bouton (999).</p>
+      </div>
+    </div>
+
+    <div class="tokens">
+      <div class="token-card">
+        <h4>Espacements</h4>
+        <div class="token-row"><code>--space-1</code><div class="bar" style="width:4px"></div><span class="px">4 px</span></div>
+        <div class="token-row"><code>--space-2</code><div class="bar" style="width:8px"></div><span class="px">8 px</span></div>
+        <div class="token-row"><code>--space-3</code><div class="bar" style="width:12px"></div><span class="px">12 px</span></div>
+        <div class="token-row"><code>--space-4</code><div class="bar" style="width:16px"></div><span class="px">16 px</span></div>
+        <div class="token-row"><code>--space-6</code><div class="bar" style="width:24px"></div><span class="px">24 px</span></div>
+        <div class="token-row"><code>--space-8</code><div class="bar" style="width:32px"></div><span class="px">32 px</span></div>
+        <div class="token-row"><code>--space-12</code><div class="bar" style="width:48px"></div><span class="px">48 px</span></div>
+        <div class="token-row"><code>--space-16</code><div class="bar" style="width:64px"></div><span class="px">64 px</span></div>
+        <div class="token-row"><code>--space-24</code><div class="bar" style="width:96px"></div><span class="px">96 px</span></div>
+      </div>
+
+      <div class="token-card">
+        <h4>Rayons & ombres</h4>
+        <div class="token-row"><code>--r-sm</code><div class="radius" style="border-radius:6px"></div><span class="px">6 px</span></div>
+        <div class="token-row"><code>--r-md</code><div class="radius" style="border-radius:10px"></div><span class="px">10 px</span></div>
+        <div class="token-row"><code>--r-lg</code><div class="radius" style="border-radius:14px"></div><span class="px">14 px</span></div>
+        <div class="token-row"><code>--r-xl</code><div class="radius" style="border-radius:22px"></div><span class="px">22 px</span></div>
+        <div class="token-row"><code>--r-pill</code><div class="radius" style="border-radius:999px"></div><span class="px">999</span></div>
+
+        <div style="margin-top:24px;padding-top:20px;border-top:1px dashed rgba(14,15,18,.1)">
+          <div style="display:flex;gap:18px;align-items:flex-end">
+            <div style="background:#fff;width:70px;height:70px;border-radius:8px;box-shadow:var(--shadow-card);border:1px solid rgba(14,15,18,.05)"></div>
+            <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--slate)">--shadow-card<br/><span style="color:var(--graphite)">0 1px 2px rgba(0,0,0,.06)</span></div>
+          </div>
+          <div style="display:flex;gap:18px;align-items:flex-end;margin-top:18px">
+            <div style="background:#fff;width:70px;height:70px;border-radius:8px;box-shadow:var(--shadow-lift);border:1px solid rgba(14,15,18,.05)"></div>
+            <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--slate)">--shadow-lift<br/><span style="color:var(--graphite)">0 12px 32px -12px rgba(0,0,0,.18)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 08 — ICONOGRAPHIE ============== -->
+<section class="block" data-screen-label="09 Iconographie & Imagerie">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">08 — Iconographie & imagerie</span>
+      <div>
+        <h2 class="sec-title">Lignes <em>fines</em>, photos <em>réelles</em>.</h2>
+        <p class="sec-intro">Pour les pictogrammes : Lucide Icons (open source), trait 1.5 px, taille 24 ou 28 px, couleur encre. Pour la photographie : privilégier des images réelles de Lubumbashi, du Katanga, du fondateur — pas de stock générique IA.</p>
+      </div>
+    </div>
+
+    <div class="icon-row">
+      <div class="icon-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="name">// 48 H</span></div>
+      <div class="icon-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21v-3a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v3"/><circle cx="12" cy="7" r="4"/></svg><span class="name">// AUDIT</span></div>
+      <div class="icon-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M12 8v8"/></svg><span class="name">// SUR MESURE</span></div>
+      <div class="icon-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span class="name">// WHATSAPP</span></div>
+    </div>
+
+    <div class="grid-2" style="margin-top:28px">
+      <div class="pal-card">
+        <h4>Photographie — recommandé</h4>
+        <p style="margin-bottom:10px">· Vues réelles de Lubumbashi (architecture, marchés, ateliers).</p>
+        <p style="margin-bottom:10px">· Portraits du fondateur et des clients (avec accord).</p>
+        <p style="margin-bottom:10px">· Détails matières : cuivre brut, papier, mains au travail.</p>
+        <p style="color:var(--slate);font-size:13px;margin-top:14px">Traitement : grain léger, contraste mesuré, dominante chaude.</p>
+      </div>
+      <div class="pal-card">
+        <h4>Photographie — à éviter</h4>
+        <p style="margin-bottom:10px">· Stock photo « équipe diverse devant un MacBook ».</p>
+        <p style="margin-bottom:10px">· Visualisations IA hallucinées, cerveaux holographiques.</p>
+        <p style="margin-bottom:10px">· Drapeaux RDC/Congo en filigrane (cliché).</p>
+        <p style="color:var(--alert);font-size:13px;margin-top:14px">L'authenticité du lieu est notre meilleur asset.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 09 — TON DE VOIX ============== -->
+<section class="block" data-screen-label="10 Ton de voix">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">09 — Ton de voix</span>
+      <div>
+        <h2 class="sec-title">Posé, <em>direct</em>, sans hype.</h2>
+        <p class="sec-intro">On parle à des dirigeants d'entreprise et des responsables opérationnels — pas à des early-adopters de la tech. On évite le jargon IA. On préfère des verbes concrets et des chiffres précis.</p>
+      </div>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice voice--do">
+        <h4>✓ À faire</h4>
+        <ul>
+          <li>« Audit livré sous 48 heures, sans engagement. »</li>
+          <li>« Agent IA conforme aux principes de l'OCDE. »</li>
+          <li>« Bot WhatsApp qui lit vos commandes et les classe. »</li>
+          <li>Phrases courtes. Verbes concrets. Pas d'adverbes inutiles.</li>
+          <li>Citer des secteurs précis : minier, pharmacie, droit.</li>
+        </ul>
+      </div>
+      <div class="voice voice--dont">
+        <h4>✗ À éviter</h4>
+        <ul>
+          <li>« Révolutionnez votre business avec l'IA générative ! »</li>
+          <li>« Solutions cutting-edge powered by GPT-4 »</li>
+          <li>« L'IA qui change tout. »</li>
+          <li>Anglicismes inutiles : leverage, scaler, disruption.</li>
+          <li>Promesses non chiffrées : « considérablement plus rapide ».</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote">
+      <p>« Nous ne vendons pas l'<em style="font-style:italic;color:var(--copper-deep)">IA</em>. Nous livrons un processus qui marche, en 48 heures, dans votre langue et dans votre contexte. »</p>
+      <div class="by">// VOIX DE MARQUE — TAGLINE INTERNE</div>
+    </div>
+
+    <div class="grid-2" style="margin-top:28px">
+      <div class="pal-card">
+        <h4>Pronoms & registre</h4>
+        <p>Vouvoiement systématique. « Nous » pour le cabinet, « vous » pour le client. Ton professionnel mais pas guindé : on peut écrire « concrètement » ou « sur le terrain ».</p>
+      </div>
+      <div class="pal-card">
+        <h4>Localisation</h4>
+        <p>Français de RDC. Devise : USD ($) ou CDF selon contexte. Références géographiques précises : Lubumbashi, Haut-Katanga, RDC. Mention OCDE plutôt que GDPR seul.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 10 — RÉSUMÉ DEV ============== -->
+<section class="block" data-screen-label="11 Résumé développeurs">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">10 — Mini guide pour les devs</span>
+      <div>
+        <h2 class="sec-title">À copier-coller dans <em>:root</em>.</h2>
+        <p class="sec-intro">Tokens CSS prêts à intégrer dans n'importe quel projet (Tailwind, vanilla CSS, styled-components).</p>
+      </div>
+    </div>
+
+    <div style="background:var(--ink);color:var(--cream);border-radius:var(--r-lg);padding:32px;font-family:'Geist Mono',monospace;font-size:13px;line-height:1.7;overflow-x:auto">
+<pre style="margin:0;color:var(--cream);font-family:inherit"><span style="color:var(--copper-glow)">/* LUBIRA AI — Design Tokens v1.0 */</span>
+:root {
+  <span style="color:var(--stone)">/* Couleurs */</span>
+  --la-ink:        #0E0F12;
+  --la-ink-soft:   #1C1D22;
+  --la-copper:     #B8633A;
+  --la-copper-deep:#8B4A2B;
+  --la-copper-glow:#D88A5E;
+  --la-cream:      #F5F0E8;
+  --la-paper:      #FBF8F2;
+  --la-sand:       #E8DDC9;
+  --la-slate:      #6B6660;
+  --la-stone:      #A39E96;
+  --la-success:    #2F6B4F;
+  --la-alert:      #B33A2A;
+
+  <span style="color:var(--stone)">/* Typo */</span>
+  --la-font-display: "Instrument Serif", Georgia, serif;
+  --la-font-sans:    "Geist", system-ui, sans-serif;
+  --la-font-mono:    "Geist Mono", ui-monospace, monospace;
+
+  <span style="color:var(--stone)">/* Rayons */</span>
+  --la-r-sm: 6px;  --la-r-md: 10px;  --la-r-lg: 14px;
+  --la-r-xl: 22px; --la-r-pill: 999px;
+
+  <span style="color:var(--stone)">/* Ombres */</span>
+  --la-shadow-card: 0 1px 2px rgba(14,15,18,.06);
+  --la-shadow-lift: 0 12px 32px -12px rgba(14,15,18,.18);
+}
+
+<span style="color:var(--copper-glow)">/* Import Google Fonts */</span>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');</pre>
+    </div>
+
+    <div class="grid-2" style="margin-top:28px">
+      <div class="pal-card">
+        <h4>Tailwind config (extrait)</h4>
+        <pre style="font-family:'Geist Mono',monospace;font-size:12px;line-height:1.6;color:var(--graphite);white-space:pre-wrap">colors: {
+  ink:    '#0E0F12',
+  copper: { DEFAULT: '#B8633A', deep: '#8B4A2B', glow: '#D88A5E' },
+  cream:  '#F5F0E8',
+  paper:  '#FBF8F2',
+  sand:   '#E8DDC9',
+  slate:  '#6B6660'
+}</pre>
+      </div>
+      <div class="pal-card">
+        <h4>Checklist intégration</h4>
+        <p style="margin-bottom:8px">☐ Importer les 3 polices Google Fonts (preload).</p>
+        <p style="margin-bottom:8px">☐ Définir <code style="font-family:'Geist Mono',monospace;font-size:12px">color-scheme: light</code>.</p>
+        <p style="margin-bottom:8px">☐ Vérifier ratio AA pour tout texte cuivré (≥ 16 px).</p>
+        <p style="margin-bottom:8px">☐ Limiter à 1 CTA primaire par vue.</p>
+        <p>☐ Ne jamais empiler 2 sections sombres consécutives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div>// <strong>LUBIRA AI</strong> — Charte graphique v1.0 · Mai 2026</div>
+      <div>Lubumbashi · Haut-Katanga · RDC</div>
+      <div>Document interne · à partager avec devs &amp; designers</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

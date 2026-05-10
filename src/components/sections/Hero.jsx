@@ -3,12 +3,14 @@ import { ArrowUpRight, MapPin } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="relative bg-paper overflow-hidden">
-      {/* Subtle texture: copper haze top-right */}
+    <section className="relative bg-ink text-cream overflow-hidden">
+      {/* Subtle texture: copper haze top-right and bottom-left */}
       <div
         aria-hidden="true"
-        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.18] pointer-events-none"
-        style={{ background: 'radial-gradient(circle, var(--color-copper) 0%, transparent 60%)' }}
+        className="absolute inset-0 pointer-events-none"
+        style={{ 
+          background: 'radial-gradient(1200px 500px at 85% 0%, rgba(184,99,58,.18), transparent 60%), radial-gradient(700px 400px at 5% 100%, rgba(184,99,58,.08), transparent 60%)'
+        }}
       />
 
       <div className="container-x relative pt-24 md:pt-32 pb-24 md:pb-32">
@@ -17,7 +19,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="eyebrow"
+          className="eyebrow on-dark"
         >
           // Cabinet IA · Lubumbashi · Katanga · RDC
         </motion.span>
@@ -41,7 +43,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.15 }}
-          className="body-lg text-slate mt-8 max-w-2xl"
+          className="body-lg text-cream/70 mt-8 max-w-2xl"
         >
           LUBIRA AI conçoit des solutions d'intelligence artificielle pour les
           entreprises congolaises. Audit gratuit, premier prototype en 48&nbsp;heures,
@@ -59,7 +61,7 @@ export default function Hero() {
             Réserver mon audit gratuit
             <ArrowUpRight className="w-4 h-4" />
           </a>
-          <a href="/realisations" className="btn-secondary">
+          <a href="/realisations" className="btn" style={{ background: 'transparent', color: 'var(--color-cream)', borderColor: 'rgba(245,240,232,.3)', border: '1px solid rgba(245,240,232,.3)' }}>
             Voir nos réalisations
           </a>
         </motion.div>
@@ -76,9 +78,9 @@ export default function Hero() {
             { kicker: '02', label: '100% votre propriété' },
             { kicker: '03', label: 'Exclusivité sectorielle' },
           ].map((b) => (
-            <div key={b.kicker} className="border-t border-ink/15 pt-4">
-              <div className="num-tag mb-2">// {b.kicker}</div>
-              <div className="body-sm text-ink font-medium">{b.label}</div>
+            <div key={b.kicker} className="border-t border-cream/15 pt-4">
+              <div className="num-tag on-dark mb-2">// {b.kicker}</div>
+              <div className="body-sm text-cream font-medium">{b.label}</div>
             </div>
           ))}
         </motion.div>
@@ -88,14 +90,14 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.55 }}
-          className="inline-flex items-center gap-3 mt-16 px-4 py-2 rounded-full border border-ink/10 bg-cream"
+          className="inline-flex items-center gap-3 mt-16 px-4 py-2 rounded-full border border-cream/10 bg-ink-soft"
         >
           <span className="relative flex w-2 h-2">
-            <span className="absolute inset-0 rounded-full bg-copper animate-ping opacity-75" />
-            <span className="relative w-2 h-2 rounded-full bg-copper" />
+            <span className="absolute inset-0 rounded-full bg-copper-glow animate-ping opacity-75" />
+            <span className="relative w-2 h-2 rounded-full bg-copper-glow" />
           </span>
-          <MapPin className="w-3.5 h-3.5 text-slate" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-slate">
+          <MapPin className="w-3.5 h-3.5 text-stone" />
+          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-stone">
             Opérationnel · Lubumbashi
           </span>
         </motion.div>
