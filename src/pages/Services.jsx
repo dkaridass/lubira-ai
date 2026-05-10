@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
-import { AnimatedSection, AnimatedCard } from '../components/AnimatedSection';
-import { CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const services = [
@@ -36,7 +35,7 @@ const services = [
   },
   {
     n: "06",
-    t: "Conformité et Traçabilité",
+    t: "Conformité et Traçabilité Minière",
     d: "Particulièrement vital pour le secteur minier. Nous générons automatiquement vos documents de conformité (OCDE, rapports gouvernementaux) sans erreur et en un temps record.",
     deliv: ["Génération de PDF automatisée", "Piste d'audit immuable", "Mises à jour réglementaires"]
   },
@@ -65,60 +64,90 @@ export default function Services() {
       />
       
       {/* PAGE HEADER */}
-      <section className="pt-24 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection borderLeft className="max-w-3xl">
-            <p className="eyebrow text-red-accent mb-6">NOS SERVICES</p>
-            <h1 className="text-[40px] md:text-[48px] leading-[1.1] tracking-[-0.02em] font-bold mb-6">
+      <section className="pt-24 pb-16 md:pt-32 md:pb-24 border-b border-gray-border">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="border-l-[6px] border-red-accent pl-6 md:pl-12 ml-4 md:ml-8"
+          >
+            <p className="eyebrow mb-6">NOS SERVICES DÉTAILLÉS</p>
+            <h1 className="h1-fluid max-w-4xl mb-8">
               Des solutions IA pour chaque<br/>problème opérationnel.
             </h1>
-            <p className="text-[18px] text-gray-body leading-relaxed">
-              Premier audit gratuit et sans engagement.
+            <p className="font-inter text-[1.25rem] text-gray-body leading-relaxed max-w-2xl">
+              De l'extraction de données à l'automatisation de la conformité, nous concevons des systèmes sur mesure pour les entreprises de Lubumbashi. Premier audit gratuit et sans engagement.
             </p>
-          </AnimatedSection>
+          </motion.div>
         </div>
       </section>
 
       {/* SERVICES GRID */}
-      <section className="pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {services.map((srv, index) => (
-              <AnimatedCard key={srv.n} index={index} className="flex flex-col h-full bg-white border-thin border-gray-border border-t-[3px] border-t-red-accent p-8 relative">
-                <div className="absolute top-8 right-8 font-playfair text-red-accent font-bold text-[18px]">{srv.n}</div>
-                <h3 className="font-playfair text-black-strong font-bold text-[22px] mb-4 pr-12">{srv.t}</h3>
-                <p className="text-gray-body text-[14px] leading-relaxed mb-8 flex-grow">
+              <motion.div 
+                key={srv.n}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex flex-col h-full bg-white border border-gray-border border-t-[3px] border-t-red-accent p-8 relative hover:border-black-strong transition-colors"
+              >
+                <div className="absolute top-8 right-8 font-inter font-bold text-red-accent text-[14px]">{srv.n}</div>
+                
+                <h3 className="font-playfair text-black-strong font-bold text-[24px] mb-4 pr-12">
+                  {srv.t}
+                </h3>
+                
+                <p className="font-inter text-gray-body text-[15px] leading-relaxed mb-10 flex-grow">
                   {srv.d}
                 </p>
-                <div className="mb-8 space-y-3">
+                
+                <div className="mb-10 space-y-4">
+                  <p className="font-inter text-[11px] uppercase tracking-[0.12em] text-black-strong">Livrables typiques</p>
                   {srv.deliv.map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-4 h-4 text-red-accent shrink-0 mt-0.5" />
-                      <span className="text-[13px] text-black-strong font-medium">{item}</span>
+                      <CheckCircle2 className="w-5 h-5 text-red-accent shrink-0" strokeWidth={2} />
+                      <span className="font-inter text-[14px] text-gray-body">{item}</span>
                     </div>
                   ))}
                 </div>
-                <div className="mt-auto">
-                  <Link to={`/contact?service=${srv.t}`} className="inline-flex items-center justify-center w-full py-3 border border-red-accent text-red-accent font-semibold text-[14px] rounded-btn hover:bg-red-accent hover:text-white transition-colors">
-                    Demander ce service
-                  </Link>
+                
+                <div className="mt-auto pt-6 border-t border-gray-border">
+                  <a 
+                    href={`/#contact?service=${encodeURIComponent(srv.t)}`} 
+                    className="inline-flex items-center gap-2 font-inter font-semibold text-[14px] text-red-accent hover:text-black-strong transition-colors"
+                  >
+                    Demander ce service <ArrowRight className="w-4 h-4" />
+                  </a>
                 </div>
-              </AnimatedCard>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* BOTTOM SECTION */}
-      <section className="bg-off-white border-t-[3px] border-red-accent py-20 text-center">
-        <AnimatedSection className="max-w-3xl mx-auto px-4">
-          <p className="font-inter text-[18px] md:text-[20px] font-medium text-black-strong mb-10">
-            Chaque solution est tarifée selon vos besoins. Premier audit gratuit.
+      {/* BOTTOM CTA */}
+      <section className="bg-off-white border-t border-b border-gray-border py-24 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto px-4"
+        >
+          <p className="font-playfair italic text-[24px] md:text-[28px] text-black-strong leading-relaxed mb-10">
+            "Chaque solution est tarifée selon vos besoins. Nous signons un NDA avant même de commencer à discuter des détails."
           </p>
-          <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 bg-red-accent text-white font-bold text-[15px] hover:bg-[#a62b15] rounded-btn transition-colors">
-            Obtenir un Devis Gratuit
-          </Link>
-        </AnimatedSection>
+          <a 
+            href="/#contact" 
+            className="inline-flex items-center justify-center px-8 py-4 bg-red-accent text-white font-semibold text-[15px] hover:bg-black-strong transition-colors"
+          >
+            Obtenir mon audit gratuit →
+          </a>
+        </motion.div>
       </section>
       
     </div>

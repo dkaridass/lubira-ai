@@ -5,7 +5,7 @@ import OrbitIcon from './ui/OrbitIcon';
 import WhatsAppButton from './WhatsAppButton';
 
 const navLinks = [
-  { path: '#services', label: 'Services' },
+  { path: 'services', label: 'Services' },
   { path: '#realisations', label: 'Réalisations' },
   { path: '#tarifs', label: 'Tarifs' },
   { path: '#faq', label: 'FAQ' },
@@ -60,16 +60,30 @@ export default function Layout() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map(link => (
-                <a 
-                  key={link.path} 
-                  href={location.pathname === '/' ? link.path : `/${link.path}`}
-                  onClick={(e) => handleNavClick(e, link.path)}
-                  className="relative py-2 text-[14px] font-medium text-black-strong hover:text-red-accent transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map(link => {
+                if (!link.path.startsWith('#')) {
+                  return (
+                    <Link 
+                      key={link.path} 
+                      to={`/${link.path}`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="relative py-2 text-[14px] font-medium text-black-strong hover:text-red-accent transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                }
+                return (
+                  <a 
+                    key={link.path} 
+                    href={location.pathname === '/' ? link.path : `/${link.path}`}
+                    onClick={(e) => handleNavClick(e, link.path)}
+                    className="relative py-2 text-[14px] font-medium text-black-strong hover:text-red-accent transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
             </nav>
 
             {/* CTA Button */}
@@ -101,16 +115,30 @@ export default function Layout() {
           <div className="md:hidden fixed inset-0 top-[73px] bg-white z-40 h-[calc(100vh-73px)] overflow-y-auto">
             <div className="flex flex-col h-full p-6">
               <nav className="flex flex-col space-y-6 flex-grow">
-                {navLinks.map(link => (
-                  <a 
-                    key={link.path} 
-                    href={location.pathname === '/' ? link.path : `/${link.path}`}
-                    onClick={(e) => handleNavClick(e, link.path)}
-                    className="text-[24px] font-playfair font-bold text-black-strong border-b border-gray-border pb-4"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {navLinks.map(link => {
+                  if (!link.path.startsWith('#')) {
+                    return (
+                      <Link 
+                        key={link.path} 
+                        to={`/${link.path}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-[24px] font-playfair font-bold text-black-strong border-b border-gray-border pb-4"
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  }
+                  return (
+                    <a 
+                      key={link.path} 
+                      href={location.pathname === '/' ? link.path : `/${link.path}`}
+                      onClick={(e) => handleNavClick(e, link.path)}
+                      className="text-[24px] font-playfair font-bold text-black-strong border-b border-gray-border pb-4"
+                    >
+                      {link.label}
+                    </a>
+                  );
+                })}
               </nav>
               
               <div className="mt-8 pt-8 border-t border-gray-border">
@@ -154,13 +182,28 @@ export default function Layout() {
             <div>
               <h4 className="font-inter text-[11px] uppercase tracking-[0.12em] text-[#888888] mb-6">Navigation</h4>
               <ul className="space-y-3">
-                {navLinks.map(link => (
-                  <li key={link.path}>
-                    <a href={location.pathname === '/' ? link.path : `/${link.path}`} onClick={(e) => handleNavClick(e, link.path)} className="font-inter text-[14px] text-white hover:text-red-accent transition-colors">
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {navLinks.map(link => {
+                  if (!link.path.startsWith('#')) {
+                    return (
+                      <li key={link.path}>
+                        <Link 
+                          to={`/${link.path}`} 
+                          onClick={() => window.scrollTo(0, 0)}
+                          className="font-inter text-[14px] text-white hover:text-red-accent transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    );
+                  }
+                  return (
+                    <li key={link.path}>
+                      <a href={location.pathname === '/' ? link.path : `/${link.path}`} onClick={(e) => handleNavClick(e, link.path)} className="font-inter text-[14px] text-white hover:text-red-accent transition-colors">
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
                 <li>
                   <a href="#contact" className="font-inter text-[14px] text-red-accent font-medium hover:text-white transition-colors">
                     Audit gratuit

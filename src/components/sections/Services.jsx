@@ -40,11 +40,11 @@ export default function Services() {
               <p className="font-inter text-[13px] text-gray-body leading-relaxed flex-grow mb-6 line-clamp-3">
                 {srv.desc}
               </p>
-              <a href="#contact" className="mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 block">
-                <span className="font-inter text-[12px] font-semibold text-red-accent hover:text-black-strong transition-colors">
+              <div className="mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="font-inter text-[12px] font-semibold text-red-accent">
                   En savoir plus →
                 </span>
-              </a>
+              </div>
             </motion.div>
           ))}
         </div>
