@@ -5,7 +5,8 @@
   --color-black-strong: #0A0A0A;
   --color-gray-body: #555555;
   --color-gray-border: #E5E5E5;
-  --color-off-white: #FAFAF8;
+  --color-off-white: #FAFAFA;
+  --color-green-success: #00B37E;
   
   --font-playfair: "Playfair Display", serif;
   --font-inter: "Inter", sans-serif;
@@ -14,43 +15,41 @@
 @layer base {
   body {
     @apply bg-white text-gray-body font-inter antialiased;
-    /* We enforce white background everywhere, no dark mode */
     background-color: #FFFFFF !important;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-playfair text-black-strong;
   }
+  
+  /* Reset link styles */
+  a {
+    @apply text-inherit no-underline;
+  }
 }
 
 @layer utilities {
-  .border-thin {
-    border-width: 0.5px;
-  }
-  .border-t-thin {
-    border-top-width: 0.5px;
-  }
-  .border-b-thin {
-    border-bottom-width: 0.5px;
-  }
-  .border-l-thin {
-    border-left-width: 0.5px;
-  }
-  .border-r-thin {
-    border-right-width: 0.5px;
+  .h1-fluid {
+    font-size: clamp(3rem, 6vw, 6rem);
+    line-height: 1.05;
   }
   
-  /* Utilities strictly following design system */
+  .h2-fluid {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+  }
+  
+  .body-fluid {
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    line-height: 1.6;
+  }
+
   .eyebrow {
-    @apply font-inter text-[11px] uppercase tracking-[0.12em];
+    @apply font-inter text-[11px] uppercase tracking-[0.12em] text-red-accent font-semibold;
   }
   
-  /* Disable rounded corners globally except buttons */
+  /* Enforce sharp corners globally, including buttons */
   * {
-    border-radius: 0;
-  }
-  
-  button, .rounded-btn {
-    border-radius: 4px !important;
+    border-radius: 0 !important;
   }
 }
