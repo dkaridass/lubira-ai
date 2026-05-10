@@ -1,143 +1,115 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 
 export default function ROICalculator() {
   const [employees, setEmployees] = useState(3);
   const [hoursPerWeek, setHoursPerWeek] = useState(10);
   const [salary, setSalary] = useState(500);
-  
   const [annualCost, setAnnualCost] = useState(0);
   const lubiraCost = 800;
 
   useEffect(() => {
-    // cost = hours * employees * 52 weeks * (salary / 160 hours per month)
     const hourlyRate = salary / 160;
-    const cost = Math.round(hoursPerWeek * employees * 52 * hourlyRate);
-    setAnnualCost(cost);
+    setAnnualCost(Math.round(hoursPerWeek * employees * 52 * hourlyRate));
   }, [employees, hoursPerWeek, salary]);
 
   const savings = Math.max(0, annualCost - lubiraCost);
 
   return (
-    <section className="bg-off-white py-24 md:py-32 border-b border-gray-border">
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8">
-        
+    <section className="bg-cream section-y border-b border-ink/8">
+      <div className="container-x">
         <div className="mb-16">
-          <p className="eyebrow mb-6">CALCULATEUR DE ROI</p>
-          <h2 className="h2-fluid max-w-2xl">
-            Combien vous coûte<br/>votre processus manuel ?
+          <span className="eyebrow">// 09 — Calculateur de ROI</span>
+          <h2 className="display-md max-w-2xl mt-6">
+            Combien vous coûte{' '}
+            <em className="accent-italic">votre processus manuel</em> ?
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-          
-          {/* Left Column - Inputs */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          {/* Inputs */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
             className="space-y-8"
           >
-            <div>
-              <div className="flex justify-between mb-2">
-                <label className="font-inter font-bold text-[14px] text-black-strong">
-                  Nombre d'employés concernés
-                </label>
-                <span className="font-inter font-bold text-[14px] text-red-accent">{employees}</span>
-              </div>
-              <input 
-                type="range" 
-                min="1" max="50" 
-                value={employees} 
-                onChange={(e) => setEmployees(parseInt(e.target.value))}
-                className="w-full h-1 bg-gray-border appearance-none cursor-pointer accent-red-accent"
-              />
-            </div>
+            <Slider label="Nombre d'employés concernés" value={employees} display={employees} min={1} max={50}
+              onChange={(v) => setEmployees(v)} />
+
+            <Slider label="Heures par semaine sur cette tâche" value={hoursPerWeek} display={`${hoursPerWeek}h`} min={1} max={40}
+              onChange={(v) => setHoursPerWeek(v)} />
 
             <div>
-              <div className="flex justify-between mb-2">
-                <label className="font-inter font-bold text-[14px] text-black-strong">
-                  Heures par semaine sur cette tâche
-                </label>
-                <span className="font-inter font-bold text-[14px] text-red-accent">{hoursPerWeek}h</span>
-              </div>
-              <input 
-                type="range" 
-                min="1" max="40" 
-                value={hoursPerWeek} 
-                onChange={(e) => setHoursPerWeek(parseInt(e.target.value))}
-                className="w-full h-1 bg-gray-border appearance-none cursor-pointer accent-red-accent"
-              />
-            </div>
-
-            <div>
-              <label className="block font-inter font-bold text-[14px] text-black-strong mb-2">
+              <label className="block font-sans font-semibold text-[14px] text-ink mb-2">
                 Salaire mensuel moyen (USD)
               </label>
-              <input 
-                type="number" 
-                min="100" step="50"
-                value={salary} 
+              <input
+                type="number" min="100" step="50"
+                value={salary}
                 onChange={(e) => setSalary(parseInt(e.target.value) || 0)}
-                className="w-full p-4 border border-gray-border bg-white font-inter text-[15px] text-black-strong outline-none focus:border-red-accent transition-colors"
+                className="w-full p-4 border border-ink/15 rounded-md bg-paper font-sans text-[15px] text-ink outline-none focus:border-copper transition-colors"
               />
             </div>
-            
-            <button className="w-full py-4 bg-red-accent text-white font-semibold text-[15px] hover:bg-black-strong transition-colors cursor-default">
-              Calculer mon coût annuel
-            </button>
           </motion.div>
 
-          {/* Right Column - Results */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+          {/* Results */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white p-8 md:p-12 border border-gray-border"
+            transition={{ duration: 0.4, delay: 0.15 }}
+            className="bg-paper border border-ink/10 rounded-2xl p-8 md:p-10"
           >
             <div className="mb-8">
-              <p className="font-inter text-[13px] uppercase tracking-[0.12em] text-gray-body mb-2">
-                Coût annuel de cette tâche manuelle:
-              </p>
-              <p className="font-playfair font-bold text-[40px] md:text-[48px] text-red-accent leading-none">
+              <p className="num-tag mb-2 text-slate">// Coût annuel de cette tâche manuelle</p>
+              <p className="font-serif text-[44px] md:text-[52px] text-copper-deep leading-none">
                 {annualCost.toLocaleString()} USD
               </p>
             </div>
 
             <div className="mb-8">
-              <p className="font-inter text-[13px] uppercase tracking-[0.12em] text-gray-body mb-2">
-                Ce que LUBIRA AI vous coûte:
-              </p>
-              <p className="font-inter text-[18px] text-black-strong">
+              <p className="num-tag mb-2 text-slate">// Ce que LUBIRA AI vous coûte</p>
+              <p className="body-lg text-ink">
                 À partir de {lubiraCost} USD — une seule fois.
               </p>
             </div>
 
-            <div className="mb-8 pt-8 border-t border-gray-border">
-              <p className="font-inter text-[13px] uppercase tracking-[0.12em] text-gray-body mb-2">
-                Vous économisez (Année 1):
-              </p>
-              <p className="font-playfair font-bold text-[32px] md:text-[36px] text-green-success leading-none">
+            <div className="mb-8 pt-8 border-t border-ink/10">
+              <p className="num-tag mb-2 text-slate">// Vous économisez (Année 1)</p>
+              <p className="font-serif text-[36px] md:text-[40px] text-success leading-none">
                 {savings.toLocaleString()} USD
               </p>
             </div>
 
-            <p className="font-inter text-[13px] text-gray-body italic mb-8">
+            <p className="body-sm text-slate italic mb-8">
               Ces calculs sont conservateurs. Ils n'incluent pas les erreurs humaines, les délais, ni le stress de vos équipes.
             </p>
 
-            <a 
-              href="#contact"
-              className="inline-flex items-center justify-center w-full py-4 bg-red-accent text-white font-semibold text-[15px] hover:bg-black-strong transition-colors"
-            >
-              Réserver mon audit gratuit →
+            <a href="#contact" className="btn-primary w-full justify-center">
+              Réserver mon audit gratuit <ArrowUpRight className="w-4 h-4" />
             </a>
           </motion.div>
-
         </div>
       </div>
     </section>
+  );
+}
+
+function Slider({ label, value, display, min, max, onChange }) {
+  return (
+    <div>
+      <div className="flex justify-between mb-3">
+        <label className="font-sans font-semibold text-[14px] text-ink">{label}</label>
+        <span className="font-mono text-[14px] text-copper-deep">{display}</span>
+      </div>
+      <input
+        type="range" min={min} max={max} value={value}
+        onChange={(e) => onChange(parseInt(e.target.value))}
+        className="w-full h-1 bg-ink/15 rounded appearance-none cursor-pointer accent-copper"
+      />
+    </div>
   );
 }

@@ -1,54 +1,80 @@
 import { motion } from 'framer-motion';
+import { ArrowUpRight, Workflow, Bot, MessageSquare, FileText, BarChart3, Shield } from 'lucide-react';
+
+const services = [
+  { num: '01', icon: Workflow,      title: 'Automatisation des processus', desc: 'Remplacement des tâches manuelles répétitives par des scripts intelligents fiables.' },
+  { num: '02', icon: Bot,           title: 'Agents IA sur mesure',         desc: 'Assistants virtuels connectés à votre base de connaissances et à vos outils.' },
+  { num: '03', icon: MessageSquare, title: 'Bots WhatsApp Business',       desc: 'Service client automatisé sur le canal le plus utilisé en RDC.' },
+  { num: '04', icon: FileText,      title: 'Intelligence documentaire',    desc: 'Extraction automatique de données depuis factures, contrats, et rapports.' },
+  { num: '05', icon: BarChart3,     title: 'Tableaux de bord intelligents',desc: 'Vos données Excel transformées en insights opérationnels en temps réel.' },
+  { num: '06', icon: Shield,        title: 'Conformité & traçabilité OCDE',desc: 'Génération automatique de rapports conformes aux standards internationaux.' },
+];
 
 export default function Services() {
-  const services = [
-    { num: "01", title: "Automatisation des Processus", desc: "Remplacez vos tâches répétitives par des agents IA opérationnels 24h/24." },
-    { num: "02", title: "Agents IA sur Mesure", desc: "Des outils d'IA construits spécifiquement pour votre secteur et votre équipe." },
-    { num: "03", title: "Intelligence Documentaire", desc: "Extraction, vérification et génération automatique de documents professionnels." },
-    { num: "04", title: "Bots WhatsApp Business", desc: "Un service client IA disponible 24h/24 en français, swahili ou anglais." },
-    { num: "05", title: "Tableaux de Bord Intelligents", desc: "Vos données brutes transformées en décisions claires, en temps réel." },
-    { num: "06", title: "Conformité et Traçabilité Minière", desc: "Traçabilité OCDE, documentation ITSCI, registres immuables pour l'export." },
-    { num: "07", title: "Formation en IA", desc: "Formez vos équipes à utiliser l'IA dans leur travail quotidien à Lubumbashi." },
-    { num: "08", title: "Conseil Stratégique IA", desc: "Identifiez où l'IA vous fait gagner le plus de temps et d'argent." }
-  ];
-
   return (
-    <section id="services" className="bg-white py-24 md:py-32 border-b border-gray-border scroll-mt-20">
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8">
-        
-        <div className="mb-16 md:mb-24">
-          <p className="eyebrow mb-6">NOS SERVICES</p>
-          <h2 className="h2-fluid max-w-3xl">
-            Huit façons dont LUBIRA AI<br/>transforme vos opérations.
-          </h2>
+    <section id="services" className="bg-cream section-y border-y border-ink/8">
+      <div className="container-x">
+        {/* Section head */}
+        <div className="grid md:grid-cols-12 gap-8 mb-16 md:mb-20 items-end">
+          <div className="md:col-span-4">
+            <span className="eyebrow">// 02 — Services</span>
+          </div>
+          <div className="md:col-span-8">
+            <h2 className="display-md">
+              Six prestations,{' '}
+              <em className="accent-italic">une seule promesse</em>&nbsp;:
+              vous repartez avec un système qui fonctionne, pas une démo.
+            </h2>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((srv, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group flex flex-col p-6 bg-white border border-gray-border border-t-[3px] border-t-red-accent hover:border-gray-300 transition-colors"
-            >
-              <span className="font-inter font-bold text-[14px] text-red-accent mb-4">{srv.num}</span>
-              <h3 className="font-playfair font-bold text-[18px] text-black-strong mb-3 leading-tight">
-                {srv.title}
-              </h3>
-              <p className="font-inter text-[13px] text-gray-body leading-relaxed flex-grow mb-6 line-clamp-3">
-                {srv.desc}
-              </p>
-              <div className="mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="font-inter text-[12px] font-semibold text-red-accent">
-                  En savoir plus →
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/8 border border-ink/8 rounded-2xl overflow-hidden">
+          {services.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.a
+                key={s.num}
+                href="/services"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="group bg-paper p-8 md:p-10 flex flex-col gap-6 hover:bg-cream transition-colors duration-200"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="num-tag">// {s.num}</span>
+                  <Icon className="w-5 h-5 text-copper-deep opacity-70 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
+                </div>
+
+                <h3 className="font-serif text-[26px] leading-[1.1] text-ink">
+                  {s.title}
+                </h3>
+
+                <p className="body-sm text-slate flex-1">
+                  {s.desc}
+                </p>
+
+                <span className="inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-[0.14em] text-copper-deep">
+                  En savoir plus
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
-              </div>
-            </motion.div>
-          ))}
+              </motion.a>
+            );
+          })}
         </div>
 
+        {/* Footer line */}
+        <div className="mt-12 flex flex-col md:flex-row md:items-center justify-between gap-4 pt-8 border-t border-ink/10">
+          <p className="body-md text-slate max-w-xl">
+            Vous ne trouvez pas votre besoin ?
+            On commence toujours par un audit gratuit pour comprendre.
+          </p>
+          <a href="#contact" className="btn-secondary self-start md:self-auto">
+            Réserver l'audit
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -1,55 +1,173 @@
 @import "tailwindcss";
 
+/* ============================================================
+   LUBIRA AI — Tokens v1.0
+   Remplace l'ancien index.css. Aligné sur la charte graphique.
+   ============================================================ */
+
 @theme {
-  --color-red-accent: #C4341A;
-  --color-black-strong: #0A0A0A;
-  --color-gray-body: #555555;
-  --color-gray-border: #E5E5E5;
-  --color-off-white: #FAFAFA;
-  --color-green-success: #00B37E;
-  
-  --font-playfair: "Playfair Display", serif;
-  --font-inter: "Inter", sans-serif;
+  /* === Couleurs === */
+  --color-ink: #0E0F12;          /* Encre — fond sombre, texte principal */
+  --color-ink-soft: #1A1B1F;     /* Encre soft — sections sombres alternées */
+  --color-slate: #6B6660;        /* Texte secondaire */
+  --color-stone: #A39E96;        /* Texte tertiaire / placeholder */
+  --color-mist: #D6CFC3;         /* Bordures sur fond sombre */
+
+  --color-cream: #F5F0E8;        /* Crème — fond principal */
+  --color-paper: #FBF8F2;        /* Paper — fond plus clair */
+  --color-sand: #E8DDC9;         /* Sable — bordures, dividers */
+
+  --color-copper: #B8633A;       /* Cuivre — accent principal */
+  --color-copper-deep: #8B4A2B;  /* Cuivre profond — hover, texte sur cream */
+  --color-copper-glow: #D88A5E;  /* Cuivre clair — accent sur fond sombre */
+
+  --color-success: #4A7C59;      /* Vert — états succès */
+  --color-warning: #C99846;      /* Ambre — alertes */
+  --color-error:   #A4453A;      /* Erreur — distinct du cuivre */
+
+  /* === Typographies === */
+  --font-serif:  "Instrument Serif", "Times New Roman", serif;
+  --font-sans:   "Geist", system-ui, -apple-system, sans-serif;
+  --font-mono:   "Geist Mono", "SF Mono", Menlo, monospace;
+
+  /* === Espacements personnalisés === */
+  --spacing-section-y: 96px;
+  --spacing-section-y-lg: 128px;
+  --spacing-container-x: 40px;
+
+  /* === Rayons === */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+
+  /* === Ombres (très subtiles, ton sépia) === */
+  --shadow-sm: 0 1px 2px rgba(14, 15, 18, 0.04);
+  --shadow-md: 0 8px 24px -8px rgba(14, 15, 18, 0.10);
+  --shadow-lg: 0 16px 40px -16px rgba(14, 15, 18, 0.18);
 }
 
+/* ============================================================
+   Base
+   ============================================================ */
 @layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
-    @apply bg-white text-gray-body font-inter antialiased;
-    background-color: #FFFFFF !important;
+    @apply bg-paper text-ink font-sans;
+    font-feature-settings: "ss01", "cv11";
+    line-height: 1.55;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    @apply font-playfair text-black-strong;
+    @apply font-serif text-ink;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
   }
-  
-  /* Reset link styles */
+
+  p {
+    text-wrap: pretty;
+  }
+
   a {
-    @apply text-inherit no-underline;
+    @apply text-inherit no-underline transition-colors duration-200;
+  }
+
+  ::selection {
+    @apply bg-copper text-paper;
+  }
+
+  /* Focus visible uniforme */
+  :focus-visible {
+    outline: 2px solid var(--color-copper);
+    outline-offset: 3px;
   }
 }
 
+/* ============================================================
+   Utilities — typo fluide & micro-éléments
+   ============================================================ */
 @layer utilities {
-  .h1-fluid {
-    font-size: clamp(3rem, 6vw, 6rem);
-    line-height: 1.05;
+  /* Échelle typographique (charte) */
+  .display-xl { font-size: clamp(56px, 8vw, 96px); line-height: 0.95; letter-spacing: -0.02em; }
+  .display-lg { font-size: clamp(44px, 6vw, 72px); line-height: 1.0;  letter-spacing: -0.015em; }
+  .display-md { font-size: clamp(32px, 4.5vw, 52px); line-height: 1.05; letter-spacing: -0.01em; }
+  .display-sm { font-size: clamp(24px, 3vw, 36px);   line-height: 1.1;  letter-spacing: -0.008em; }
+
+  .body-lg { font-size: 18px; line-height: 1.6; }
+  .body-md { font-size: 16px; line-height: 1.6; }
+  .body-sm { font-size: 14px; line-height: 1.55; }
+
+  /* Eyebrow — utilisée partout pour les sur-titres */
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.2em] text-copper-deep inline-flex items-center gap-3;
   }
-  
-  .h2-fluid {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: 1.1;
+  .eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: currentColor;
   }
-  
-  .body-fluid {
-    font-size: clamp(1rem, 1.5vw, 1.125rem);
-    line-height: 1.6;
+  .eyebrow.no-line::before { display: none; }
+  .eyebrow.on-dark { @apply text-copper-glow; }
+
+  /* Italique cuivré — pour <em> dans les titres serif */
+  .accent-italic {
+    @apply italic text-copper-deep;
+    font-style: italic;
+  }
+  .on-dark .accent-italic { @apply text-copper-glow; }
+
+  /* Container standard */
+  .container-x {
+    @apply max-w-[1200px] mx-auto px-5 md:px-10;
   }
 
-  .eyebrow {
-    @apply font-inter text-[11px] uppercase tracking-[0.12em] text-red-accent font-semibold;
+  /* Section padding standard */
+  .section-y {
+    @apply py-20 md:py-28;
   }
-  
-  /* Enforce sharp corners globally, including buttons */
-  * {
-    border-radius: 0 !important;
+
+  /* Bouton primaire (cuivre) */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md;
+    padding: 14px 22px;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md bg-copper text-paper hover:bg-copper-deep;
+    padding: 14px 22px;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md bg-transparent text-ink border border-ink/15 hover:border-ink hover:bg-ink hover:text-paper;
+    padding: 14px 22px;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md bg-transparent text-ink hover:bg-ink/5;
+    padding: 14px 22px;
+  }
+  .btn-on-dark {
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium text-[14px] leading-none transition-all duration-200 rounded-md bg-cream text-ink hover:bg-paper;
+    padding: 14px 22px;
+  }
+
+  /* Mono numéro (// 01, // 02) */
+  .num-tag {
+    @apply font-mono text-[11px] uppercase tracking-[0.16em] text-copper-deep;
+  }
+  .on-dark .num-tag { @apply text-copper-glow; }
+
+  /* Carte standard */
+  .card {
+    @apply bg-paper border border-ink/8 rounded-2xl p-6 md:p-8 transition-all duration-200;
+  }
+  .card-hoverable {
+    @apply bg-paper border border-ink/8 rounded-2xl p-6 md:p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-ink/14;
   }
 }

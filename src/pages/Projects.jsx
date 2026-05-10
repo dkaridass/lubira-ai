@@ -1,97 +1,87 @@
 import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
 import { AnimatedSection, AnimatedCard } from '../components/AnimatedSection';
-import { ArrowRight } from 'lucide-react';
 import SEO from '../components/SEO';
 
 export default function Projects() {
   return (
-    <div className="w-full bg-white pb-0">
-      <SEO 
-        title="Réalisations — Études de Cas IA au Congo"
-        description="Découvrez comment LUBIRA AI a transformé les opérations de Hong Ning Mining SARL à Lubumbashi. Conformité OCDE automatisée, génération de documents en 10 secondes. Études de cas IA en RDC."
-        path="/realisations"
-        keywords="étude de cas IA Congo, réalisation intelligence artificielle RDC, Hong Ning Mining, conformité OCDE automatisée, IA secteur minier Lubumbashi, transformation digitale Congo"
-      />
-      
-      {/* PAGE HEADER */}
-      <section className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="max-w-3xl text-center md:text-left mx-auto md:mx-0">
-            <p className="eyebrow text-gray-body mb-6">NOS RÉALISATIONS</p>
-            <h1 className="text-[40px] md:text-[56px] leading-[1.1] tracking-[-0.02em] font-bold mb-6">
-              Des solutions réelles.<br/>
-              Des résultats mesurables.
+    <div className="w-full bg-paper">
+      <SEO title="Réalisations — Études de cas IA au Congo"
+        description="Découvrez comment LUBIRA AI a transformé les opérations de Hong Ning Mining SARL à Lubumbashi."
+        path="/realisations" />
+
+      {/* Header */}
+      <section className="pt-24 md:pt-32 pb-16">
+        <div className="container-x">
+          <AnimatedSection className="max-w-3xl">
+            <span className="eyebrow">// Nos réalisations</span>
+            <h1 className="display-lg mt-6 mb-6">
+              Des solutions <em className="accent-italic">réelles</em>.<br/>
+              Des résultats <em className="accent-italic">mesurables</em>.
             </h1>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* FEATURED CASE STUDY */}
+      {/* Featured case study */}
       <section className="pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container-x">
           <AnimatedSection borderLeft>
             <div className="mb-6">
-              <span className="inline-block px-3 py-1 bg-red-accent text-white text-[11px] font-medium uppercase tracking-[0.12em]">
-                Secteur Minier
+              <span className="inline-block px-3 py-1 bg-copper text-paper font-mono text-[10px] uppercase tracking-[0.16em] rounded-full">
+                Secteur minier
               </span>
             </div>
-            
-            <h2 className="font-playfair text-[28px] md:text-[36px] font-bold text-black-strong leading-[1.2] mb-4 max-w-4xl">
+
+            <h2 className="font-serif text-[28px] md:text-[40px] leading-[1.1] text-ink mb-4 max-w-4xl">
               Comment LUBIRA AI a transformé les opérations de Hong Ning Mining
             </h2>
-            
-            <p className="font-inter text-[13px] text-gray-body uppercase tracking-[0.1em] font-semibold mb-8">
-              Lubumbashi, DRC · 2026
-            </p>
-            
-            <hr className="border-gray-border mb-12" />
-            
+
+            <p className="num-tag mb-8">// Lubumbashi, RDC · 2026</p>
+
+            <hr className="border-ink/15 mb-12" />
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-              {/* Left Column - Article style */}
-              <div className="lg:col-span-7 prose prose-lg prose-p:text-gray-body prose-p:text-[15px] prose-p:leading-[1.8] max-w-none">
-                <h3 className="font-playfair text-[22px] font-bold text-black-strong mb-4">Le Problème</h3>
-                <p className="mb-6">
+              <div className="lg:col-span-7 space-y-6">
+                <h3 className="font-serif text-[24px] text-ink">Le problème</h3>
+                <p className="body-md text-slate">
                   Hong Ning Mining SARL, acteur majeur de l'extraction minière au Katanga, faisait face à un goulot d'étranglement critique dans sa chaîne logistique. Chaque expédition de minerais nécessitait la génération manuelle de dizaines de documents de conformité complexes pour répondre aux exigences strictes de l'OCDE et du Ministère des Mines.
                 </p>
-                <p className="mb-8">
-                  Ce processus manuel prenait en moyenne trois jours par expédition, mobilisant une équipe entière et introduisant des risques d'erreurs humaines de saisie de données qui pouvaient bloquer les camions à la frontière pendant des semaines, causant des pertes financières substantielles.
+                <p className="body-md text-slate">
+                  Ce processus manuel prenait en moyenne trois jours par expédition, mobilisant une équipe entière et introduisant des risques d'erreurs humaines de saisie qui pouvaient bloquer les camions à la frontière pendant des semaines.
                 </p>
 
-                <h3 className="font-playfair text-[22px] font-bold text-black-strong mb-4">Notre Solution</h3>
-                <p className="mb-6">
+                <h3 className="font-serif text-[24px] text-ink pt-6">Notre solution</h3>
+                <p className="body-md text-slate">
                   En moins de 48 heures, LUBIRA AI a déployé un panneau d'administration sur mesure sécurisé. Plutôt que de remplacer leur base de données existante, nous avons construit une interface d'intelligence artificielle légère qui s'y connecte directement.
                 </p>
-                <p>
+                <p className="body-md text-slate">
                   Désormais, lorsqu'un responsable logistique entre les données de pesée et d'analyse d'un lot, l'IA génère instantanément l'ensemble du dossier documentaire (PDFs sécurisés, rapports formatés, attestations de traçabilité). Le système intègre des contrôles croisés automatisés pour garantir zéro erreur avant l'impression finale.
                 </p>
               </div>
 
-              {/* Right Column - Metrics */}
               <div className="lg:col-span-5">
-                <div className="bg-off-white border-thin border-gray-border p-8 mb-8">
-                  <h4 className="font-inter font-bold text-[13px] uppercase tracking-[0.12em] text-black-strong mb-8">Impact Opérationnel</h4>
-                  
+                <div className="bg-cream border border-ink/10 rounded-2xl p-8 mb-8">
+                  <p className="num-tag mb-8 text-slate">// Impact opérationnel</p>
                   <div className="space-y-8">
-                    <div>
-                      <p className="font-playfair text-red-accent font-bold text-[42px] leading-none mb-2">10 sec</p>
-                      <p className="text-[14px] font-medium text-black-strong">Temps de génération par dossier (contre 3 jours)</p>
-                    </div>
-                    <div>
-                      <p className="font-playfair text-red-accent font-bold text-[42px] leading-none mb-2">100%</p>
-                      <p className="text-[14px] font-medium text-black-strong">Conformité OCDE garantie sans intervention humaine</p>
-                    </div>
-                    <div>
-                      <p className="font-playfair text-red-accent font-bold text-[42px] leading-none mb-2">0</p>
-                      <p className="text-[14px] font-medium text-black-strong">Erreur de saisie depuis le déploiement</p>
-                    </div>
+                    {[
+                      { v: '10 sec', l: 'Temps de génération par dossier (contre 3 jours)' },
+                      { v: '100%',   l: 'Conformité OCDE garantie sans intervention humaine' },
+                      { v: '0',      l: 'Erreur de saisie depuis le déploiement' },
+                    ].map((s) => (
+                      <div key={s.l}>
+                        <p className="font-serif text-[42px] text-copper-deep leading-none mb-2">{s.v}</p>
+                        <p className="body-sm text-ink">{s.l}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="font-inter font-bold text-[13px] uppercase tracking-[0.12em] text-black-strong mb-4">Technologies Déployées</h4>
+                  <p className="num-tag mb-4 text-slate">// Technologies déployées</p>
                   <div className="flex flex-wrap gap-2">
-                    {['React', 'Supabase', 'Claude 3.5 Sonnet', 'jsPDF', 'Node.js'].map(tech => (
-                      <span key={tech} className="px-3 py-1.5 bg-white border border-gray-border text-gray-body text-[13px] font-medium">
+                    {['React', 'Supabase', 'Claude 3.5 Sonnet', 'jsPDF', 'Node.js'].map((tech) => (
+                      <span key={tech} className="px-3 py-1.5 bg-paper border border-ink/15 rounded-full text-slate body-sm">
                         {tech}
                       </span>
                     ))}
@@ -103,21 +93,22 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* COMING SOON SECTION */}
-      <section className="py-24 border-t border-gray-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Coming soon */}
+      <section className="py-24 border-t border-ink/8">
+        <div className="container-x">
           <AnimatedSection>
             <div className="text-center mb-16">
-              <h2 className="font-playfair text-[28px] font-bold text-black-strong">Projets en cours de déploiement</h2>
+              <span className="eyebrow no-line">// Projets en cours de déploiement</span>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {['Secteur Bancaire', 'Secteur Agricole', 'ONG Internationale'].map((sector, i) => (
-                <AnimatedCard key={sector} index={i} hoverEffect={false} className="bg-off-white border-2 border-dashed border-gray-border p-8 flex flex-col items-center justify-center min-h-[200px]">
-                  <span className="inline-block px-3 py-1 bg-white border border-red-accent text-red-accent text-[11px] font-bold uppercase tracking-[0.1em] mb-4">
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {['Secteur bancaire', 'Secteur agricole', 'ONG internationale'].map((sector, i) => (
+                <AnimatedCard key={sector} index={i} hoverEffect={false}
+                  className="bg-cream border-2 border-dashed border-ink/15 rounded-2xl p-8 flex flex-col items-center justify-center min-h-[200px]">
+                  <span className="inline-block px-3 py-1 bg-paper border border-copper text-copper-deep font-mono text-[10px] uppercase tracking-[0.14em] rounded-full mb-4">
                     Bientôt disponible
                   </span>
-                  <h3 className="font-playfair text-[20px] font-bold text-black-strong text-center">{sector}</h3>
+                  <h3 className="font-serif text-[22px] text-ink text-center">{sector}</h3>
                 </AnimatedCard>
               ))}
             </div>
@@ -125,18 +116,17 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* BOTTOM CTA */}
-      <section className="bg-white border-t-[3px] border-red-accent py-24 text-center">
+      {/* Bottom CTA */}
+      <section className="bg-paper border-t-[3px] border-copper py-24 text-center">
         <AnimatedSection className="max-w-3xl mx-auto px-4">
-          <h2 className="font-playfair text-[32px] md:text-[42px] font-bold text-black-strong mb-10">
-            Votre entreprise pourrait être la prochaine.
+          <h2 className="font-serif text-[36px] md:text-[48px] text-ink mb-10">
+            Votre entreprise pourrait être <em className="accent-italic">la prochaine</em>.
           </h2>
-          <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 bg-red-accent text-white font-bold text-[15px] hover:bg-[#a62b15] rounded-btn transition-colors">
-            Commencer Maintenant
+          <Link to="/contact" className="btn-primary">
+            Commencer maintenant <ArrowUpRight className="w-4 h-4" />
           </Link>
         </AnimatedSection>
       </section>
-      
     </div>
   );
 }

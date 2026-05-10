@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import OrbitIcon from './ui/OrbitIcon';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import LubiraMark from './ui/LubiraMark';
 import WhatsAppButton from './WhatsAppButton';
 
 const navLinks = [
   { path: 'services', label: 'Services' },
-  { path: '#realisations', label: 'Réalisations' },
-  { path: '#tarifs', label: 'Tarifs' },
+  { path: 'realisations', label: 'Réalisations' },
+  { path: 'a-propos', label: 'À propos' },
   { path: '#faq', label: 'FAQ' },
-  { path: '#contact', label: 'Contact' },
 ];
 
 export default function Layout() {
@@ -18,230 +17,227 @@ export default function Layout() {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Handle smooth scrolling for hash links
   const handleNavClick = (e, path) => {
     if (path.startsWith('#') && location.pathname === '/') {
       e.preventDefault();
-      const element = document.getElementById(path.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-      setIsMobileMenuOpen(false);
-    } else {
-      setIsMobileMenuOpen(false);
+      const el = document.getElementById(path.slice(1));
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
+    setIsMobileMenuOpen(false);
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      {/* Navigation */}
-      <header className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-border transition-all duration-300 ${isScrolled ? 'py-3' : 'py-5'}`}>
-        <div className="max-w-[1200px] mx-auto px-4 md:px-8">
-          <div className="flex justify-between items-center">
-            
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-4 group" onClick={() => window.scrollTo(0, 0)}>
-              <OrbitIcon className="w-8 h-8 text-black-strong transition-transform group-hover:scale-105" />
-              <div className="flex flex-col">
-                <div className="flex items-center">
-                  <span className="font-playfair font-bold text-[22px] tracking-tight text-black-strong leading-none">LUBIRA</span>
-                  <span className="font-playfair font-bold text-[22px] tracking-tight text-red-accent leading-none ml-1">AI</span>
-                </div>
-                <span className="font-inter font-semibold text-[9px] uppercase tracking-[0.14em] text-[#888888] mt-0.5">LUBUMBASHI · DRC</span>
-              </div>
-            </Link>
+    <div className="flex flex-col min-h-screen bg-paper text-ink">
+      {/* ===== HEADER ===== */}
+      <header
+        className={`sticky top-0 z-50 backdrop-blur-md transition-all duration-300 border-b ${
+          isScrolled
+            ? 'bg-paper/95 border-ink/8 py-3'
+            : 'bg-paper/80 border-transparent py-5'
+        }`}
+      >
+        <div className="container-x flex items-center justify-between">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center gap-3 group"
+            onClick={() => window.scrollTo(0, 0)}
+          >
+            <LubiraMark className="w-9 h-9 transition-transform duration-300 group-hover:rotate-12" />
+            <div className="flex flex-col leading-none">
+              <span className="font-serif text-[24px] tracking-tight text-ink">
+                LUBIRA <em className="accent-italic">AI</em>
+              </span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-slate mt-1">
+                Lubumbashi · RDC
+              </span>
+            </div>
+          </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map(link => {
-                if (!link.path.startsWith('#')) {
-                  return (
-                    <Link 
-                      key={link.path} 
-                      to={`/${link.path}`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="relative py-2 text-[14px] font-medium text-black-strong hover:text-red-accent transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                }
-                return (
-                  <a 
-                    key={link.path} 
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) =>
+              link.path.startsWith('#') ? (
+                <a
+                  key={link.path}
+                  href={location.pathname === '/' ? link.path : `/${link.path}`}
+                  onClick={(e) => handleNavClick(e, link.path)}
+                  className="text-[14px] font-medium text-ink/80 hover:text-copper-deep"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.path}
+                  to={`/${link.path}`}
+                  className="text-[14px] font-medium text-ink/80 hover:text-copper-deep"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
+          </nav>
+
+          {/* CTA */}
+          <a
+            href={location.pathname === '/' ? '#contact' : '/#contact'}
+            onClick={(e) => handleNavClick(e, '#contact')}
+            className="hidden md:inline-flex btn-primary"
+          >
+            Audit gratuit
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+
+          {/* Mobile toggle */}
+          <button
+            className="md:hidden text-ink p-2 -mr-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Menu"
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+
+        {/* Mobile drawer */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden fixed inset-x-0 top-[64px] bg-paper z-40 h-[calc(100vh-64px)] overflow-y-auto border-t border-ink/8">
+            <div className="flex flex-col h-full p-6 gap-6">
+              {navLinks.map((link) =>
+                link.path.startsWith('#') ? (
+                  <a
+                    key={link.path}
                     href={location.pathname === '/' ? link.path : `/${link.path}`}
                     onClick={(e) => handleNavClick(e, link.path)}
-                    className="relative py-2 text-[14px] font-medium text-black-strong hover:text-red-accent transition-colors"
+                    className="font-serif text-[28px] text-ink border-b border-ink/8 pb-4"
                   >
                     {link.label}
                   </a>
-                );
-              })}
-            </nav>
-
-            {/* CTA Button */}
-            <div className="hidden md:block">
-              <a 
-                href={location.pathname === '/' ? '#contact' : '/#contact'} 
+                ) : (
+                  <Link
+                    key={link.path}
+                    to={`/${link.path}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="font-serif text-[28px] text-ink border-b border-ink/8 pb-4"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
+              <a
+                href={location.pathname === '/' ? '#contact' : '/#contact'}
                 onClick={(e) => handleNavClick(e, '#contact')}
-                className="inline-flex items-center justify-center px-5 py-2.5 text-[14px] font-semibold text-white bg-red-accent hover:bg-black-strong transition-colors"
+                className="btn-primary mt-4"
               >
                 Audit gratuit
+                <ArrowUpRight className="w-4 h-4" />
               </a>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center">
-              <button 
-                className="text-black-strong p-2 -mr-2"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Drawer */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 top-[73px] bg-white z-40 h-[calc(100vh-73px)] overflow-y-auto">
-            <div className="flex flex-col h-full p-6">
-              <nav className="flex flex-col space-y-6 flex-grow">
-                {navLinks.map(link => {
-                  if (!link.path.startsWith('#')) {
-                    return (
-                      <Link 
-                        key={link.path} 
-                        to={`/${link.path}`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-[24px] font-playfair font-bold text-black-strong border-b border-gray-border pb-4"
-                      >
-                        {link.label}
-                      </Link>
-                    );
-                  }
-                  return (
-                    <a 
-                      key={link.path} 
-                      href={location.pathname === '/' ? link.path : `/${link.path}`}
-                      onClick={(e) => handleNavClick(e, link.path)}
-                      className="text-[24px] font-playfair font-bold text-black-strong border-b border-gray-border pb-4"
-                    >
-                      {link.label}
-                    </a>
-                  );
-                })}
-              </nav>
-              
-              <div className="mt-8 pt-8 border-t border-gray-border">
-                <a 
-                  href={location.pathname === '/' ? '#contact' : '/#contact'}
-                  onClick={(e) => handleNavClick(e, '#contact')}
-                  className="w-full inline-flex items-center justify-center py-4 text-[16px] font-semibold text-white bg-red-accent"
-                >
-                  Audit gratuit
-                </a>
-              </div>
             </div>
           </div>
         )}
       </header>
 
-      {/* Main Content */}
+      {/* ===== MAIN ===== */}
       <main className="flex-grow w-full">
         <Outlet />
       </main>
 
-      {/* Footer */}
-      <footer className="bg-[#0A0A0A] text-white border-t-[3px] border-red-accent pt-16 pb-8">
-        <div className="max-w-[1200px] mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-16">
-            
-            {/* Column 1 */}
-            <div>
+      {/* ===== FOOTER ===== */}
+      <footer className="on-dark bg-ink text-cream relative overflow-hidden">
+        {/* Subtle copper glow top-right */}
+        <div
+          aria-hidden="true"
+          className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none"
+          style={{ background: 'radial-gradient(circle, var(--color-copper) 0%, transparent 65%)' }}
+        />
+
+        <div className="container-x relative pt-24 pb-10">
+          {/* Manifesto line */}
+          <div className="mb-16 max-w-3xl">
+            <span className="eyebrow on-dark mb-6">// Manifeste</span>
+            <p className="font-serif text-[clamp(28px,3.5vw,44px)] leading-[1.1] mt-4 text-cream">
+              L'IA <em className="accent-italic">construite ici</em>, pour ici.
+              <br />
+              Built from Congo. Built for the World.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            <div className="md:col-span-5">
               <Link to="/" className="flex items-center gap-3 mb-6" onClick={() => window.scrollTo(0, 0)}>
-                <OrbitIcon className="w-8 h-8 text-white" />
-                <div className="flex items-center">
-                  <span className="font-playfair font-bold text-[22px] tracking-tight text-white leading-none">LUBIRA</span>
-                  <span className="font-playfair font-bold text-[22px] tracking-tight text-red-accent leading-none ml-1">AI</span>
-                </div>
+                <LubiraMark variant="inverse" className="w-9 h-9" />
+                <span className="font-serif text-[24px] text-cream">
+                  LUBIRA <em className="accent-italic">AI</em>
+                </span>
               </Link>
-              <p className="font-inter text-[13px] text-[#888888] mb-2">L'IA qui fait bouger l'Afrique.</p>
-              <p className="font-inter text-[13px] text-[#888888]">Built from Congo. Built for the World.</p>
+              <p className="body-md text-mist max-w-md">
+                Cabinet de conseil en intelligence artificielle.
+                Audit gratuit. Premier prototype en 48 heures.
+                Vous restez propriétaire de tout.
+              </p>
             </div>
 
-            {/* Column 2 */}
-            <div>
-              <h4 className="font-inter text-[11px] uppercase tracking-[0.12em] text-[#888888] mb-6">Navigation</h4>
+            <div className="md:col-span-3">
+              <h4 className="num-tag mb-6">// Navigation</h4>
               <ul className="space-y-3">
-                {navLinks.map(link => {
-                  if (!link.path.startsWith('#')) {
-                    return (
-                      <li key={link.path}>
-                        <Link 
-                          to={`/${link.path}`} 
-                          onClick={() => window.scrollTo(0, 0)}
-                          className="font-inter text-[14px] text-white hover:text-red-accent transition-colors"
-                        >
-                          {link.label}
-                        </Link>
-                      </li>
-                    );
-                  }
-                  return (
-                    <li key={link.path}>
-                      <a href={location.pathname === '/' ? link.path : `/${link.path}`} onClick={(e) => handleNavClick(e, link.path)} className="font-inter text-[14px] text-white hover:text-red-accent transition-colors">
+                {navLinks.map((link) => (
+                  <li key={link.path}>
+                    {link.path.startsWith('#') ? (
+                      <a href={`/${link.path}`} className="body-sm text-cream hover:text-copper-glow">
                         {link.label}
                       </a>
-                    </li>
-                  );
-                })}
-                <li>
-                  <a href="#contact" className="font-inter text-[14px] text-red-accent font-medium hover:text-white transition-colors">
-                    Audit gratuit
-                  </a>
-                </li>
+                    ) : (
+                      <Link
+                        to={`/${link.path}`}
+                        onClick={() => window.scrollTo(0, 0)}
+                        className="body-sm text-cream hover:text-copper-glow"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
               </ul>
             </div>
 
-            {/* Column 3 */}
-            <div>
-              <h4 className="font-inter text-[11px] uppercase tracking-[0.12em] text-[#888888] mb-6">Contact</h4>
+            <div className="md:col-span-4">
+              <h4 className="num-tag mb-6">// Contact</h4>
               <ul className="space-y-3">
                 <li>
-                  <a href="mailto:contact@lubira.ai" className="font-inter text-[14px] text-white hover:text-red-accent transition-colors">
+                  <a href="mailto:contact@lubira.ai" className="body-sm text-cream hover:text-copper-glow">
                     contact@lubira.ai
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || "243995974770"}`}
+                  <a
+                    href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '243995974770'}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-inter text-[14px] text-white hover:text-red-accent transition-colors"
+                    className="body-sm text-cream hover:text-copper-glow"
                   >
-                    WhatsApp
+                    +243 99 597 47 70 (WhatsApp)
                   </a>
                 </li>
-                <li className="font-inter text-[14px] text-white pt-2">
-                  Lubumbashi, Katanga, RDC
+                <li className="body-sm text-mist pt-1">
+                  Lubumbashi · Haut-Katanga · RDC
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="border-t border-[#222222] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="font-inter text-[12px] text-[#555555]">© 2026 LUBIRA AI · Lubumbashi, Katanga, RDC</p>
-            <p className="font-inter text-[12px] text-[#555555]">Built from Congo. Built for the World.</p>
+          {/* Bottom bar */}
+          <div className="border-t border-cream/10 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-mist/70">
+              © 2026 LUBIRA AI · Tous droits réservés
+            </p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-mist/70">
+              Charte v1.0 · Mai 2026
+            </p>
           </div>
         </div>
       </footer>

@@ -1,76 +1,62 @@
 import { motion } from 'framer-motion';
 import { HardHat, BarChart2, Briefcase } from 'lucide-react';
 
-export default function Audience() {
-  const audiences = [
-    {
-      num: "01",
-      icon: HardHat,
-      title: "Industrie Minière & BTP",
-      desc: "Des rapports de chantier manuels, des documents de conformité OCDE en retard, des données éparpillées dans des fichiers Excel."
-    },
-    {
-      num: "02",
-      icon: BarChart2,
-      title: "Services Financiers & Assurances",
-      desc: "Des polices d'assurance traitées à la main, des échéances manquées, des reporting investisseurs qui prennent des jours à préparer."
-    },
-    {
-      num: "03",
-      icon: Briefcase,
-      title: "Cabinets Professionnels & ONG",
-      desc: "Des processus administratifs chronophages qui mobilisent vos équipes sur des tâches sans valeur ajoutée."
-    }
-  ];
+const audiences = [
+  { num: '01', icon: HardHat, title: 'Industrie minière & BTP', desc: "Rapports de chantier manuels, documents de conformité OCDE en retard, données éparpillées dans des fichiers Excel." },
+  { num: '02', icon: BarChart2, title: 'Services financiers & assurances', desc: "Polices traitées à la main, échéances manquées, reporting investisseurs qui prend des jours à préparer." },
+  { num: '03', icon: Briefcase, title: 'Cabinets professionnels & ONG', desc: "Processus administratifs chronophages qui mobilisent vos équipes sur des tâches sans valeur ajoutée." },
+];
 
+export default function Audience() {
   return (
-    <section className="bg-white py-24 md:py-32 border-b border-gray-border">
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8">
-        
-        <div className="mb-16 md:mb-24">
-          <p className="eyebrow mb-6">NOS CLIENTS</p>
-          <h2 className="h2-fluid max-w-3xl">
-            Conçu pour les entreprises<br/>qui n'ont pas le temps d'attendre.
-          </h2>
+    <section className="bg-paper section-y border-b border-ink/8">
+      <div className="container-x">
+        <div className="grid md:grid-cols-12 gap-8 mb-16 md:mb-20 items-end">
+          <div className="md:col-span-4">
+            <span className="eyebrow">// 01 — Nos clients</span>
+          </div>
+          <div className="md:col-span-8">
+            <h2 className="display-md max-w-3xl">
+              Conçu pour les entreprises{' '}
+              <em className="accent-italic">qui n'ont pas le temps d'attendre</em>.
+            </h2>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-24">
-          {audiences.map((item, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10 mb-20">
+          {audiences.map((item, i) => (
+            <motion.div
+              key={item.num}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
               className="flex flex-col"
             >
               <div className="flex items-center gap-4 mb-6">
-                <span className="font-inter font-bold text-red-accent text-[14px]">{item.num}</span>
-                <div className="w-12 h-px bg-gray-border"></div>
-                <item.icon className="w-6 h-6 text-black-strong" strokeWidth={1.5} />
+                <span className="num-tag">// {item.num}</span>
+                <div className="flex-1 h-px bg-ink/15"></div>
+                <item.icon className="w-5 h-5 text-copper-deep" strokeWidth={1.5} />
               </div>
-              <h3 className="font-playfair font-bold text-[20px] text-black-strong mb-4 leading-tight">
+              <h3 className="font-serif text-[26px] leading-[1.1] text-ink mb-4">
                 {item.title}
               </h3>
-              <p className="font-inter text-[14px] text-gray-body leading-relaxed">
-                {item.desc}
-              </p>
+              <p className="body-sm text-slate">{item.desc}</p>
             </motion.div>
           ))}
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="border-t border-b border-gray-border py-12 text-center"
+          transition={{ duration: 0.5 }}
+          className="border-y border-ink/15 py-12 text-center"
         >
-          <p className="font-playfair italic text-[24px] md:text-[28px] text-black-strong leading-relaxed max-w-4xl mx-auto">
-            "Si votre équipe passe plus de 2 heures par semaine sur une tâche répétitive — nous pouvons l'automatiser."
+          <p className="font-serif italic text-[24px] md:text-[32px] text-ink leading-snug max-w-4xl mx-auto">
+            « Si votre équipe passe plus de 2 heures par semaine sur une tâche répétitive — nous pouvons l'<span className="accent-italic">automatiser</span>. »
           </p>
         </motion.div>
-
       </div>
     </section>
   );
