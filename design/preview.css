@@ -1,59 +1,12 @@
-@import "tailwindcss";
-
 /* ============================================================
-   Tailwind v4 — @theme: maps CSS vars → utility classes
-   Enables: text-ink, bg-cream, bg-copper, border-copper-deep…
-   ============================================================ */
-@theme {
-  --color-ink:         #0E0F12;
-  --color-ink-soft:    #1C1D22;
-  --color-graphite:    #2A2B30;
-  --color-slate:       #6B6660;
-  --color-stone:       #A39E96;
-  --color-mist:        #D6CFC3;
-  --color-cream:       #F5F0E8;
-  --color-paper:       #FBF8F2;
-  --color-sand:        #E8DDC9;
-  --color-copper:      #B8633A;
-  --color-copper-deep: #8B4A2B;
-  --color-copper-glow: #D88A5E;
-  --color-signal:      #2F6B4F;
-  --color-success:     #4A7C59;
-  --color-warning:     #C99846;
-  --color-error:       #A4453A;
-  --color-alert:       #B33A2A;
-
-  --font-serif: "Instrument Serif", serif;
-  --font-sans:  "Geist", system-ui, sans-serif;
-  --font-mono:  "Geist Mono", monospace;
-
-  --radius-sm:   6px;
-  --radius-md:   10px;
-  --radius-lg:   14px;
-  --radius-xl:   22px;
-  --radius-pill: 999px;
-}
-
-/* ============================================================
-   LUBIRA AI — Design Tokens v1.0 (Charte Graphique)
+   LUBIRA AI — Preview stylesheet (charte v1.0)
    ============================================================ */
 :root{
-  /* Palette — Cuivre × Encre × Crème */
-  --ink:#0E0F12; --ink-soft:#1C1D22; --graphite:#2A2B30;
+  --ink:#0E0F12; --ink-soft:#1A1B1F;
   --slate:#6B6660; --stone:#A39E96; --mist:#D6CFC3;
   --cream:#F5F0E8; --paper:#FBF8F2; --sand:#E8DDC9;
   --copper:#B8633A; --copper-deep:#8B4A2B; --copper-glow:#D88A5E;
-  --signal:#2F6B4F; --alert:#B33A2A;
   --success:#4A7C59; --warning:#C99846; --error:#A4453A;
-
-  /* Radii — strict 4-level scale */
-  --r-sm:6px; --r-md:10px; --r-lg:14px; --r-xl:22px; --r-pill:999px;
-
-  /* Shadows */
-  --shadow-card:0 1px 0 rgba(14,15,18,.04), 0 1px 2px rgba(14,15,18,.06);
-  --shadow-lift:0 1px 0 rgba(14,15,18,.04), 0 12px 32px -12px rgba(14,15,18,.18);
-
-  --maxw:1200px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;scroll-behavior:smooth}
@@ -77,47 +30,11 @@ input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 em.acc, .acc{font-style:italic;color:var(--copper-deep);font-family:"Instrument Serif",serif}
 .on-dark em.acc, .on-dark .acc{color:var(--copper-glow)}
 
-/* ========== BUTTONS — Charte Graphique v1.0 ==========
-   4 tiers: Primary (ink), Accent (copper), Ghost (border), Link (underline)
-   All pill-shaped (999px). Fixed heights: 36px SM, 44px MD, 52px LG.
-   Rule: max 1 primary CTA visible per viewport. */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  font-family:"Geist",sans-serif;font-weight:500;font-size:15px;letter-spacing:-.005em;
-  padding:13px 22px;border-radius:var(--r-pill);border:1px solid transparent;
-  cursor:pointer;line-height:1;text-decoration:none;white-space:nowrap;
-  transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
-}
-.btn:active{transform:translateY(1px)}
-.btn .arrow{font-family:"Geist Mono",monospace;font-size:14px;display:inline-block;transition:transform .2s ease}
-.btn:hover .arrow{transform:translateX(3px)}
-
-/* Tier 1 — Primaire: Ink bg, Cream text (main CTA) */
-.btn--primary{background:var(--ink);color:var(--cream)}
-.btn--primary:hover{background:var(--copper-deep)}
-
-/* Tier 2 — Accent: Copper bg, Paper text (high-conversion only) */
-.btn--accent{background:var(--copper);color:var(--paper)}
-.btn--accent:hover{background:var(--copper-deep)}
-
-/* Tier 3 — Ghost: Transparent, border (secondary actions) */
-.btn--ghost{background:transparent;color:var(--ink);border-color:rgba(14,15,18,.18)}
-.btn--ghost:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
-
-/* Tier 4 — Link: Transparent, underline (tertiary in text) */
-.btn--link{background:transparent;color:var(--ink);padding:13px 4px;border-radius:0;border-bottom:1px solid var(--ink)}
-.btn--link:hover{color:var(--copper-deep);border-color:var(--copper-deep)}
-
-/* Size modifiers */
-.btn--sm{padding:9px 16px;font-size:13px}
-.btn--lg{padding:18px 28px;font-size:17px}
-.btn[disabled]{opacity:.4;cursor:not-allowed}
-
-/* Legacy aliases (backward compat with preview.html classes) */
-.btn-primary{background:var(--ink);color:var(--cream)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:500;font-size:14px;line-height:1;padding:14px 22px;border-radius:8px;transition:all .2s;cursor:pointer;border:none;white-space:nowrap}
+.btn-primary{background:var(--copper);color:var(--paper)}
 .btn-primary:hover{background:var(--copper-deep)}
-.btn-secondary{background:transparent;color:var(--ink);border-color:rgba(14,15,18,.18)}
-.btn-secondary:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.btn-secondary{background:transparent;color:var(--ink);border:1px solid rgba(14,15,18,.15)}
+.btn-secondary:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .btn-on-dark{background:var(--cream);color:var(--ink)}
 .btn-on-dark:hover{background:var(--paper)}
 
@@ -131,16 +48,11 @@ em.acc, .acc{font-style:italic;color:var(--copper-deep);font-family:"Instrument 
 /* HEADER */
 header.nav{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(14,15,18,.08);padding:18px 0}
 header.nav .row{display:flex;align-items:center;justify-content:space-between;gap:32px}
-.brand{display:flex;align-items:center;gap:16px;text-decoration:none}
-/* Symbole (L + Soleil) */
-.brand .mark-sun {display:flex;flex-direction:column;align-items:flex-start}
-.brand .mark-sun .disc {width:16px;height:16px;border-radius:50%;background:var(--copper);margin-bottom:-4px;margin-left:8px}
-.brand .mark-sun .L {display:flex;align-items:flex-end;color:var(--ink);font-family:"Instrument Serif",serif;font-size:42px;line-height:0.78;letter-spacing:-.04em}
-
-/* Wordmark */
-.brand .wordmark {display:flex;align-items:baseline;gap:6px;color:var(--ink);font-family:"Instrument Serif",serif;font-weight:400}
-.brand .wordmark .name {font-size:28px;line-height:1;letter-spacing:-.02em}
-.brand .wordmark .ai {font-style:italic;color:var(--copper)}nav.primary{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:400;color:var(--ink)}
+.brand{display:flex;align-items:center;gap:14px;font-family:"Instrument Serif",serif;font-size:24px;line-height:1;color:var(--ink)}
+.brand-mark{width:38px;height:38px;flex-shrink:0}
+.brand-word{display:flex;align-items:baseline;gap:8px}
+.brand-word em{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-deep);font-style:normal}
+nav.primary{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:400;color:var(--ink)}
 nav.primary a{position:relative;padding:6px 0}
 nav.primary a:hover{color:var(--copper-deep)}
 @media(max-width:900px){nav.primary{display:none}}
@@ -190,7 +102,7 @@ nav.primary a:hover{color:var(--copper-deep)}
 /* TRUST */
 .trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
 @media(max-width:800px){.trust-grid{grid-template-columns:1fr;gap:24px}}
-.trust-item{display:flex;gap:18px;align-items:flex-start;background:var(--paper);border:1px solid rgba(14,15,18,.08);border-radius:var(--r-lg);padding:28px;box-shadow:var(--shadow-card)}
+.trust-item{display:flex;gap:18px;align-items:flex-start;background:var(--paper);border:1px solid rgba(14,15,18,.08);border-radius:14px;padding:28px}
 .trust-item .check{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:var(--copper);color:var(--paper);display:grid;place-items:center;font-size:18px;font-weight:600}
 .trust-item h3{font-family:"Geist",sans-serif;font-size:16px;font-weight:600;letter-spacing:-.005em;margin-bottom:8px;line-height:1.3}
 .trust-item p{font-size:14.5px;color:var(--slate);line-height:1.6}
@@ -210,8 +122,8 @@ nav.primary a:hover{color:var(--copper-deep)}
 /* SERVICES */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 @media(max-width:900px){.services-grid{grid-template-columns:1fr}}
-.service-card{background:var(--paper);border:1px solid rgba(14,15,18,.08);border-radius:var(--r-xl);padding:36px;display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;box-shadow:var(--shadow-card)}
-.service-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:rgba(14,15,18,.14)}
+.service-card{background:var(--paper);border:1px solid rgba(14,15,18,.08);border-radius:20px;padding:36px;display:flex;flex-direction:column;transition:all .25s}
+.service-card:hover{transform:translateY(-4px);border-color:rgba(14,15,18,.16);box-shadow:0 16px 40px -16px rgba(14,15,18,.18)}
 .service-card .num-tag{margin-bottom:20px}
 .service-card h3{font-size:28px;line-height:1.1;margin-bottom:14px;letter-spacing:-.01em}
 .service-card .desc{font-size:14.5px;color:var(--slate);line-height:1.6;margin-bottom:24px}
@@ -219,18 +131,8 @@ nav.primary a:hover{color:var(--copper-deep)}
 .service-card li{font-size:14px;padding:8px 0;border-bottom:1px dashed rgba(14,15,18,.08);color:var(--ink);display:flex;align-items:center;gap:10px}
 .service-card li:last-child{border-bottom:0}
 .service-card li::before{content:"→";color:var(--copper);font-family:"Geist Mono",monospace}
-
-/* Service cards — copper numbered accent on hover */
-.service-card{border-top:3px solid var(--sand);transition:border-top-color .25s, transform .25s, box-shadow .25s}
-.service-card:hover{border-top-color:var(--copper);transform:translateY(-2px);box-shadow:var(--shadow-lift)}
-
-/* Dark mode overrides for Services */
-.section.dark .service-card{background:var(--graphite);border-color:rgba(214,207,195,.1);border-top-color:var(--graphite);box-shadow:none}
-.section.dark .service-card:hover{border-top-color:var(--copper-glow);border-color:rgba(214,207,195,.2)}
-.section.dark .service-card h3{color:var(--cream)}
-.section.dark .service-card .desc{color:var(--mist)}
-.section.dark .service-card li{color:var(--mist);border-bottom-color:rgba(214,207,195,.1)}
-.section.dark .service-card li::before{color:var(--copper-glow)}
+.service-card .price{font-family:"Instrument Serif",serif;font-size:36px;color:var(--copper-deep);line-height:1;margin-bottom:6px}
+.service-card .price .note{font-family:"Geist Mono",monospace;font-size:10px;letter-spacing:.16em;color:var(--slate);text-transform:uppercase;display:block;margin-top:8px}
 
 /* ROI */
 .roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
@@ -298,7 +200,7 @@ nav.primary a:hover{color:var(--copper-deep)}
 .plan.featured .price{color:var(--copper-deep)}
 .plan .subprice{font-size:12px;color:var(--slate);margin-bottom:24px;min-height:18px}
 .plan p.desc{font-size:14px;color:var(--slate);line-height:1.6;flex:1;margin-bottom:24px}
-.plan .cta{display:block;text-align:center;padding:13px;border-radius:var(--r-pill);font-size:14px;font-weight:500;transition:all .2s}
+.plan .cta{display:block;text-align:center;padding:13px;border-radius:8px;font-size:14px;font-weight:500;transition:all .2s}
 .plan .cta.solid{background:var(--copper);color:var(--paper)}
 .plan .cta.solid:hover{background:var(--copper-deep)}
 .plan .cta.outline{border:1px solid var(--ink);color:var(--ink)}
@@ -334,7 +236,7 @@ nav.primary a:hover{color:var(--copper-deep)}
 .form-field input,.form-field select,.form-field textarea{width:100%;padding:12px 14px;border:1px solid rgba(14,15,18,.12);border-radius:6px;background:var(--paper);font-size:14px;outline:none;transition:border-color .2s}
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--copper)}
 .form-field textarea{resize:none;min-height:100px}
-.form-card button[type=submit]{width:100%;padding:16px;background:var(--ink);color:var(--cream);font-size:15px;font-weight:500;border-radius:var(--r-pill);transition:background .2s;margin-top:8px}
+.form-card button[type=submit]{width:100%;padding:16px;background:var(--copper);color:var(--paper);font-size:15px;font-weight:500;border-radius:8px;transition:background .2s;margin-top:8px}
 .form-card button[type=submit]:hover{background:var(--copper-deep)}
 
 /* FOOTER */
@@ -343,9 +245,8 @@ footer.site h4{font-family:"Geist",sans-serif;font-size:11px;font-weight:600;col
 footer.site .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
 @media(max-width:900px){footer.site .grid{grid-template-columns:1fr 1fr;gap:40px}}
 @media(max-width:560px){footer.site .grid{grid-template-columns:1fr}}
-footer.site .brand .mark-sun .L {color:var(--cream)}
-footer.site .brand .wordmark {color:var(--cream)}
-footer.site .brand .wordmark .ai {color:var(--copper-glow)}
+footer.site .brand{color:var(--cream);margin-bottom:18px}
+footer.site .brand .brand-word{color:var(--cream)}
 footer.site .col p{font-size:14px;color:var(--mist);line-height:1.6;max-width:280px}
 footer.site .col ul{list-style:none}
 footer.site .col li{padding:5px 0;font-size:14px}
@@ -363,97 +264,3 @@ footer.site .bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1
   .hero{padding:48px 0 72px}
   .hero h1{font-size:44px}
 }
-
-/* ============================================================
-   TYPOGRAPHY UTILITIES (used by About / Projects pages)
-   ============================================================ */
-.display-lg{font-family:"Instrument Serif",serif;font-weight:400;font-size:clamp(40px,6vw,72px);line-height:1.02;letter-spacing:-.02em;color:var(--ink)}
-.body-md{font-family:"Geist",sans-serif;font-size:16px;line-height:1.65;color:var(--slate)}
-.body-sm{font-family:"Geist",sans-serif;font-size:14px;line-height:1.6;color:var(--slate)}
-.font-serif{font-family:"Instrument Serif",serif}
-.accent-italic{font-style:italic;color:var(--copper-deep);font-family:"Instrument Serif",serif}
-
-/* ============================================================
-   SECTION BACKGROUND VARIANTS — full palette
-   ============================================================ */
-.section.sand{background:var(--sand)}
-.section.graphite{background:var(--graphite);color:var(--cream)}
-.section.graphite h1,.section.graphite h2,.section.graphite h3,.section.graphite h4{color:var(--cream)}
-
-/* Sand separators between sections */
-hr.sand{border:0;height:1px;background:var(--sand);margin:0}
-
-/* ============================================================
-   COLOR-ENRICHED COMPONENTS
-   ============================================================ */
-
-/* Audience cards — alternating copper left-border */
-.audience-card{border-left:3px solid transparent;padding-left:20px;transition:border-color .2s}
-.audience-card:nth-child(1){border-left-color:var(--copper)}
-.audience-card:nth-child(2){border-left-color:var(--copper-glow)}
-.audience-card:nth-child(3){border-left-color:var(--copper-deep)}
-
-/* Trust items — copper checkmark with sand bg */
-.trust-item{background:var(--paper);border:1px solid var(--sand)}
-.trust-item .check{background:var(--copper);color:var(--paper)}
-
-/* Process step dots — use full copper spectrum */
-.process-step:nth-child(1) .dot{background:var(--copper-glow)}
-.process-step:nth-child(2) .dot{background:var(--copper)}
-.process-step:nth-child(3) .dot{background:var(--copper-deep)}
-.process-step:nth-child(4) .dot{background:var(--graphite);border:2px solid var(--copper-glow)}
-
-
-/* ROI results panel — use signal green for savings */
-.roi-row.savings .num{color:#7EC8A4}
-.roi-results .roi-row:first-child .num{color:var(--copper-glow)}
-.roi-results .roi-row:last-child .num{color:var(--mist)}
-
-/* Case study result values */
-.case-content .result:nth-child(1) .v{color:var(--copper-deep)}
-.case-content .result:nth-child(2) .v{color:var(--copper)}
-.case-content .result:nth-child(3) .v{color:var(--signal)}
-
-/* Pricing — featured plan gets copper-deep price, others get ink */
-.plan .price{color:var(--ink)}
-.plan.featured{background:var(--paper);border-color:var(--copper)}
-.plan.featured .price{color:var(--copper-deep)}
-
-/* FAQ — open item question turns copper */
-.faq-item.open .faq-q .text{color:var(--copper-deep)}
-.faq-a p{border-left:2px solid var(--sand);padding-left:16px}
-
-/* Stat/callout cards — copper stat panels */
-.stat-panel{background:var(--cream);border:1px solid var(--sand);border-top:3px solid var(--copper);border-radius:var(--r-xl);padding:32px}
-.stat-panel .value{font-family:"Instrument Serif",serif;font-size:52px;color:var(--copper-deep);line-height:1}
-.stat-panel .label{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-top:8px}
-
-/* Callout/alert chips */
-.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:var(--r-pill);font-family:"Geist Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
-.chip.copper{background:var(--copper);color:var(--paper)}
-.chip.ink{background:var(--ink);color:var(--cream)}
-.chip.sand{background:var(--sand);color:var(--copper-deep)}
-.chip.signal{background:var(--signal);color:var(--paper)}
-.chip.success{background:var(--success);color:var(--paper)}
-.chip.warning{background:var(--warning);color:var(--ink)}
-.chip.error{background:var(--error);color:var(--paper)}
-
-/* About/Projects page utilities */
-.border-copper{border-color:var(--copper)}
-.border-sand{border-color:var(--sand)}
-.text-copper-deep{color:var(--copper-deep)}
-.text-copper{color:var(--copper)}
-.text-signal{color:var(--signal)}
-.bg-paper{background:var(--paper)}
-.bg-cream{background:var(--cream)}
-.bg-copper{background:var(--copper)}
-.bg-ink{background:var(--ink)}
-.bg-sand{background:var(--sand)}
-.text-ink{color:var(--ink)}
-.text-slate{color:var(--slate)}
-.text-mist{color:var(--mist)}
-.text-stone{color:var(--stone)}
-
-/* WhatsApp button */
-.btn--whatsapp{background:#25D366;color:#fff;border-radius:var(--r-pill)}
-.btn--whatsapp:hover{background:#128C7E}

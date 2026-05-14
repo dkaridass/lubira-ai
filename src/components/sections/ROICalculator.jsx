@@ -1,115 +1,84 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function ROICalculator() {
-  const [employees, setEmployees] = useState(3);
-  const [hoursPerWeek, setHoursPerWeek] = useState(10);
-  const [salary, setSalary] = useState(500);
-  const [annualCost, setAnnualCost] = useState(0);
-  const lubiraCost = 800;
+  const [hours, setHours] = useState(15);
+  const [people, setPeople] = useState(3);
+  const [rate, setRate] = useState(25);
 
-  useEffect(() => {
-    const hourlyRate = salary / 160;
-    setAnnualCost(Math.round(hoursPerWeek * employees * 52 * hourlyRate));
-  }, [employees, hoursPerWeek, salary]);
+  const hSaved = hours * people * 52 * 0.7;
+  const errCost = hours * people * 52 * rate * 0.12;
+  const savings = hSaved * rate + errCost;
+  const invest = Math.max(2500, hours * people * 100);
+  
+  const roi = (savings / invest).toFixed(1).replace('.', ',');
 
-  const savings = Math.max(0, annualCost - lubiraCost);
+  const fmt = (n) => Math.round(n).toLocaleString('fr-FR').replace(/,/g, ' ');
 
   return (
-    <section className="bg-cream section-y border-b border-ink/8">
+    <section className="section cream">
       <div className="container-x">
-        <div className="mb-16">
-          <span className="eyebrow">// 09 — Calculateur de ROI</span>
-          <h2 className="display-md max-w-2xl mt-6">
-            Combien vous coûte{' '}
-            <em className="accent-italic">votre processus manuel</em> ?
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          {/* Inputs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="section-head"
+        >
+          <span className="eyebrow">Calculez votre ROI</span>
+          <h2>Combien d'heures votre équipe<br/>perd-elle <em className="acc">chaque mois</em> ?</h2>
+          <p className="lead">Ajustez les paramètres ci-dessous. Le calcul se met à jour en temps réel.</p>
+        </motion.div>
+        
+        <div className="roi-grid">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="space-y-8"
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <Slider label="Nombre d'employés concernés" value={employees} display={employees} min={1} max={50}
-              onChange={(v) => setEmployees(v)} />
-
-            <Slider label="Heures par semaine sur cette tâche" value={hoursPerWeek} display={`${hoursPerWeek}h`} min={1} max={40}
-              onChange={(v) => setHoursPerWeek(v)} />
-
-            <div>
-              <label className="block font-sans font-semibold text-[14px] text-ink mb-2">
-                Salaire mensuel moyen (USD)
-              </label>
-              <input
-                type="number" min="100" step="50"
-                value={salary}
-                onChange={(e) => setSalary(parseInt(e.target.value) || 0)}
-                className="w-full p-4 border border-ink/15 rounded-md bg-paper font-sans text-[15px] text-ink outline-none focus:border-copper transition-colors"
-              />
+            <div className="roi-input">
+              <div className="row"><label>Heures perdues par semaine</label><span className="val">{hours}h</span></div>
+              <input type="range" min="2" max="60" step="1" value={hours} onChange={(e) => setHours(Number(e.target.value))} />
             </div>
-          </motion.div>
-
-          {/* Results */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.15 }}
-            className="bg-paper border border-ink/10 rounded-2xl p-8 md:p-10"
-          >
-            <div className="mb-8">
-              <p className="num-tag mb-2 text-slate">// Coût annuel de cette tâche manuelle</p>
-              <p className="font-serif text-[44px] md:text-[52px] text-copper-deep leading-none">
-                {annualCost.toLocaleString()} USD
-              </p>
+            <div className="roi-input">
+              <div className="row"><label>Personnes concernées</label><span className="val">{people}</span></div>
+              <input type="range" min="1" max="20" step="1" value={people} onChange={(e) => setPeople(Number(e.target.value))} />
             </div>
-
-            <div className="mb-8">
-              <p className="num-tag mb-2 text-slate">// Ce que LUBIRA AI vous coûte</p>
-              <p className="body-lg text-ink">
-                À partir de {lubiraCost} USD — une seule fois.
-              </p>
+            <div className="roi-input">
+              <div className="row"><label>Coût horaire moyen ($)</label><span className="val">{rate} $</span></div>
+              <input type="range" min="5" max="120" step="5" value={rate} onChange={(e) => setRate(Number(e.target.value))} />
             </div>
-
-            <div className="mb-8 pt-8 border-t border-ink/10">
-              <p className="num-tag mb-2 text-slate">// Vous économisez (Année 1)</p>
-              <p className="font-serif text-[36px] md:text-[40px] text-success leading-none">
-                {savings.toLocaleString()} USD
-              </p>
-            </div>
-
-            <p className="body-sm text-slate italic mb-8">
-              Ces calculs sont conservateurs. Ils n'incluent pas les erreurs humaines, les délais, ni le stress de vos équipes.
+            <p style={{ fontSize: '13px', color: 'var(--slate)', marginTop: '24px', lineHeight: '1.6' }}>
+              → Sur la base des cas clients HNM Mining, FundEspoir et Cabinet Kalala. Hypothèse : 70&nbsp;% du temps automatisable, 90&nbsp;% de réduction des erreurs.
             </p>
-
-            <a href="#contact" className="btn-primary w-full justify-center">
-              Réserver mon audit gratuit <ArrowUpRight className="w-4 h-4" />
-            </a>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="roi-results"
+          >
+            <div className="roi-row">
+              <div className="lbl">Heures économisées / an</div>
+              <div className="num">{fmt(hSaved)} h</div>
+              <div className="sub">≈ 1 emploi à plein temps libéré</div>
+            </div>
+            <div className="roi-row savings">
+              <div className="lbl">Économies annuelles</div>
+              <div className="num">{fmt(savings)} $</div>
+              <div className="sub">Coût RH + erreurs évitées</div>
+            </div>
+            <div className="roi-row">
+              <div className="lbl">ROI sur 12 mois</div>
+              <div className="num">×&nbsp;{roi}</div>
+              <div className="sub">Investissement remboursé en moins de 30 jours</div>
+            </div>
           </motion.div>
         </div>
       </div>
     </section>
-  );
-}
-
-function Slider({ label, value, display, min, max, onChange }) {
-  return (
-    <div>
-      <div className="flex justify-between mb-3">
-        <label className="font-sans font-semibold text-[14px] text-ink">{label}</label>
-        <span className="font-mono text-[14px] text-copper-deep">{display}</span>
-      </div>
-      <input
-        type="range" min={min} max={max} value={value}
-        onChange={(e) => onChange(parseInt(e.target.value))}
-        className="w-full h-1 bg-ink/15 rounded appearance-none cursor-pointer accent-copper"
-      />
-    </div>
   );
 }

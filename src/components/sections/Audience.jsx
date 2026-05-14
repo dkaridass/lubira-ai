@@ -1,47 +1,47 @@
 import { motion } from 'framer-motion';
-import { HardHat, BarChart2, Briefcase } from 'lucide-react';
-
-const audiences = [
-  { num: '01', icon: HardHat, title: 'Industrie minière & BTP', desc: "Rapports de chantier manuels, documents de conformité OCDE en retard, données éparpillées dans des fichiers Excel." },
-  { num: '02', icon: BarChart2, title: 'Services financiers & assurances', desc: "Polices traitées à la main, échéances manquées, reporting investisseurs qui prend des jours à préparer." },
-  { num: '03', icon: Briefcase, title: 'Cabinets professionnels & ONG', desc: "Processus administratifs chronophages qui mobilisent vos équipes sur des tâches sans valeur ajoutée." },
-];
 
 export default function Audience() {
-  return (
-    <section className="bg-paper section-y border-b border-ink/8">
-      <div className="container-x">
-        <div className="grid md:grid-cols-12 gap-8 mb-16 md:mb-20 items-end">
-          <div className="md:col-span-4">
-            <span className="eyebrow">// 01 — Nos clients</span>
-          </div>
-          <div className="md:col-span-8">
-            <h2 className="display-md max-w-3xl">
-              Conçu pour les entreprises{' '}
-              <em className="accent-italic">qui n'ont pas le temps d'attendre</em>.
-            </h2>
-          </div>
-        </div>
+  const cards = [
+    { n: '01', icon: '⛏', color: 'var(--copper)', title: 'Industrie Minière & BTP', desc: 'Rapports de chantier manuels, documents de conformité OCDE en retard, données éparpillées dans des fichiers Excel.', tag: 'Mines · Katanga' },
+    { n: '02', icon: '◇', color: 'var(--copper-glow)', title: 'Services Financiers & Assurances', desc: 'Polices d\'assurance traitées à la main, échéances manquées, reporting investisseurs qui prend des jours à préparer.', tag: 'Finance · Kinshasa' },
+    { n: '03', icon: '◧', color: 'var(--copper-deep)', title: 'Cabinets Professionnels & ONG', desc: 'Processus administratifs chronophages qui mobilisent vos équipes sur des tâches sans valeur ajoutée.', tag: 'Conseil · ONG' },
+  ];
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10 mb-20">
-          {audiences.map((item, i) => (
+  return (
+    <section className="section" style={{ background: 'var(--paper)' }}>
+      <div className="container-x">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="section-head"
+        >
+          <span className="eyebrow">Nos clients</span>
+          <h2>Conçu pour les entreprises<br/>qui n'ont pas le temps <em className="acc">d'attendre</em>.</h2>
+        </motion.div>
+
+        <div className="audience-grid">
+          {cards.map((c, i) => (
             <motion.div
-              key={item.num}
+              key={i}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="flex flex-col"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="audience-card"
+              style={{ borderLeftColor: c.color }}
             >
-              <div className="flex items-center gap-4 mb-6">
-                <span className="num-tag">// {item.num}</span>
-                <div className="flex-1 h-px bg-ink/15"></div>
-                <item.icon className="w-5 h-5 text-copper-deep" strokeWidth={1.5} />
+              <div className="head">
+                <span className="num-tag">{`// ${c.n}`}</span>
+                <span className="line"></span>
+                <span className="icon" style={{ color: c.color }}>{c.icon}</span>
               </div>
-              <h3 className="font-serif text-[26px] leading-[1.1] text-ink mb-4">
-                {item.title}
-              </h3>
-              <p className="body-sm text-slate">{item.desc}</p>
+              <h3>{c.title}</h3>
+              <p>{c.desc}</p>
+              <div style={{ marginTop: '16px' }}>
+                <span className="chip sand">{c.tag}</span>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -50,12 +50,10 @@ export default function Audience() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="border-y border-ink/15 py-12 text-center"
+          transition={{ duration: 0.6 }}
+          className="audience-quote"
         >
-          <p className="font-serif italic text-[24px] md:text-[32px] text-ink leading-snug max-w-4xl mx-auto">
-            « Si votre équipe passe plus de 2 heures par semaine sur une tâche répétitive — nous pouvons l'<span className="accent-italic">automatiser</span>. »
-          </p>
+          <p>« Si votre équipe passe plus de <em className="acc">2 heures par semaine</em> sur une tâche répétitive — nous pouvons l'automatiser. »</p>
         </motion.div>
       </div>
     </section>
