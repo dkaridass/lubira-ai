@@ -328,6 +328,7 @@ nav.primary a:hover{color:var(--copper-deep)}
 .steps-mini .step{display:flex;gap:14px;font-size:14px;align-items:center}
 .steps-mini .step .num{font-family:"Geist Mono",monospace;font-size:12px;color:var(--copper-deep);font-weight:600}
 .form-card{background:var(--paper);border:1px solid rgba(14,15,18,.1);border-top:3px solid var(--copper);border-radius:12px;padding:36px}
+.form-card.success-card{text-align:center;padding:64px 36px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
 @media(max-width:600px){.form-row{grid-template-columns:1fr}}
 .form-field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
@@ -457,3 +458,44 @@ hr.sand{border:0;height:1px;background:var(--sand);margin:0}
 /* WhatsApp button */
 .btn--whatsapp{background:#25D366;color:#fff;border-radius:var(--r-pill)}
 .btn--whatsapp:hover{background:#128C7E}
+
+/* ============================================================
+   MOBILE RESPONSIVENESS (max-width: 600px)
+   ============================================================ */
+@media(max-width:600px){
+  /* Header scale down */
+  .brand .mark-sun .L { font-size: 32px; }
+  .brand .mark-sun .disc { width: 12px; height: 12px; margin-bottom: -2px; }
+  .brand .wordmark .name { font-size: 22px; }
+  header.nav .row { gap: 16px; }
+  .btn--sm { padding: 8px 12px; font-size: 13px; }
+
+  /* Hero adjustments */
+  .hero-art { padding: 24px; border-radius: 16px; }
+  .hero-art .stat-num { font-size: 72px; }
+  .hero .ctas { flex-direction: column; width: 100%; }
+  .hero .ctas .btn { width: 100%; }
+  
+  /* Process */
+  .process-cta { padding: 24px; gap: 20px; flex-direction: column; align-items: flex-start; }
+  .process-cta p { font-size: 20px; }
+  
+  /* ROI */
+  .roi-results { padding: 24px; }
+  .roi-row .num { font-size: 36px; }
+
+  /* Case study dashboard */
+  .dashboard .body { grid-template-columns: 1fr; padding: 12px; }
+  .dashboard .sidebar { display: none; }
+  .case-content .results { grid-template-columns: 1fr 1fr; }
+  .case-content .result:last-child { grid-column: span 2; }
+  
+  /* Pricing */
+  .plan { padding: 24px; }
+  
+  /* Contact Form */
+  .form-card { padding: 24px; }
+  .form-card.success-card { padding: 40px 24px; }
+  .step2-buttons { flex-direction: column; width: 100%; }
+  .step2-buttons button { width: 100%; }
+}

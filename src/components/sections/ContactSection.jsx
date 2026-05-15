@@ -306,8 +306,7 @@ export default function ContactSection() {
                   key="success"
                   initial={{ opacity: 0, scale: .95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="form-card"
-                  style={{ textAlign: 'center', padding: '64px 36px' }}
+                  className="form-card success-card"
                 >
                   <motion.div
                     initial={{ scale: 0 }}
@@ -349,7 +348,7 @@ export default function ContactSection() {
                 </motion.div>
 
               ) : (
-                <div className="form-card" style={{ padding: '32px' }}>
+                <div className="form-card">
 
                   {/* Step indicator */}
                   <div style={{
@@ -517,7 +516,7 @@ export default function ContactSection() {
                           <span>🎯 12 entreprises confiantes</span>
                         </div>
 
-                        <div style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
+                        <div className="step2-buttons" style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
                           <button
                             type="button"
                             onClick={() => setStep(1)}
