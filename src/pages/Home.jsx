@@ -6,6 +6,7 @@ import Process from '../components/sections/Process';
 import Services from '../components/sections/Services';
 import ROICalculator from '../components/sections/ROICalculator';
 import CaseStudy from '../components/sections/CaseStudy';
+import Pricing from '../components/sections/Pricing';
 import FAQ from '../components/sections/FAQ';
 import ContactSection from '../components/sections/ContactSection';
 
@@ -64,6 +65,8 @@ export default function Home() {
       <ROICalculator />
       <Hr />
       <CaseStudy />
+      <Hr />
+      <Pricing />
       <Hr />
       <FAQ />
       <ContactSection />

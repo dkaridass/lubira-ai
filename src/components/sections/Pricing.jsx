@@ -26,14 +26,14 @@ export default function Pricing() {
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.1 }} className="plan featured">
             <div className="badge">Plus demandé</div>
             <div className="label">// Sprint 48h</div>
-            <div className="price">à partir de 2 500 $</div>
+            <div className="price">Sur consultation</div>
             <div className="subprice">Livré en 2 jours ouvrés</div>
             <p className="desc">Une automatisation ciblée, livrée et déployée en 48h. Idéal pour démarrer rapidement avec un cas concret.</p>
             <a href="#contact" className="cta solid">Démarrer →</a>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.15 }} className="plan">
             <div className="label">// Sprint Agent IA</div>
-            <div className="price">à partir de 4 500 $</div>
+            <div className="price">Sur consultation</div>
             <div className="subprice">Livré en 5 jours</div>
             <p className="desc">Assistant IA conversationnel sur mesure, entraîné sur vos données, intégré à vos canaux (web, WhatsApp, Teams).</p>
             <a href="#contact" className="cta outline">Démarrer →</a>
@@ -47,7 +47,7 @@ export default function Pricing() {
           </motion.div>
         </div>
         <p style={{ textAlign: 'center', fontSize: '14px', color: 'var(--slate)', maxWidth: '680px', margin: '0 auto' }}>
-          Modalités&nbsp;: 50&nbsp;% à la commande · 50&nbsp;% à la livraison · Maintenance optionnelle à 250&nbsp;$ / mois.
+          Modalités&nbsp;: 50&nbsp;% à la commande · 50&nbsp;% à la livraison · Maintenance optionnelle.
         </p>
       </div>
     </section>
