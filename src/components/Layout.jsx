@@ -39,7 +39,6 @@ export default function Layout() {
             <a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Services</a>
             <a href="#realisations" onClick={(e) => handleNavClick(e, '#realisations')}>Réalisations</a>
             <a href="#processus" onClick={(e) => handleNavClick(e, '#processus')}>Processus</a>
-            <a href="#tarifs" onClick={(e) => handleNavClick(e, '#tarifs')}>Tarifs</a>
             <a href="#faq" onClick={(e) => handleNavClick(e, '#faq')}>FAQ</a>
           </nav>
           <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="btn btn--primary btn--sm">Audit gratuit</a>
@@ -74,7 +73,7 @@ export default function Layout() {
                 <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Automatisation</a></li>
                 <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Agents IA</a></li>
                 <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Tableaux de bord</a></li>
-                <li><a href="#tarifs" onClick={(e) => handleNavClick(e, '#tarifs')}>Tarifs</a></li>
+                <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Conformité OCDE</a></li>
               </ul>
             </div>
             <div className="col">

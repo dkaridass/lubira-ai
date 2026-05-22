@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1200px; height:1200px; overflow:hidden; }
+
+  .slide {
+    width:1200px; height:1200px;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:100px;
+    font-family:'Geist',system-ui,sans-serif;
+    position:relative;
+  }
+
+  /* ─── Post 1: Pain Point ─── */
+  .post1 { background:#0E0F12; color:#F5F0E8; }
+  .post1 .eyebrow {
+    font-family:'Geist Mono',monospace; font-size:14px;
+    letter-spacing:.22em; text-transform:uppercase;
+    color:#D88A5E; margin-bottom:60px;
+  }
+  .post1 .big {
+    font-family:'Instrument Serif',serif; font-size:160px;
+    font-weight:400; line-height:.92; letter-spacing:-.04em;
+    color:#F5F0E8; margin-bottom:20px;
+  }
+  .post1 .line {
+    width:120px; height:3px; background:#B8633A;
+    margin-bottom:32px;
+  }
+  .post1 .sub {
+    font-size:32px; font-weight:300; color:#A39E96;
+    line-height:1.4; max-width:700px;
+  }
+  .post1 .footer {
+    position:absolute; bottom:80px; left:100px; right:100px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .post1 .logo {
+    display:flex; align-items:center; gap:14px;
+  }
+  .post1 .logo .mark {
+    display:flex; flex-direction:column; align-items:flex-start;
+  }
+  .post1 .logo .disc {
+    width:14px; height:14px; border-radius:50%;
+    background:#B8633A; margin-bottom:-4px; margin-left:7px;
+  }
+  .post1 .logo .L {
+    font-family:'Instrument Serif',serif; font-size:38px;
+    line-height:.78; color:#F5F0E8;
+  }
+  .post1 .logo .wordmark {
+    font-family:'Instrument Serif',serif; font-size:24px;
+    color:#F5F0E8; display:flex; gap:6px;
+  }
+  .post1 .logo .wordmark .ai {
+    font-style:italic; color:#D88A5E;
+  }
+  .post1 .location {
+    font-family:'Geist Mono',monospace; font-size:12px;
+    letter-spacing:.18em; text-transform:uppercase; color:#6B6660;
+  }
+</style>
+</head>
+<body>
+<div class="slide post1">
+  <div class="eyebrow">// Le saviez-vous ?</div>
+  <div class="big">240<br>heures/an</div>
+  <div class="line"></div>
+  <div class="sub">perdues à copier-coller<br>des données Excel.</div>
+  <div class="footer">
+    <div class="logo">
+      <div class="mark"><div class="disc"></div><div class="L">L</div></div>
+      <div class="wordmark"><span>LUBIRA</span><span class="ai">AI</span></div>
+    </div>
+    <div class="location">Lubumbashi · RDC</div>
+  </div>
+</div>
+</body>
+</html>

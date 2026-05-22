@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1200px; height:1200px; overflow:hidden; }
+
+  .slide {
+    width:1200px; height:1200px;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:100px;
+    background:#0E0F12; color:#F5F0E8;
+    font-family:'Geist',system-ui,sans-serif;
+    position:relative;
+  }
+
+  .badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(184,99,58,.15); border:1px solid rgba(184,99,58,.4);
+    color:#D88A5E; padding:8px 18px; border-radius:999px;
+    font-family:'Geist Mono',monospace; font-size:13px;
+    letter-spacing:.14em; text-transform:uppercase;
+    margin-bottom:56px; width:fit-content;
+  }
+  .badge .dot {
+    width:8px; height:8px; border-radius:50%; background:#D88A5E;
+  }
+
+  .big {
+    font-family:'Instrument Serif',serif; font-size:88px;
+    font-weight:400; line-height:1.08; letter-spacing:-.03em;
+    color:#F5F0E8; margin-bottom:48px;
+  }
+  .big em {
+    color:#B8633A; font-style:italic;
+  }
+
+  .divider {
+    width:80px; height:2px; background:#B8633A; margin-bottom:48px;
+  }
+
+  .sub {
+    font-family:'Instrument Serif',serif; font-size:38px;
+    font-weight:400; line-height:1.35; color:#A39E96;
+    font-style:italic;
+  }
+
+  .footer {
+    position:absolute; bottom:80px; left:100px; right:100px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .logo { display:flex; align-items:center; gap:14px; }
+  .logo .mark { display:flex; flex-direction:column; align-items:flex-start; }
+  .logo .disc { width:14px; height:14px; border-radius:50%; background:#B8633A; margin-bottom:-4px; margin-left:7px; }
+  .logo .L { font-family:'Instrument Serif',serif; font-size:38px; line-height:.78; color:#F5F0E8; }
+  .logo .wordmark { font-family:'Instrument Serif',serif; font-size:24px; color:#F5F0E8; display:flex; gap:6px; }
+  .logo .wordmark .ai { font-style:italic; color:#D88A5E; }
+  .location { font-family:'Geist Mono',monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#6B6660; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="badge"><div class="dot"></div>Opinion</div>
+  <div class="big">90% des entreprises<br>congolaises n'ont <em>pas</em><br>besoin de transformation<br>digitale.</div>
+  <div class="divider"></div>
+  <div class="sub">Elles ont besoin d'un seul<br>processus automatisé.</div>
+  <div class="footer">
+    <div class="logo">
+      <div class="mark"><div class="disc"></div><div class="L">L</div></div>
+      <div class="wordmark"><span>LUBIRA</span><span class="ai">AI</span></div>
+    </div>
+    <div class="location">D'accord ? Pas d'accord ? ↓</div>
+  </div>
+</div>
+</body>
+</html>

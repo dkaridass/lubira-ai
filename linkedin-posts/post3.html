@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1200px; height:1200px; overflow:hidden; }
+
+  .slide {
+    width:1200px; height:1200px;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:100px;
+    background:#0E0F12; color:#F5F0E8;
+    font-family:'Geist',system-ui,sans-serif;
+    position:relative;
+  }
+
+  .eyebrow {
+    font-family:'Geist Mono',monospace; font-size:14px;
+    letter-spacing:.22em; text-transform:uppercase;
+    color:#D88A5E; margin-bottom:48px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .eyebrow::before {
+    content:''; width:24px; height:1px; background:#D88A5E;
+  }
+
+  .title {
+    font-family:'Instrument Serif',serif; font-size:56px;
+    font-weight:400; line-height:1.15; letter-spacing:-.02em;
+    color:#F5F0E8; margin-bottom:80px;
+  }
+
+  .stats { display:flex; flex-direction:column; gap:0; }
+  .stat {
+    display:flex; align-items:baseline; gap:40px;
+    padding:40px 0;
+    border-bottom:1px solid rgba(214,207,195,.12);
+  }
+  .stat:first-child { border-top:1px solid rgba(214,207,195,.12); }
+  .stat .value {
+    font-family:'Instrument Serif',serif; font-size:80px;
+    font-weight:400; line-height:1; min-width:400px;
+  }
+  .stat .label {
+    font-family:'Geist Mono',monospace; font-size:13px;
+    letter-spacing:.16em; text-transform:uppercase;
+    color:#6B6660; line-height:1.6;
+  }
+  .stat.copper .value { color:#D88A5E; }
+  .stat.green .value { color:#7EC8A4; }
+  .stat.cream .value { color:#F5F0E8; }
+
+  .footer {
+    position:absolute; bottom:80px; left:100px; right:100px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .logo { display:flex; align-items:center; gap:14px; }
+  .logo .mark { display:flex; flex-direction:column; align-items:flex-start; }
+  .logo .disc { width:14px; height:14px; border-radius:50%; background:#B8633A; margin-bottom:-4px; margin-left:7px; }
+  .logo .L { font-family:'Instrument Serif',serif; font-size:38px; line-height:.78; color:#F5F0E8; }
+  .logo .wordmark { font-family:'Instrument Serif',serif; font-size:24px; color:#F5F0E8; display:flex; gap:6px; }
+  .logo .wordmark .ai { font-style:italic; color:#D88A5E; }
+  .location { font-family:'Geist Mono',monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#6B6660; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="eyebrow">Résultats client · Lubumbashi</div>
+  <div class="title">Ce qu'une automatisation IA<br>a changé en <span style="color:#D88A5E;font-style:italic">3 mois</span>.</div>
+  <div class="stats">
+    <div class="stat cream">
+      <span class="value">5h → 12 min</span>
+      <span class="label">Temps de<br>reporting</span>
+    </div>
+    <div class="stat copper">
+      <span class="value">$2,400/mois</span>
+      <span class="label">Économie<br>mensuelle</span>
+    </div>
+    <div class="stat green">
+      <span class="value">÷10 erreurs</span>
+      <span class="label">Fiabilité<br>des données</span>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="logo">
+      <div class="mark"><div class="disc"></div><div class="L">L</div></div>
+      <div class="wordmark"><span>LUBIRA</span><span class="ai">AI</span></div>
+    </div>
+    <div class="location">lubira-ai.netlify.app</div>
+  </div>
+</div>
+</body>
+</html>
