@@ -18,6 +18,10 @@ const SERVICES = [
   { id: 'conformite',     label: 'Conformité',      icon: '📋' },
   { id: 'formation',      label: 'Formation',       icon: '🎓' },
   { id: 'conseil',        label: 'Conseil',         icon: '🧭' },
+  { id: 'ia-ml',          label: 'IA & Machine Learning', icon: '🧠' },
+  { id: 'web-mobile-saas', label: 'Web/Mobile/SaaS', icon: '📱' },
+  { id: 'ecommerce',      label: 'E-commerce',     icon: '🛒' },
+  { id: 'cloud',          label: 'Cloud & DevOps', icon: '☁️' },
   { id: 'autre',          label: 'Autre',           icon: '→'  },
 ];
 

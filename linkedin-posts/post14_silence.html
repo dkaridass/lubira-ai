@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>LUBIRA AI — Le Prix du Silence</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 1200px;
+    overflow: hidden;
+    background: #0E0F12;
+    font-family: 'Geist', sans-serif;
+    position: relative;
+  }
+
+  /* SVG noise filter */
+  .noise-filter {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  /* Noise overlay */
+  .noise-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    filter: url(#noiseFilter);
+    opacity: 0.03;
+    background: #F5F0E8;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Ambient radial glow — meditative copper center */
+  .ambient-glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 700px 700px at 50% 38%, rgba(184, 99, 58, 0.055) 0%, transparent 65%),
+      radial-gradient(ellipse 500px 500px at 50% 42%, rgba(216, 138, 94, 0.03) 0%, transparent 55%),
+      radial-gradient(ellipse 1200px 600px at 50% 100%, rgba(14, 15, 18, 0.6) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Subtle vignette */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 65% 65% at 50% 45%, transparent 40%, rgba(14, 15, 18, 0.5) 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Main content — centered */
+  .content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 100px;
+    text-align: center;
+  }
+
+  /* Eyebrow */
+  .eyebrow {
+    font-family: 'Geist Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: #D88A5E;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 56px;
+    position: relative;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: rgba(184, 99, 58, 0.3);
+    vertical-align: middle;
+    margin: 0 16px;
+  }
+
+  /* Big stat */
+  .stat-block {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .stat-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 248px;
+    font-weight: 400;
+    color: #F5F0E8;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+  }
+
+  .stat-unit {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 140px;
+    font-weight: 400;
+    color: #B8633A;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    position: relative;
+    top: -4px;
+  }
+
+  .stat-label {
+    font-family: 'Geist', sans-serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: #A39E96;
+    letter-spacing: 0.01em;
+    margin-bottom: 48px;
+  }
+
+  /* Copper rule */
+  .rule {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #B8633A, transparent);
+    border: none;
+    margin-bottom: 48px;
+  }
+
+  /* Quote */
+  .quote {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 35px;
+    color: #A39E96;
+    line-height: 1.5;
+    letter-spacing: 0.005em;
+    max-width: 820px;
+    margin-bottom: 36px;
+  }
+
+  .quote .highlight {
+    color: #F5F0E8;
+    font-style: italic;
+  }
+
+  /* Closing question */
+  .closing {
+    font-family: 'Geist', sans-serif;
+    font-size: 21px;
+    font-weight: 400;
+    color: #6B6660;
+    letter-spacing: 0.01em;
+    max-width: 620px;
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 88px 56px 88px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 88px;
+    right: 88px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(184, 99, 58, 0.15), rgba(184, 99, 58, 0.08), rgba(184, 99, 58, 0.15));
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    position: relative;
+    width: 32px;
+    height: 40px;
+  }
+
+  .logo-L {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    color: #F5F0E8;
+    line-height: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .logo-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #B8633A;
+    position: absolute;
+    top: 0;
+    left: 8px;
+  }
+
+  .logo-wordmark {
+    font-family: 'Geist', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #F5F0E8;
+    letter-spacing: 0.12em;
+  }
+
+  .logo-wordmark .ai {
+    font-style: italic;
+    color: #B8633A;
+  }
+
+  .footer-cta {
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    font-weight: 400;
+    color: #6B6660;
+    letter-spacing: 0.1em;
+  }
+
+  .footer-cta .arrow {
+    color: #D88A5E;
+  }
+
+  /* Decorative: very subtle concentric rings behind stat */
+  .rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    width: 560px;
+    height: 560px;
+    border-radius: 50%;
+    border: 1px solid rgba(184, 99, 58, 0.04);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .rings::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(184, 99, 58, 0.03);
+  }
+
+  .rings::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 720px;
+    height: 720px;
+    border-radius: 50%;
+    border: 1px solid rgba(184, 99, 58, 0.025);
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG Noise Filter -->
+<svg class="noise-filter">
+  <filter id="noiseFilter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+</svg>
+
+<!-- Layers -->
+<div class="ambient-glow"></div>
+<div class="vignette"></div>
+<div class="noise-overlay"></div>
+<div class="rings"></div>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- Eyebrow -->
+  <div class="eyebrow">Le prix du silence</div>
+
+  <!-- Big stat -->
+  <div class="stat-block">
+    <span class="stat-number">17</span>
+    <span class="stat-unit">h</span>
+  </div>
+
+  <div class="stat-label">par semaine</div>
+
+  <!-- Rule -->
+  <hr class="rule">
+
+  <!-- Quote -->
+  <p class="quote">
+    Un tiers de votre vie professionnelle<br>
+    consacré à des tâches qu'une <span class="highlight">machine</span><br>
+    pourrait faire à votre place.
+  </p>
+
+  <!-- Closing -->
+  <p class="closing">
+    Pendant ce temps, qui fait grandir votre entreprise ?
+  </p>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="logo">
+    <div class="logo-mark">
+      <div class="logo-dot"></div>
+      <div class="logo-L">L</div>
+    </div>
+    <span class="logo-wordmark">LUBIRA <span class="ai">AI</span></span>
+  </div>
+  <span class="footer-cta">AUDIT GRATUIT <span class="arrow">→</span> DM</span>
+</div>
+
+</body>
+</html>

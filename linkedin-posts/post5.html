@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1200px; height:1200px; overflow:hidden; }
+
+  .slide {
+    width:1200px; height:1200px;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:90px 100px;
+    background:#0E0F12; color:#F5F0E8;
+    font-family:'Geist',system-ui,sans-serif;
+    position:relative;
+  }
+
+  .badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(184,99,58,.15); border:1px solid rgba(184,99,58,.4);
+    color:#D88A5E; padding:8px 18px; border-radius:999px;
+    font-family:'Geist Mono',monospace; font-size:13px;
+    letter-spacing:.14em; text-transform:uppercase;
+    margin-bottom:44px; width:fit-content;
+  }
+  .badge .dot { width:8px; height:8px; border-radius:50%; background:#D88A5E; }
+
+  .question {
+    font-family:'Instrument Serif',serif; font-size:46px;
+    font-weight:400; line-height:1.2; color:#A39E96;
+    font-style:italic; margin-bottom:40px;
+  }
+
+  .rule-title {
+    font-family:'Instrument Serif',serif; font-size:96px;
+    font-weight:400; line-height:1; letter-spacing:-.03em;
+    color:#F5F0E8; margin-bottom:10px;
+  }
+  .rule-title em { color:#B8633A; font-style:italic; }
+
+  .divider { width:80px; height:2px; background:#B8633A; margin-bottom:40px; }
+
+  /* 3 cards */
+  .cards {
+    display:flex; gap:20px; margin-bottom:40px;
+  }
+  .card {
+    flex:1; background:rgba(255,255,255,.04);
+    border:1px solid rgba(184,99,58,.35);
+    border-radius:12px; padding:28px 24px;
+  }
+  .card .r-label {
+    font-family:'Geist Mono',monospace; font-size:11px;
+    letter-spacing:.18em; text-transform:uppercase; color:#B8633A;
+    margin-bottom:10px;
+  }
+  .card .r-title {
+    font-family:'Instrument Serif',serif; font-size:30px;
+    color:#F5F0E8; margin-bottom:8px;
+  }
+  .card .r-sub {
+    font-size:16px; color:#A39E96; line-height:1.4;
+  }
+
+  /* CTA */
+  .cta {
+    font-family:'Instrument Serif',serif; font-size:40px;
+    color:#D88A5E; font-style:italic; margin-bottom:36px;
+    letter-spacing:-.01em;
+  }
+  .cta strong { color:#F5F0E8; font-style:normal; font-family:'Geist',sans-serif; font-weight:700; }
+
+  /* examples */
+  .examples {
+    display:flex; gap:40px;
+  }
+  .examples .col { flex:1; }
+  .examples .ex-item {
+    font-size:15px; color:#A39E96; padding:5px 0;
+    display:flex; align-items:flex-start; gap:8px; line-height:1.4;
+  }
+  .examples .ex-item.yes .icon { color:#6BA368; }
+  .examples .ex-item.no  .icon { color:#B8633A; }
+  .examples .icon { flex-shrink:0; font-size:15px; }
+
+  /* footer */
+  .footer {
+    position:absolute; bottom:72px; left:100px; right:100px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .logo { display:flex; align-items:center; gap:14px; }
+  .logo .mark { display:flex; flex-direction:column; align-items:flex-start; }
+  .logo .disc { width:14px; height:14px; border-radius:50%; background:#B8633A; margin-bottom:-4px; margin-left:7px; }
+  .logo .L { font-family:'Instrument Serif',serif; font-size:38px; line-height:.78; color:#F5F0E8; }
+  .logo .wordmark { font-family:'Instrument Serif',serif; font-size:24px; color:#F5F0E8; display:flex; gap:6px; }
+  .logo .wordmark .ai { font-style:italic; color:#D88A5E; }
+  .cta-footer { font-family:'Geist Mono',monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#6B6660; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="badge"><div class="dot"></div>Framework</div>
+
+  <div class="question">Comment savoir si un processus mérite d'être automatisé ?</div>
+
+  <div class="rule-title">La règle des <em>3R</em></div>
+  <div class="divider"></div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="r-label">R1</div>
+      <div class="r-title">Répétitif</div>
+      <div class="r-sub">Vous le faites plus de 3× par semaine ?</div>
+    </div>
+    <div class="card">
+      <div class="r-label">R2</div>
+      <div class="r-title">Réglé</div>
+      <div class="r-sub">Il suit des étapes prévisibles à chaque fois ?</div>
+    </div>
+    <div class="card">
+      <div class="r-label">R3</div>
+      <div class="r-title">Rongeur</div>
+      <div class="r-sub">Il consomme plus de 2h/semaine de temps qualifié ?</div>
+    </div>
+  </div>
+
+  <div class="cta"><strong>OUI aux 3</strong> → Automatisez-le.</div>
+
+  <div class="examples">
+    <div class="col">
+      <div class="ex-item yes"><span class="icon">✓</span><span>Extraction de données depuis des factures PDF</span></div>
+      <div class="ex-item yes"><span class="icon">✓</span><span>Consolidation de rapports Excel hebdomadaires</span></div>
+      <div class="ex-item yes"><span class="icon">✓</span><span>Génération de rapports de conformité OCDE</span></div>
+    </div>
+    <div class="col">
+      <div class="ex-item no"><span class="icon">✕</span><span>Négociation avec un fournisseur</span></div>
+      <div class="ex-item no"><span class="icon">✕</span><span>Stratégie marketing</span></div>
+      <div class="ex-item no"><span class="icon">✕</span><span>Appel client VIP</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="logo">
+      <div class="mark"><div class="disc"></div><div class="L">L</div></div>
+      <div class="wordmark"><span>LUBIRA</span><span class="ai">AI</span></div>
+    </div>
+    <div class="cta-footer">Audit gratuit → DM</div>
+  </div>
+
+</div>
+</body>
+</html>

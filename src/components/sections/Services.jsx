@@ -9,6 +9,10 @@ const services = [
   { num: '06', title: 'Conformité & Traçabilité Minière', desc: 'Traçabilité OCDE, documentation ITSCI, registres immuables pour l\'export. Particulièrement vital pour le secteur minier au Katanga.', items: ['Génération de PDF automatisée', 'Piste d\'audit immuable', 'Mises à jour réglementaires', 'Rapports conformité OCDE'], price: 'à partir de 4 000 $', delivery: 'Livraison 5 jours' },
   { num: '07', title: 'Formation en IA', desc: 'Nous formons vos équipes dirigeantes et opérationnelles à l\'utilisation quotidienne de l\'IA générative comme ChatGPT ou Claude.', items: ['Ateliers pratiques sur site', 'Création de guides d\'utilisation', 'Support post-formation', 'Suivi mensuel'], price: 'à partir de 1 500 $', delivery: 'Sessions 1-2 jours' },
   { num: '08', title: 'Conseil Stratégique IA', desc: 'Où l\'IA aura-t-elle le plus d\'impact pour vous ? Nous auditons vos opérations, chiffrons le ROI potentiel et établissons une feuille de route claire.', items: ['Audit opérationnel sur site', 'Analyse de faisabilité technique', 'Roadmap d\'implémentation chiffrée', 'Accompagnement décisionnel'], price: 'Sur devis', delivery: 'Selon périmètre' },
+  { num: '09', title: 'IA & Machine Learning (Demaze)', desc: 'Nous construisons des solutions d\'intelligence artificielle sur mesure pour transformer vos données brutes en informations exploitables.', items: ['Analyses prédictives & Prévisions', 'Traitement du langage naturel (NLP)', 'Vision par ordinateur (Computer Vision)', 'Modèles génératifs & Synthèse de contenu'], price: 'à partir de 5 000 $', delivery: 'Livraison 5 jours' },
+  { num: '10', title: 'Développement Web, Mobile & SaaS', desc: 'Conception de logiciels, plateformes SaaS et applications mobiles évolutives offrant des expériences utilisateur exceptionnelles.', items: ['Applications Web & Mobile natives', 'Développement SaaS sur mesure', 'Automatisation des flux de travail', 'Architecture API & Intégrations', 'Progressive Web Apps (PWA)'], price: 'à partir de 4 000 $', delivery: 'Livraison 5 jours' },
+  { num: '11', title: 'E-commerce & Places de Marché', desc: 'Plateformes de e-commerce intelligentes et marketplaces multi-vendeurs optimisées par l\'IA pour maximiser vos conversions.', items: ['Boutiques en ligne & Marketplaces', 'Recommandations de produits par l\'IA', 'Abonnements & Paiements récurrents', 'Passerelles de paiement & Sécurité', 'Gestion logistique & Stocks'], price: 'à partir de 3 500 $', delivery: 'Livraison 4 jours' },
+  { num: '12', title: 'Architecture Cloud & DevOps', desc: 'Architectures cloud sécurisées et pipelines DevOps pour garantir la haute disponibilité et la scalabilité de vos systèmes.', items: ['Migration & Modernisation Cloud', 'Applications Cloud-Native', 'Architectures Multi-Cloud & Hybrides', 'Sécurité & Gouvernance Cloud', 'Observabilité & Optimisation DevOps'], price: 'à partir de 3 000 $', delivery: 'Livraison 3 jours' },
 ];
 
 export default function Services() {
@@ -23,7 +27,7 @@ export default function Services() {
           className="section-head"
         >
           <span className="eyebrow">Nos services</span>
-          <h2>Huit façons de transformer<br/><em className="acc">vos opérations</em>.</h2>
+          <h2>Douze façons de transformer<br/><em className="acc">vos opérations</em>.</h2>
           <p className="lead">Chaque mission inclut audit gratuit, NDA signé, transfert complet du code et formation de votre équipe.</p>
         </motion.div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '24px' }}>
