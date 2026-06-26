@@ -22,3 +22,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Commercial presentations and documents
+presentation-msd.html
+presentation-msd.pdf
+presentation-msd.png
+presentation-onepager.html
+presentation-onepager.pdf
+presentation-onepager.png
+presentation-opsflow.html
+presentation-opsflow.pdf
+presentation-opsflow.png
+scripts/render-presentation.js
+scripts/render-presentation-opsflow.js

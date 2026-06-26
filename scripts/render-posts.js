@@ -11,12 +11,15 @@ const posts = [
   { id: '12_patrick', file: 'post12_patrick.html' },
   { id: '13_dgrad', file: 'post13_dgrad.html' },
   { id: '14_silence', file: 'post14_silence.html' },
-  { id: '15_places', file: 'post15_places.html' }
+  { id: '15_places', file: 'post15_places.html' },
+  { id: '16_mining', file: 'post16_mining.html' },
+  { id: '17_website', file: 'post17_website.html' },
+  { id: '18_mockup', file: 'post18_mockup.html' }
 ];
 
 const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const postsDir = path.join(__dirname, '../linkedin-posts');
-const brainArtifactsDir = '/Users/Apple/.gemini/antigravity/brain/0edfc27d-2f88-4fcb-a113-0e837e59727a/artifacts';
+const brainArtifactsDir = '/Users/Apple/.gemini/antigravity-ide/brain/080a09fe-2f9e-436d-804f-1d2e26b8a678';
 
 async function render() {
   if (!fs.existsSync(chromePath)) {

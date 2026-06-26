@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap');
+
+    :root {
+      --ink: #0E0F12;
+      --ink-90: #1A1B1F;
+      --copper: #B8633A;
+      --copper-glow: #D4925F;
+      --copper-bright: #E8A96E;
+      --cream: #F5F0E8;
+      --white: #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 1200px;
+      height: 1200px;
+      background: var(--ink);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Subtle grid */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245, 240, 232, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 240, 232, 0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* Radial copper glow top-right */
+    body::after {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -80px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(184, 99, 58, 0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Geometric circles */
+    .geo-circle {
+      position: absolute;
+      border: 1px solid rgba(184, 99, 58, 0.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .geo-1 { width: 500px; height: 500px; bottom: -200px; left: -150px; }
+    .geo-2 { width: 300px; height: 300px; bottom: -100px; left: -50px; }
+    .geo-3 { width: 200px; height: 200px; top: 80px; right: -60px; border-color: rgba(184, 99, 58, 0.05); }
+
+    /* Main container */
+    .container {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Top bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+    }
+
+    .logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 28px;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: linear-gradient(135deg, var(--copper), var(--copper-bright));
+      border-radius: 50%;
+    }
+
+    .top-tag {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      color: var(--copper-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    /* Hero stat */
+    .hero-stat {
+      margin-top: 20px;
+    }
+
+    .stat-eyebrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: 13px;
+      color: rgba(245, 240, 232, 0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+
+    .stat-number {
+      font-family: 'Instrument Serif', serif;
+      font-size: 160px;
+      font-style: italic;
+      line-height: 0.85;
+      background: linear-gradient(135deg, var(--copper-glow), var(--copper-bright), var(--copper));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -4px;
+    }
+
+    .stat-suffix {
+      font-family: 'Instrument Serif', serif;
+      font-size: 70px;
+      font-style: italic;
+      color: var(--copper-glow);
+      margin-left: 8px;
+      opacity: 0.7;
+    }
+
+    .stat-line {
+      font-family: 'Instrument Serif', serif;
+      font-size: 42px;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-top: 16px;
+      max-width: 90%;
+    }
+
+    .stat-line em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--copper-glow), var(--copper-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Copper divider */
+    .copper-divider {
+      height: 2px;
+      background: linear-gradient(90deg, var(--copper), var(--copper-bright), var(--copper), transparent);
+      margin: 28px 0;
+      width: 60%;
+    }
+
+    /* Pain points */
+    .pain-points {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pain-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .pain-arrow {
+      font-size: 18px;
+      color: var(--copper-glow);
+      flex-shrink: 0;
+      margin-top: 3px;
+      font-weight: 300;
+    }
+
+    .pain-text {
+      font-size: 22px;
+      color: rgba(245, 240, 232, 0.65);
+      font-weight: 300;
+      line-height: 1.35;
+    }
+
+    .pain-text strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    /* Bottom block */
+    .bottom-block {
+      background: rgba(245, 240, 232, 0.04);
+      border: 1px solid rgba(245, 240, 232, 0.08);
+      padding: 28px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bottom-block::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--copper), var(--copper-bright), transparent);
+    }
+
+    .bottom-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: 28px;
+      color: var(--cream);
+      line-height: 1.2;
+      max-width: 65%;
+    }
+
+    .bottom-text em {
+      font-style: italic;
+      color: var(--copper-glow);
+    }
+
+    .bottom-stat-box {
+      text-align: center;
+    }
+
+    .bottom-stat-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 64px;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--copper-glow), var(--copper-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .bottom-stat-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: rgba(245, 240, 232, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(245, 240, 232, 0.08);
+      margin-top: 24px;
+    }
+
+    .footer-name {
+      font-size: 14px;
+      color: rgba(245, 240, 232, 0.4);
+      font-weight: 400;
+    }
+
+    .footer-name strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    .footer-url {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      color: var(--copper-glow);
+      letter-spacing: 0.05em;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="geo-circle geo-1"></div>
+  <div class="geo-circle geo-2"></div>
+  <div class="geo-circle geo-3"></div>
+
+  <div class="container">
+
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="logo">LUBIRA AI<span class="logo-dot"></span></div>
+      <div class="top-tag">Réalité des PME · RDC</div>
+    </div>
+
+    <!-- Hero stat -->
+    <div class="hero-stat">
+      <div class="stat-eyebrow">Le constat en RDC</div>
+      <div>
+        <span class="stat-number">1/3</span>
+      </div>
+      <div class="stat-line">
+        des PME congolaises ne dépassent pas <em>5 ans d'activité.</em>
+      </div>
+    </div>
+
+    <div class="copper-divider"></div>
+
+    <!-- Pain points -->
+    <div class="pain-points">
+      <div class="pain-item">
+        <span class="pain-arrow">→</span>
+        <span class="pain-text">Le directeur qui fait ses <strong>rapports financiers à la main</strong> chaque vendredi soir</span>
+      </div>
+      <div class="pain-item">
+        <span class="pain-arrow">→</span>
+        <span class="pain-text">Le chef de projet qui gère <strong>12 chantiers via WhatsApp</strong></span>
+      </div>
+      <div class="pain-item">
+        <span class="pain-arrow">→</span>
+        <span class="pain-text">Le comptable qui recopie les mêmes données dans <strong>3 fichiers Excel</strong> différents</span>
+      </div>
+      <div class="pain-item">
+        <span class="pain-arrow">→</span>
+        <span class="pain-text">L'assistante qui passe <strong>4h par jour</strong> à chercher des factures dans des classeurs</span>
+      </div>
+    </div>
+
+    <!-- Bottom block -->
+    <div class="bottom-block">
+      <div class="bottom-text">
+        Le problème n'est pas le manque de volonté.<br>
+        C'est le manque <em>d'outils adaptés à notre réalité.</em>
+      </div>
+      <div class="bottom-stat-box">
+        <div class="bottom-stat-num">15h</div>
+        <div class="bottom-stat-label">perdues / semaine<br>par employé</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-name"><strong>Darius Tshibangu</strong> · Fondateur, Lubira AI · Lubumbashi</div>
+      <div class="footer-url">www.lubira.ai</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1200px;height:1200px;overflow:hidden;background:#0E0F12}
+
+  .slide{
+    width:1200px;height:1200px;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 120px;
+    background:#0E0F12;color:#F5F0E8;
+    font-family:'Geist',system-ui,sans-serif;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* ── SVG noise texture filter ── */
+  .noise-overlay{
+    position:absolute;inset:0;
+    opacity:.035;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+    z-index:10;
+  }
+
+  /* ── Radial gradient: warm copper top-right ── */
+  .slide::before{
+    content:"";position:absolute;
+    top:-300px;right:-200px;
+    width:1000px;height:1000px;
+    background:radial-gradient(ellipse at center,rgba(184,99,58,.07),rgba(184,99,58,.02) 40%,transparent 70%);
+    pointer-events:none;z-index:1;
+  }
+
+  /* ── Radial gradient: subtle bottom-left warmth ── */
+  .slide::after{
+    content:"";position:absolute;
+    bottom:-250px;left:-150px;
+    width:800px;height:800px;
+    background:radial-gradient(circle,rgba(139,74,43,.05),transparent 60%);
+    pointer-events:none;z-index:1;
+  }
+
+  /* ── Secondary ambient glow center ── */
+  .ambient{
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:1200px;height:1200px;
+    background:radial-gradient(ellipse at 30% 45%,rgba(184,99,58,.03),transparent 55%);
+    pointer-events:none;z-index:1;
+  }
+
+  /* ── Content wrapper ── */
+  .content{
+    position:relative;z-index:5;
+  }
+
+  /* ── Eyebrow ── */
+  .eyebrow{
+    font-family:'Geist Mono',monospace;font-size:13px;
+    letter-spacing:.2em;text-transform:uppercase;
+    color:#D88A5E;margin-bottom:56px;
+    display:flex;align-items:center;gap:16px;
+  }
+  .eyebrow::before{
+    content:"";width:40px;height:1.5px;
+    background:linear-gradient(90deg,#B8633A,#D88A5E);
+    flex-shrink:0;
+  }
+
+  /* ── Display typography ── */
+  .time{
+    font-family:'Instrument Serif',serif;
+    font-size:150px;font-weight:400;
+    line-height:.92;letter-spacing:-.045em;
+    color:#F5F0E8;
+    margin-bottom:12px;
+    text-shadow:0 2px 40px rgba(184,99,58,.06);
+  }
+
+  /* ── Place name in italic copper ── */
+  .place{
+    font-family:'Instrument Serif',serif;
+    font-size:82px;font-weight:400;
+    line-height:1.05;letter-spacing:-.02em;
+    color:#B8633A;font-style:italic;
+    margin-bottom:52px;
+  }
+
+  /* ── Thin copper rule ── */
+  .rule{
+    width:120px;height:2px;
+    background:linear-gradient(90deg,#B8633A,rgba(184,99,58,.2));
+    margin-bottom:44px;
+    border-radius:999px;
+  }
+
+  /* ── Bullet list ── */
+  .story-lines{
+    display:flex;flex-direction:column;gap:14px;
+    max-width:720px;
+  }
+  .story-line{
+    font-family:'Geist',sans-serif;
+    font-size:23px;font-weight:300;color:#A39E96;
+    line-height:1.5;
+    display:flex;align-items:baseline;gap:18px;
+  }
+  .story-line .arrow{
+    flex-shrink:0;color:#B8633A;
+    font-family:'Geist Mono',monospace;font-size:16px;
+    position:relative;top:1px;
+    opacity:.8;
+  }
+  .story-line.highlight{
+    color:#D88A5E;font-weight:500;
+  }
+  .story-line.highlight .arrow{
+    color:#D88A5E;opacity:1;
+  }
+
+  /* ── Decorative vertical accent ── */
+  .vert-accent{
+    position:absolute;
+    left:56px;top:180px;
+    width:1.5px;height:140px;
+    background:linear-gradient(180deg,rgba(184,99,58,.25),transparent);
+    z-index:2;
+  }
+
+  /* ── Footer ── */
+  .footer{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:0 120px 72px;
+    display:flex;justify-content:space-between;align-items:flex-end;
+    z-index:5;
+  }
+  .footer::before{
+    content:"";position:absolute;
+    top:0;left:120px;right:120px;
+    height:1px;
+    background:linear-gradient(90deg,rgba(107,102,96,.3),rgba(107,102,96,.08));
+  }
+  .footer-inner{
+    width:100%;
+    padding-top:32px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+
+  .logo{display:flex;align-items:center;gap:16px}
+  .logo .mark{
+    display:flex;flex-direction:column;align-items:center;
+    position:relative;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:#B8633A;
+    margin-bottom:2px;
+    box-shadow:0 0 12px rgba(184,99,58,.3);
+  }
+  .logo .L{
+    font-family:'Instrument Serif',serif;
+    font-size:36px;line-height:.78;color:#F5F0E8;
+    letter-spacing:0;
+  }
+  .logo .wordmark{
+    font-family:'Geist',sans-serif;
+    font-size:15px;font-weight:500;
+    letter-spacing:.12em;
+    color:#F5F0E8;
+    display:flex;gap:5px;
+    text-transform:uppercase;
+  }
+  .logo .wordmark .ai{
+    font-family:'Instrument Serif',serif;
+    font-style:italic;color:#D88A5E;
+    font-size:17px;font-weight:400;
+    letter-spacing:0;
+    position:relative;top:-0.5px;
+  }
+
+  .location{
+    font-family:'Geist Mono',monospace;
+    font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:#6B6660;
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- SVG noise filter -->
+  <svg class="noise-overlay" width="100%" height="100%">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise)"/>
+  </svg>
+
+  <!-- Ambient radial glow -->
+  <div class="ambient"></div>
+
+  <!-- Decorative vertical line -->
+  <div class="vert-accent"></div>
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="eyebrow">Logistique Minière</div>
+
+    <div class="time">3 heures<br>de retard.</div>
+    <div class="place">Kasumbalesa.</div>
+
+    <div class="rule"></div>
+
+    <div class="story-lines">
+      <div class="story-line">
+        <span class="arrow">→</span>
+        <span>50 camions bloqués à la frontière.</span>
+      </div>
+      <div class="story-line">
+        <span class="arrow">→</span>
+        <span>Chauffeurs injoignables par téléphone.</span>
+      </div>
+      <div class="story-line">
+        <span class="arrow">→</span>
+        <span>Rapports Excel compilés le lendemain matin.</span>
+      </div>
+      <div class="story-line highlight">
+        <span class="arrow">→</span>
+        <span>Visibilité en temps réel depuis WhatsApp.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-inner">
+      <div class="logo">
+        <div class="mark">
+          <div class="dot"></div>
+          <div class="L">L</div>
+        </div>
+        <div class="wordmark">
+          <span>Lubira</span>
+          <span class="ai">AI</span>
+        </div>
+      </div>
+      <div class="location">Lubumbashi · RDC</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

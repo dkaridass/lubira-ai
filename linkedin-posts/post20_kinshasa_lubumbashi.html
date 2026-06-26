@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap');
+
+    :root {
+      --ink: #0E0F12;
+      --ink-90: #1A1B1F;
+      --copper: #B8633A;
+      --copper-glow: #D4925F;
+      --copper-bright: #E8A96E;
+      --cream: #F5F0E8;
+      --white: #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 1200px;
+      height: 1200px;
+      background: var(--ink);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Subtle grid */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245, 240, 232, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 240, 232, 0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* Radial copper glow centered */
+    body::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(184, 99, 58, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Geometric circles */
+    .geo-circle {
+      position: absolute;
+      border: 1px solid rgba(184, 99, 58, 0.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .geo-1 { width: 600px; height: 600px; top: -300px; left: -100px; }
+    .geo-2 { width: 400px; height: 400px; bottom: -200px; right: -100px; }
+
+    /* Main container */
+    .container {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Top bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+    }
+
+    .logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 28px;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: linear-gradient(135deg, var(--copper), var(--copper-bright));
+      border-radius: 50%;
+    }
+
+    .top-tag {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      color: var(--copper-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    /* Comparison Section */
+    .comparison-grid {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .comparison-col {
+      flex: 1;
+      background: rgba(245, 240, 232, 0.02);
+      border: 1px solid rgba(245, 240, 232, 0.05);
+      padding: 40px;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .comparison-col.highlighted {
+      background: rgba(184, 99, 58, 0.03);
+      border-color: rgba(184, 99, 58, 0.2);
+    }
+
+    .comparison-col.highlighted::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--copper), var(--copper-bright));
+    }
+
+    .col-eyebrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 24px;
+    }
+
+    .col-eyebrow.kin {
+      color: rgba(245, 240, 232, 0.4);
+    }
+
+    .col-eyebrow.lshi {
+      color: var(--copper-glow);
+      font-weight: 500;
+    }
+
+    .col-stat {
+      font-family: 'Instrument Serif', serif;
+      font-size: 170px;
+      line-height: 0.85;
+      font-style: italic;
+      margin-bottom: 16px;
+      letter-spacing: -4px;
+    }
+
+    .col-stat.kin {
+      color: var(--cream);
+    }
+
+    .col-stat.lshi {
+      background: linear-gradient(135deg, var(--copper-glow), var(--copper-bright), var(--copper));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .col-desc {
+      font-size: 20px;
+      color: rgba(245, 240, 232, 0.65);
+      line-height: 1.4;
+      font-weight: 300;
+    }
+
+    .col-desc strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    /* Core Insight */
+    .insight-section {
+      margin-top: 40px;
+      padding: 40px;
+      background: rgba(245, 240, 232, 0.03);
+      border: 1px solid rgba(245, 240, 232, 0.08);
+      position: relative;
+    }
+
+    .insight-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--copper-glow), var(--copper));
+    }
+
+    .insight-title {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      color: var(--copper-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 12px;
+    }
+
+    .insight-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: 38px;
+      color: var(--cream);
+      line-height: 1.25;
+    }
+
+    .insight-text em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--copper-glow), var(--copper-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(245, 240, 232, 0.08);
+      margin-top: 40px;
+    }
+
+    .footer-name {
+      font-size: 14px;
+      color: rgba(245, 240, 232, 0.4);
+      font-weight: 400;
+    }
+
+    .footer-name strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    .footer-url {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      color: var(--copper-glow);
+      letter-spacing: 0.05em;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="geo-circle geo-1"></div>
+  <div class="geo-circle geo-2"></div>
+
+  <div class="container">
+
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="logo">LUBIRA AI<span class="logo-dot"></span></div>
+      <div class="top-tag">Analyse comparative · RDC</div>
+    </div>
+
+    <!-- Comparison Section -->
+    <div class="comparison-grid">
+      
+      <!-- Kinshasa -->
+      <div class="comparison-col">
+        <div class="col-eyebrow kin">Kinshasa</div>
+        <div class="col-stat kin">80%</div>
+        <div class="col-desc">
+          des <strong>startups tech</strong> et des structures d'accompagnement de RDC y sont concentrées.
+        </div>
+      </div>
+
+      <!-- Lubumbashi / Katanga -->
+      <div class="comparison-col highlighted">
+        <div class="col-eyebrow lshi">Lubumbashi (Katanga)</div>
+        <div class="col-stat lshi">60%</div>
+        <div class="col-desc">
+          des <strong>revenus et richesses économiques</strong> du pays proviennent de la région minière.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Core Insight -->
+    <div class="insight-section">
+      <div class="insight-title">Le constat terrain</div>
+      <div class="insight-text">
+        Les capitaux et l'activité sont au Katanga. Mais les entreprises y tournent encore avec des <em>processus manuels et obsolètes.</em> Le vrai potentiel d'automatisation est ici.
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-name"><strong>Darius Tshibangu</strong> · Fondateur, Lubira AI</div>
+      <div class="footer-url">www.lubira.ai</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

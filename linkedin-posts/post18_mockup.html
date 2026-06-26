@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1200px;height:1200px;overflow:hidden;background:#0E0F12}
+
+  .slide{
+    width:1200px;height:1200px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:88px 100px;
+    background:#0E0F12;color:#F5F0E8;
+    font-family:'Geist',system-ui,sans-serif;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* ── SVG noise texture filter ── */
+  .noise-overlay{
+    position:absolute;inset:0;
+    opacity:.03;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+    z-index:10;
+  }
+
+  /* ── Ambient glow ── */
+  .slide::before{
+    content:"";position:absolute;
+    top:-200px;right:-100px;
+    width:900px;height:900px;
+    background:radial-gradient(ellipse at center,rgba(184,99,58,.08),rgba(184,99,58,.02) 40%,transparent 70%);
+    pointer-events:none;z-index:1;
+  }
+
+  .slide::after{
+    content:"";position:absolute;
+    bottom:-200px;left:-100px;
+    width:800px;height:800px;
+    background:radial-gradient(circle,rgba(139,74,43,.04),transparent 60%);
+    pointer-events:none;z-index:1;
+  }
+
+  /* ── Head Section ── */
+  .header-area{
+    position:relative;z-index:5;
+    max-width:800px;
+  }
+  .eyebrow{
+    font-family:'Geist Mono',monospace;font-size:13px;
+    letter-spacing:.2em;text-transform:uppercase;
+    color:#D88A5E;margin-bottom:20px;
+    display:flex;align-items:center;gap:16px;
+  }
+  .eyebrow::before{
+    content:"";width:40px;height:1.5px;
+    background:linear-gradient(90deg,#B8633A,#D88A5E);
+    flex-shrink:0;
+  }
+  .headline{
+    font-family:'Instrument Serif',serif;
+    font-size:72px;font-weight:400;
+    line-height:1.1;letter-spacing:-.03em;
+    color:#F5F0E8;
+  }
+  .headline em {
+    font-style:italic;color:#B8633A;
+  }
+
+  /* ── Premium Website Mockup ── */
+  .mockup-container {
+    position:relative;z-index:5;
+    flex-grow:1;
+    margin:48px 0;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  .browser-window {
+    width:100%;
+    max-width:920px;
+    height:540px;
+    background:#13151A;
+    border:1px solid rgba(214,207,195,.15);
+    border-radius:12px;
+    box-shadow:0 30px 70px -15px rgba(0,0,0,0.6);
+    display:flex;flex-direction:column;
+    overflow:hidden;
+  }
+
+  /* Browser Header */
+  .browser-header {
+    height:44px;
+    background:#191B22;
+    border-bottom:1px solid rgba(214,207,195,.08);
+    display:flex;align-items:center;padding:0 20px;
+    justify-content:space-between;
+  }
+  .dots { display:flex;gap:6px; }
+  .dot { width:8px;height:8px;border-radius:50%;background:rgba(245,240,232,.2); }
+  .dot.red { background:#B8633A; opacity:0.8; }
+  .url-bar {
+    background:#0E0F12;
+    border:1px solid rgba(214,207,195,.06);
+    border-radius:6px;
+    padding:4px 48px;
+    font-family:'Geist Mono',monospace;
+    font-size:11px;color:#A39E96;
+    letter-spacing:0.05em;
+  }
+  .header-actions { width:30px; }
+
+  /* Browser Body (Website itself) */
+  .browser-body {
+    flex-grow:1;
+    padding:40px;
+    display:flex;flex-direction:column;
+    justify-content:space-between;
+    background:#0F1014;
+  }
+
+  .site-header {
+    display:flex;justify-content:space-between;align-items:flex-start;
+  }
+  .site-logo {
+    font-family:'Instrument Serif',serif;
+    font-size:24px;font-weight:400;color:#F5F0E8;
+  }
+  .site-nav {
+    display:flex;gap:20px;
+    font-family:'Geist',sans-serif;
+    font-size:11px;font-weight:500;
+    letter-spacing:0.1em;text-transform:uppercase;
+    color:#6B6660;
+  }
+  .site-nav span.active { color:#D88A5E; }
+
+  /* Main Hero inside the Website */
+  .site-hero {
+    margin:32px 0;
+  }
+  .site-hero h1 {
+    font-family:'Instrument Serif',serif;
+    font-size:62px;font-weight:400;
+    line-height:1.05;color:#F5F0E8;
+    letter-spacing:-.02em;
+    margin-bottom:14px;
+  }
+  .site-hero p {
+    font-family:'Geist',sans-serif;
+    font-size:15px;font-weight:300;
+    color:#A39E96;line-height:1.4;
+    max-width:540px;
+  }
+
+  /* Grid details inside the Website */
+  .site-grid {
+    display:grid;grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+  }
+  .grid-card {
+    background:#16181E;
+    border:1px solid rgba(214,207,195,.06);
+    padding:20px;
+    border-radius:6px;
+  }
+  .card-label {
+    font-family:'Geist Mono',monospace;
+    font-size:10px;letter-spacing:0.12em;
+    color:#6B6660;text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .card-val {
+    font-family:'Instrument Serif',serif;
+    font-size:32px;color:#F5F0E8;
+    line-height:1;
+  }
+  .card-val em {
+    font-style:italic;color:#D88A5E;
+  }
+
+  /* ── Footer ── */
+  .footer{
+    position:relative;
+    padding-top:28px;
+    display:flex;justify-content:space-between;align-items:center;
+    z-index:5;
+  }
+  .footer::before{
+    content:"";position:absolute;
+    top:0;left:0;right:0;
+    height:1px;
+    background:linear-gradient(90deg,rgba(107,102,96,.2),transparent);
+  }
+
+  .logo{display:flex;align-items:center;gap:16px}
+  .logo .mark{
+    display:flex;flex-direction:column;align-items:center;
+    position:relative;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:#B8633A;
+    margin-bottom:2px;
+    box-shadow:0 0 12px rgba(184,99,58,.3);
+  }
+  .logo .L{
+    font-family:'Instrument Serif',serif;
+    font-size:36px;line-height:.78;color:#F5F0E8;
+  }
+  .logo .wordmark{
+    font-family:'Geist',sans-serif;
+    font-size:15px;font-weight:500;
+    letter-spacing:.12em;
+    color:#F5F0E8;
+    display:flex;gap:5px;
+    text-transform:uppercase;
+  }
+  .logo .wordmark .ai{
+    font-family:'Instrument Serif',serif;
+    font-style:italic;color:#D88A5E;
+    font-size:17px;
+    position:relative;top:-0.5px;
+  }
+  .location{
+    font-family:'Geist Mono',monospace;
+    font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:#6B6660;
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- SVG noise filter -->
+  <svg class="noise-overlay" width="100%" height="100%">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise)"/>
+  </svg>
+
+  <!-- Title block -->
+  <div class="header-area">
+    <div class="eyebrow">Ingénierie Digitale</div>
+    <div class="headline">Nous bâtissons des plateformes <em>qui rassurent</em> vos futurs partenaires.</div>
+  </div>
+
+  <!-- Mockup Window -->
+  <div class="mockup-container">
+    <div class="browser-window">
+      <!-- Browser Top Bar -->
+      <div class="browser-header">
+        <div class="dots">
+          <div class="dot red"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="url-bar">portal.entreprise.cd</div>
+        <div class="header-actions"></div>
+      </div>
+      <!-- Inside Browser Webpage -->
+      <div class="browser-body">
+        <div class="site-header">
+          <div class="site-logo">Kivubelt <em>Logistics</em></div>
+          <div class="site-nav">
+            <span class="active">Overview</span>
+            <span>Operations</span>
+            <span>Workflows</span>
+          </div>
+        </div>
+        <div class="site-hero">
+          <h1>Modernising Operations.</h1>
+          <p>Connecting workflows, tracking operational compliance, and managing performance with structured real-time analytics.</p>
+        </div>
+        <div class="site-grid">
+          <div class="grid-card">
+            <div class="card-label">Daily Shipments</div>
+            <div class="card-val">1,240 <em>Units</em></div>
+          </div>
+          <div class="grid-card">
+            <div class="card-label">SLA Status</div>
+            <div class="card-val">99.8%</div>
+          </div>
+          <div class="grid-card">
+            <div class="card-label">Active Transits</div>
+            <div class="card-val">42 <em>Realtime</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="logo">
+      <div class="mark">
+        <div class="dot"></div>
+        <div class="L">L</div>
+      </div>
+      <div class="wordmark">
+        <span>Lubira</span>
+        <span class="ai">AI</span>
+      </div>
+    </div>
+    <div class="location">Lubumbashi · RDC</div>
+  </div>
+</div>
+</body>
+</html>
