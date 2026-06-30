@@ -10,8 +10,8 @@ const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
 const postsDir = path.join(__dirname, '../linkedin-posts');
 const brainArtifactsDir = '/Users/Apple/.gemini/antigravity/brain/0edfc27d-2f88-4fcb-a113-0e837e59727a/artifacts';
 
-const postFile = 'post22_mama_rose.html';
-const outputName = '22_mama_rose';
+const postFile = 'post23_independance_30juin.html';
+const outputName = '23_independance_30juin';
 
 async function render() {
   if (!fs.existsSync(chromePath)) {

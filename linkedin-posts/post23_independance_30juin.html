@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap');
+
+    :root {
+      --ink: #0E0F12;
+      --copper: #B8633A;
+      --copper-glow: #D4925F;
+      --copper-bright: #E8A96E;
+      --cream: #F5F0E8;
+      --white: #FFFFFF;
+      --congo-blue: #007FFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 1200px;
+      height: 1200px;
+      background: var(--ink);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Grid layout */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245, 240, 232, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 240, 232, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* Soft glowing celebratory radial gradients representing flag colors but premium and desaturated */
+    body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 10% 10%, rgba(0, 127, 255, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 90% 90%, rgba(232, 169, 110, 0.07) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(184, 99, 58, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Abstract design elements */
+    .star-bg {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 580px;
+      font-weight: 900;
+      color: rgba(232, 169, 110, 0.015);
+      font-family: 'Inter', sans-serif;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .geo-ring {
+      position: absolute;
+      border: 1px solid rgba(245, 240, 232, 0.04);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .ring-1 { width: 900px; height: 900px; top: -350px; left: -150px; }
+    .ring-2 { width: 600px; height: 600px; bottom: -200px; right: -100px; border-color: rgba(184, 99, 58, 0.05); }
+
+    /* Main container */
+    .container {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid rgba(245, 240, 232, 0.05);
+      padding: 60px;
+      background: rgba(14, 15, 18, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    .corner-mark {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--copper-glow);
+      pointer-events: none;
+    }
+    .mark-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+    .mark-tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+    .mark-bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+    .mark-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(245, 240, 232, 0.08);
+      padding-bottom: 24px;
+    }
+
+    .logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 28px;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: linear-gradient(135deg, var(--copper), var(--copper-bright));
+      border-radius: 50%;
+    }
+
+    .tagline {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--copper-glow);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    /* Hero section */
+    .hero {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .date-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 16px;
+      color: rgba(245, 240, 232, 0.4);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .main-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 110px;
+      line-height: 1;
+      color: var(--cream);
+      font-weight: 400;
+    }
+
+    .main-title em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--copper-glow), var(--copper-bright), var(--copper));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Subtitle or Quote */
+    .quote-section {
+      text-align: center;
+      max-width: 85%;
+      margin: 40px auto 0 auto;
+    }
+
+    .gold-star {
+      font-size: 48px;
+      color: var(--copper-bright);
+      margin-bottom: 24px;
+      text-shadow: 0 0 20px rgba(232, 169, 110, 0.3);
+    }
+
+    .quote-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: 42px;
+      line-height: 1.35;
+      color: var(--cream);
+      font-weight: 300;
+    }
+
+    .quote-text em {
+      font-style: italic;
+      color: var(--copper-bright);
+    }
+
+    .quote-author {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: rgba(245, 240, 232, 0.4);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 20px;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(245, 240, 232, 0.08);
+      padding-top: 24px;
+    }
+
+    .footer-left {
+      font-size: 14px;
+      color: rgba(245, 240, 232, 0.4);
+    }
+
+    .footer-left strong {
+      color: var(--cream);
+    }
+
+    .footer-right {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      color: var(--copper-glow);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="star-bg">★</div>
+  <div class="geo-ring ring-1"></div>
+  <div class="geo-ring ring-2"></div>
+
+  <div class="container">
+    <div class="corner-mark mark-tl"></div>
+    <div class="corner-mark mark-tr"></div>
+    <div class="corner-mark mark-bl"></div>
+    <div class="corner-mark mark-br"></div>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">LUBIRA AI<span class="logo-dot"></span></div>
+      <div class="tagline">30 Juin · République Démocratique du Congo</div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="date-label">30 Juin 1960 — 2026</div>
+      <div class="main-title">
+        Bonne Fête de <em>l'Indépendance</em>
+      </div>
+    </div>
+
+    <!-- Center Quote -->
+    <div class="quote-section">
+      <div class="gold-star">★</div>
+      <div class="quote-text">
+        Célébrons la force, la résilience et la <em>joie unique</em> qui unissent notre peuple. Que l'avenir soit dessiné par <em>notre propre lumière</em>.
+      </div>
+      <div class="quote-author">Fiers d'être Congolais</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-left">Avec toute l'équipe de <strong>Lubira AI</strong></div>
+      <div class="footer-right">www.lubira.ai</div>
+    </div>
+  </div>
+
+</body>
+</html>
