@@ -64,14 +64,14 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border: 1px solid rgba(245, 240, 232, 0.08);
+      border: 1px solid rgba(245, 240, 232, 0.06);
       padding: 60px;
       background: rgba(14, 15, 18, 0.8);
       backdrop-filter: blur(16px);
       overflow: hidden;
     }
 
-    /* Waving Flag overlay (Option C) */
+    /* Waving Flag overlay (Option C) - placed inside body, behind container */
     .flag-diagonal {
       position: absolute;
       top: 0;
@@ -117,12 +117,12 @@
       opacity: 0.5;
     }
 
-    /* Giant glowing star */
+    /* Giant glowing star - placed inside container now to avoid blur */
     .flag-star {
       position: absolute;
-      top: 140px;
-      left: 140px;
-      font-size: 96px;
+      top: 100px;
+      left: 60px;
+      font-size: 84px;
       color: var(--copper-bright);
       text-shadow: 
         0 0 25px rgba(232, 169, 110, 0.8),
@@ -131,13 +131,13 @@
       pointer-events: none;
     }
 
-    /* High-impact Portrait Illustration (Option A) */
+    /* High-impact Portrait Illustration (Option A) - inside container */
     .portrait-svg-container {
       position: absolute;
-      bottom: -10px;
-      right: -20px;
-      width: 650px;
-      height: 800px;
+      bottom: 0;
+      right: 0;
+      width: 580px;
+      height: 780px;
       z-index: 2;
       pointer-events: none;
     }
@@ -183,6 +183,7 @@
       display: flex;
       align-items: center;
       gap: 4px;
+      z-index: 10;
     }
 
     .logo-dot {
@@ -198,6 +199,7 @@
       color: var(--copper-glow);
       letter-spacing: 0.25em;
       text-transform: uppercase;
+      z-index: 10;
     }
 
     /* Hero section */
@@ -234,7 +236,7 @@
 
     /* Center Quote */
     .quote-section {
-      max-width: 60%;
+      max-width: 65%;
       margin-top: 40px;
       z-index: 10;
       position: relative;
@@ -298,66 +300,6 @@
     <div class="stripe-yellow-bottom"></div>
   </div>
 
-  <!-- Giant Glowing Star -->
-  <div class="flag-star">★</div>
-
-  <!-- Highly visible silhouette / illustration of a Congolese laughing, looking up (Option A) -->
-  <div class="portrait-svg-container">
-    <svg width="100%" height="100%" viewBox="0 0 650 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Ambient Glow Behind the Portrait -->
-      <circle cx="450" cy="450" r="300" fill="url(#portraitBacklight)" opacity="0.4" />
-      
-      <!-- Filled Dark Silhouette of Face Profile (Laughing and looking up) -->
-      <path d="M 150 800 
-               C 220 750, 300 700, 310 600
-               C 315 570, 290 540, 320 480
-               C 340 440, 390 410, 420 400
-               C 470 385, 490 395, 520 360
-               C 530 350, 520 330, 550 300
-               C 580 270, 610 280, 615 230
-               C 620 180, 570 120, 520 125
-               C 480 130, 440 180, 400 240
-               C 350 320, 290 450, 230 600
-               C 190 700, 100 770, 0 800 Z" 
-            fill="url(#portraitFill)" opacity="0.9" />
-
-      <!-- Outline Overlay for High Definition Details -->
-      <path d="M 150 800 
-               C 220 750, 300 700, 310 600
-               C 315 570, 290 540, 320 480
-               C 340 440, 390 410, 420 400
-               C 470 385, 490 395, 520 360
-               C 530 350, 520 330, 550 300
-               C 580 270, 610 280, 615 230
-               C 620 180, 570 120, 520 125
-               C 480 130, 440 180, 400 240
-               C 350 320, 290 450, 230 600" 
-            stroke="url(#portraitStroke)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
-
-      <defs>
-        <!-- Backlight for Contrast -->
-        <radialGradient id="portraitBacklight" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#E8A96E" stop-opacity="0.3"/>
-          <stop offset="100%" stop-color="#0E0F12" stop-opacity="0"/>
-        </radialGradient>
-
-        <!-- Rich dark-copper filled silhouette gradient -->
-        <linearGradient id="portraitFill" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#0E0F12" stop-opacity="0.95"/>
-          <stop offset="70%" stop-color="#1A1B1F" stop-opacity="0.95"/>
-          <stop offset="100%" stop-color="#2D1C16" stop-opacity="0.95"/>
-        </linearGradient>
-
-        <!-- Bright copper stroke line -->
-        <linearGradient id="portraitStroke" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#B8633A"/>
-          <stop offset="50%" stop-color="#E8A96E"/>
-          <stop offset="100%" stop-color="#FFFFFF"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  </div>
-
   <div class="geo-ring ring-1"></div>
 
   <div class="container">
@@ -365,6 +307,66 @@
     <div class="corner-mark mark-tr"></div>
     <div class="corner-mark mark-bl"></div>
     <div class="corner-mark mark-br"></div>
+
+    <!-- Giant Glowing Star (Inside Container to avoid blur) -->
+    <div class="flag-star">★</div>
+
+    <!-- Highly visible silhouette / illustration of a Congolese laughing (Inside Container to avoid blur) -->
+    <div class="portrait-svg-container">
+      <svg width="100%" height="100%" viewBox="0 0 580 780" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ambient Glow Behind the Portrait -->
+        <circle cx="380" cy="450" r="280" fill="url(#portraitBacklight)" opacity="0.35" />
+        
+        <!-- Filled Dark Silhouette of Face Profile (Laughing and looking up) -->
+        <path d="M 120 780 
+                 C 190 730, 270 680, 280 580
+                 C 285 550, 260 520, 290 460
+                 C 310 420, 360 390, 390 380
+                 C 440 365, 460 375, 490 340
+                 C 500 330, 490 310, 520 280
+                 C 550 250, 580 260, 585 210
+                 C 590 160, 540 100, 490 105
+                 C 450 110, 410 160, 370 220
+                 C 320 300, 260 430, 200 580
+                 C 160 680, 80 750, -20 780 Z" 
+              fill="url(#portraitFill)" opacity="0.9" />
+
+        <!-- Outline Overlay for High Definition Details -->
+        <path d="M 120 780 
+                 C 190 730, 270 680, 280 580
+                 C 285 550, 260 520, 290 460
+                 C 310 420, 360 390, 390 380
+                 C 440 365, 460 375, 490 340
+                 C 500 330, 490 310, 520 280
+                 C 550 250, 580 260, 585 210
+                 C 590 160, 540 100, 490 105
+                 C 450 110, 410 160, 370 220
+                 C 320 300, 260 430, 200 580" 
+              stroke="url(#portraitStroke)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+
+        <defs>
+          <!-- Backlight for Contrast -->
+          <radialGradient id="portraitBacklight" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#E8A96E" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#0E0F12" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- Rich dark-copper filled silhouette gradient -->
+          <linearGradient id="portraitFill" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0E0F12" stop-opacity="0.95"/>
+            <stop offset="70%" stop-color="#1A1B1F" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#2D1C16" stop-opacity="0.95"/>
+          </linearGradient>
+
+          <!-- Bright copper stroke line -->
+          <linearGradient id="portraitStroke" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#B8633A"/>
+            <stop offset="50%" stop-color="#E8A96E"/>
+            <stop offset="100%" stop-color="#FFFFFF"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
 
     <!-- Header -->
     <div class="header">
