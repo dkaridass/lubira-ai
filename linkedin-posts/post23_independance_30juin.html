@@ -7,6 +7,7 @@
 
     :root {
       --ink: #0E0F12;
+      --ink-90: #1A1B1F;
       --copper: #B8633A;
       --copper-glow: #D4925F;
       --copper-bright: #E8A96E;
@@ -29,7 +30,7 @@
       justify-content: center;
     }
 
-    /* Grid layout */
+    /* Grid background */
     body::before {
       content: '';
       position: absolute;
@@ -40,6 +41,18 @@
       background-size: 60px 60px;
       pointer-events: none;
       z-index: 5;
+    }
+
+    /* Flag glow base */
+    body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(0, 127, 255, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 90% 80%, rgba(184, 99, 58, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 1;
     }
 
     /* Main container */
@@ -53,32 +66,58 @@
       justify-content: space-between;
       border: 1px solid rgba(245, 240, 232, 0.08);
       padding: 60px;
-      background: rgba(14, 15, 18, 0.75);
+      background: rgba(14, 15, 18, 0.8);
       backdrop-filter: blur(16px);
       overflow: hidden;
     }
 
-    /* Background Flag Waves (Option C) */
-    .flag-waves {
+    /* Waving Flag overlay (Option C) */
+    .flag-diagonal {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.6;
+      opacity: 0.7;
     }
 
-    /* Abstract Silhouette Overlay (Option A) */
-    .silhouette-container {
+    .stripe-red {
       position: absolute;
-      right: 0;
-      bottom: 0;
-      width: 600px;
-      height: 900px;
-      z-index: 2;
-      opacity: 0.25;
-      pointer-events: none;
+      top: 50%;
+      left: 50%;
+      width: 200%;
+      height: 40px;
+      background: linear-gradient(90deg, var(--copper), var(--copper-bright), var(--copper));
+      transform: translate(-50%, -50%) rotate(-35deg);
+      opacity: 0.8;
+      box-shadow: 0 0 40px rgba(184, 99, 58, 0.3);
     }
 
+    .stripe-yellow-top {
+      position: absolute;
+      top: calc(50% - 26px);
+      left: 50%;
+      width: 200%;
+      height: 5px;
+      background: var(--copper-bright);
+      transform: translate(-50%, -50%) rotate(-35deg);
+      opacity: 0.5;
+    }
+
+    .stripe-yellow-bottom {
+      position: absolute;
+      top: calc(50% + 26px);
+      left: 50%;
+      width: 200%;
+      height: 5px;
+      background: var(--copper-bright);
+      transform: translate(-50%, -50%) rotate(-35deg);
+      opacity: 0.5;
+    }
+
+    /* Giant glowing star */
     .flag-star {
       position: absolute;
       top: 140px;
@@ -86,11 +125,32 @@
       font-size: 96px;
       color: var(--copper-bright);
       text-shadow: 
-        0 0 20px rgba(232, 169, 110, 0.8),
+        0 0 25px rgba(232, 169, 110, 0.8),
         0 0 60px rgba(232, 169, 110, 0.4);
-      z-index: 3;
+      z-index: 6;
       pointer-events: none;
     }
+
+    /* High-impact Portrait Illustration (Option A) */
+    .portrait-svg-container {
+      position: absolute;
+      bottom: -10px;
+      right: -20px;
+      width: 650px;
+      height: 800px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Geometric rings */
+    .geo-ring {
+      position: absolute;
+      border: 1px solid rgba(245, 240, 232, 0.03);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .ring-1 { width: 900px; height: 900px; top: -350px; left: -150px; }
 
     /* Corner Marks */
     .corner-mark {
@@ -158,7 +218,7 @@
 
     .main-title {
       font-family: 'Instrument Serif', serif;
-      font-size: 100px;
+      font-size: 96px;
       line-height: 1.05;
       color: var(--cream);
       font-weight: 400;
@@ -174,8 +234,8 @@
 
     /* Center Quote */
     .quote-section {
-      max-width: 75%;
-      margin-top: 20px;
+      max-width: 60%;
+      margin-top: 40px;
       z-index: 10;
       position: relative;
     }
@@ -231,64 +291,74 @@
 </head>
 <body>
 
-  <!-- Abstract Waving Flag (Option C) -->
-  <div class="flag-waves">
-    <svg width="100%" height="100%" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Blue Base Waving -->
-      <path d="M0 0 L1200 0 L1200 1200 L0 1200 Z" fill="url(#blueGlow)" opacity="0.6"/>
-      <!-- Diagonal Yellow-Red-Yellow Waves -->
-      <path d="M-100 1000 C300 800, 500 700, 1300 100 L1300 200 C500 800, 300 900, -100 1100 Z" fill="url(#yellowGrad)" opacity="0.4"/>
-      <path d="M-100 960 C300 760, 500 660, 1300 60 L1300 140 C500 740, 300 840, -100 1040 Z" fill="url(#copperGrad)" opacity="0.8"/>
-      <path d="M-100 920 C300 720, 500 620, 1300 20 L1300 100 C500 700, 300 800, -100 1000 Z" fill="url(#yellowGrad)" opacity="0.4"/>
+  <!-- Abstract Waving Flag Stripes -->
+  <div class="flag-diagonal">
+    <div class="stripe-red"></div>
+    <div class="stripe-yellow-top"></div>
+    <div class="stripe-yellow-bottom"></div>
+  </div>
+
+  <!-- Giant Glowing Star -->
+  <div class="flag-star">★</div>
+
+  <!-- Highly visible silhouette / illustration of a Congolese laughing, looking up (Option A) -->
+  <div class="portrait-svg-container">
+    <svg width="100%" height="100%" viewBox="0 0 650 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ambient Glow Behind the Portrait -->
+      <circle cx="450" cy="450" r="300" fill="url(#portraitBacklight)" opacity="0.4" />
       
-      <!-- Gradient Definitions -->
+      <!-- Filled Dark Silhouette of Face Profile (Laughing and looking up) -->
+      <path d="M 150 800 
+               C 220 750, 300 700, 310 600
+               C 315 570, 290 540, 320 480
+               C 340 440, 390 410, 420 400
+               C 470 385, 490 395, 520 360
+               C 530 350, 520 330, 550 300
+               C 580 270, 610 280, 615 230
+               C 620 180, 570 120, 520 125
+               C 480 130, 440 180, 400 240
+               C 350 320, 290 450, 230 600
+               C 190 700, 100 770, 0 800 Z" 
+            fill="url(#portraitFill)" opacity="0.9" />
+
+      <!-- Outline Overlay for High Definition Details -->
+      <path d="M 150 800 
+               C 220 750, 300 700, 310 600
+               C 315 570, 290 540, 320 480
+               C 340 440, 390 410, 420 400
+               C 470 385, 490 395, 520 360
+               C 530 350, 520 330, 550 300
+               C 580 270, 610 280, 615 230
+               C 620 180, 570 120, 520 125
+               C 480 130, 440 180, 400 240
+               C 350 320, 290 450, 230 600" 
+            stroke="url(#portraitStroke)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+
       <defs>
-        <radialGradient id="blueGlow" cx="20%" cy="20%" r="80%" fx="20%" fy="20%">
-          <stop offset="0%" stop-color="#007FFF" stop-opacity="0.25"/>
-          <stop offset="60%" stop-color="#0E0F12" stop-opacity="0"/>
+        <!-- Backlight for Contrast -->
+        <radialGradient id="portraitBacklight" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#E8A96E" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#0E0F12" stop-opacity="0"/>
         </radialGradient>
-        <linearGradient id="copperGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+
+        <!-- Rich dark-copper filled silhouette gradient -->
+        <linearGradient id="portraitFill" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#0E0F12" stop-opacity="0.95"/>
+          <stop offset="70%" stop-color="#1A1B1F" stop-opacity="0.95"/>
+          <stop offset="100%" stop-color="#2D1C16" stop-opacity="0.95"/>
+        </linearGradient>
+
+        <!-- Bright copper stroke line -->
+        <linearGradient id="portraitStroke" x1="0%" y1="100%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#B8633A"/>
           <stop offset="50%" stop-color="#E8A96E"/>
-          <stop offset="100%" stop-color="#B8633A"/>
-        </linearGradient>
-        <linearGradient id="yellowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#E8A96E" stop-opacity="0.8"/>
-          <stop offset="100%" stop-color="#D4925F" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#FFFFFF"/>
         </linearGradient>
       </defs>
     </svg>
   </div>
 
-  <!-- Abstract Line Art Portrait (Option A - Joyful Face Looking Up) -->
-  <div class="silhouette-container">
-    <svg width="100%" height="100%" viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M 50 850 
-               C 100 830, 180 750, 200 680 
-               C 210 650, 190 600, 220 540 
-               C 240 500, 280 480, 310 470 
-               C 360 450, 390 470, 420 440 
-               C 430 430, 420 400, 450 370 
-               C 480 340, 520 360, 530 330 
-               C 540 300, 520 280, 545 250 
-               C 570 220, 600 240, 595 180 
-               C 590 120, 530 80, 480 90 
-               C 420 100, 350 180, 310 260
-               C 270 340, 220 480, 180 620
-               C 150 720, 100 800, 50 850 Z" 
-            stroke="url(#lineGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      <defs>
-        <linearGradient id="lineGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#B8633A" stop-opacity="0.1"/>
-          <stop offset="70%" stop-color="#E8A96E" stop-opacity="0.7"/>
-          <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.9"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  </div>
-
-  <!-- Star Symbol of Unity -->
-  <div class="flag-star">★</div>
+  <div class="geo-ring ring-1"></div>
 
   <div class="container">
     <div class="corner-mark mark-tl"></div>
