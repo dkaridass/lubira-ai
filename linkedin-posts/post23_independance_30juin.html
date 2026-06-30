@@ -7,7 +7,6 @@
 
     :root {
       --ink: #0E0F12;
-      --ink-90: #1A1B1F;
       --copper: #B8633A;
       --copper-glow: #D4925F;
       --copper-bright: #E8A96E;
@@ -36,94 +35,12 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(245, 240, 232, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(245, 240, 232, 0.02) 1px, transparent 1px);
+        linear-gradient(rgba(245, 240, 232, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 240, 232, 0.015) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
-      z-index: 2;
-    }
-
-    /* Abstract background glow referencing sky blue on left, copper on right */
-    body::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: 
-        radial-gradient(circle at 10% 20%, rgba(0, 127, 255, 0.14) 0%, transparent 60%),
-        radial-gradient(circle at 90% 80%, rgba(184, 99, 58, 0.1) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Flag diagonal stripes (representing yellow-bordered red stripe) */
-    .flag-diagonal {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .stripe-red {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 200%;
-      height: 36px;
-      background: linear-gradient(90deg, var(--copper), var(--copper-bright), var(--copper));
-      transform: translate(-50%, -50%) rotate(-38deg);
-      box-shadow: 0 0 40px rgba(184, 99, 58, 0.4);
-      opacity: 0.85;
-    }
-
-    .stripe-yellow-top {
-      position: absolute;
-      top: calc(50% - 24px);
-      left: 50%;
-      width: 200%;
-      height: 4px;
-      background: var(--copper-bright);
-      transform: translate(-50%, -50%) rotate(-38deg);
-      opacity: 0.6;
-    }
-
-    .stripe-yellow-bottom {
-      position: absolute;
-      top: calc(50% + 24px);
-      left: 50%;
-      width: 200%;
-      height: 4px;
-      background: var(--copper-bright);
-      transform: translate(-50%, -50%) rotate(-38deg);
-      opacity: 0.6;
-    }
-
-    /* Glowing Star in top-left */
-    .flag-star {
-      position: absolute;
-      top: 140px;
-      left: 140px;
-      font-size: 84px;
-      color: var(--copper-bright);
-      text-shadow: 
-        0 0 20px rgba(232, 169, 110, 0.8),
-        0 0 50px rgba(232, 169, 110, 0.4);
       z-index: 5;
-      pointer-events: none;
     }
-
-    /* Geometric rings */
-    .geo-ring {
-      position: absolute;
-      border: 1px solid rgba(245, 240, 232, 0.03);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .ring-1 { width: 900px; height: 900px; top: -350px; left: -150px; }
-    .ring-2 { width: 600px; height: 600px; bottom: -200px; right: -100px; border-color: rgba(184, 99, 58, 0.04); }
 
     /* Main container */
     .container {
@@ -134,18 +51,55 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border: 1px solid rgba(245, 240, 232, 0.06);
+      border: 1px solid rgba(245, 240, 232, 0.08);
       padding: 60px;
-      background: rgba(14, 15, 18, 0.6);
-      backdrop-filter: blur(12px);
+      background: rgba(14, 15, 18, 0.75);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
     }
 
+    /* Background Flag Waves (Option C) */
+    .flag-waves {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.6;
+    }
+
+    /* Abstract Silhouette Overlay (Option A) */
+    .silhouette-container {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 600px;
+      height: 900px;
+      z-index: 2;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .flag-star {
+      position: absolute;
+      top: 140px;
+      left: 140px;
+      font-size: 96px;
+      color: var(--copper-bright);
+      text-shadow: 
+        0 0 20px rgba(232, 169, 110, 0.8),
+        0 0 60px rgba(232, 169, 110, 0.4);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Corner Marks */
     .corner-mark {
       position: absolute;
       width: 20px;
       height: 20px;
       border: 1px solid var(--copper-glow);
       pointer-events: none;
+      z-index: 15;
     }
     .mark-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
     .mark-tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
@@ -159,6 +113,7 @@
       align-items: center;
       border-bottom: 1px solid rgba(245, 240, 232, 0.08);
       padding-bottom: 24px;
+      z-index: 10;
     }
 
     .logo {
@@ -187,8 +142,9 @@
 
     /* Hero section */
     .hero {
-      text-align: center;
-      margin-top: 60px;
+      margin-top: 40px;
+      z-index: 10;
+      position: relative;
     }
 
     .date-label {
@@ -202,7 +158,7 @@
 
     .main-title {
       font-family: 'Instrument Serif', serif;
-      font-size: 104px;
+      font-size: 100px;
       line-height: 1.05;
       color: var(--cream);
       font-weight: 400;
@@ -216,11 +172,12 @@
       background-clip: text;
     }
 
-    /* Subtitle or Quote */
+    /* Center Quote */
     .quote-section {
-      text-align: center;
-      max-width: 80%;
-      margin: 20px auto 0 auto;
+      max-width: 75%;
+      margin-top: 20px;
+      z-index: 10;
+      position: relative;
     }
 
     .quote-text {
@@ -252,6 +209,7 @@
       align-items: center;
       border-top: 1px solid rgba(245, 240, 232, 0.08);
       padding-top: 24px;
+      z-index: 10;
     }
 
     .footer-left {
@@ -273,16 +231,64 @@
 </head>
 <body>
 
-  <!-- Abstract RDC Flag Representation -->
-  <div class="flag-diagonal">
-    <div class="stripe-red"></div>
-    <div class="stripe-yellow-top"></div>
-    <div class="stripe-yellow-bottom"></div>
+  <!-- Abstract Waving Flag (Option C) -->
+  <div class="flag-waves">
+    <svg width="100%" height="100%" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Blue Base Waving -->
+      <path d="M0 0 L1200 0 L1200 1200 L0 1200 Z" fill="url(#blueGlow)" opacity="0.6"/>
+      <!-- Diagonal Yellow-Red-Yellow Waves -->
+      <path d="M-100 1000 C300 800, 500 700, 1300 100 L1300 200 C500 800, 300 900, -100 1100 Z" fill="url(#yellowGrad)" opacity="0.4"/>
+      <path d="M-100 960 C300 760, 500 660, 1300 60 L1300 140 C500 740, 300 840, -100 1040 Z" fill="url(#copperGrad)" opacity="0.8"/>
+      <path d="M-100 920 C300 720, 500 620, 1300 20 L1300 100 C500 700, 300 800, -100 1000 Z" fill="url(#yellowGrad)" opacity="0.4"/>
+      
+      <!-- Gradient Definitions -->
+      <defs>
+        <radialGradient id="blueGlow" cx="20%" cy="20%" r="80%" fx="20%" fy="20%">
+          <stop offset="0%" stop-color="#007FFF" stop-opacity="0.25"/>
+          <stop offset="60%" stop-color="#0E0F12" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="copperGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#B8633A"/>
+          <stop offset="50%" stop-color="#E8A96E"/>
+          <stop offset="100%" stop-color="#B8633A"/>
+        </linearGradient>
+        <linearGradient id="yellowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#E8A96E" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#D4925F" stop-opacity="0.8"/>
+        </linearGradient>
+      </defs>
+    </svg>
   </div>
-  <div class="flag-star">★</div>
 
-  <div class="geo-ring ring-1"></div>
-  <div class="geo-ring ring-2"></div>
+  <!-- Abstract Line Art Portrait (Option A - Joyful Face Looking Up) -->
+  <div class="silhouette-container">
+    <svg width="100%" height="100%" viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 50 850 
+               C 100 830, 180 750, 200 680 
+               C 210 650, 190 600, 220 540 
+               C 240 500, 280 480, 310 470 
+               C 360 450, 390 470, 420 440 
+               C 430 430, 420 400, 450 370 
+               C 480 340, 520 360, 530 330 
+               C 540 300, 520 280, 545 250 
+               C 570 220, 600 240, 595 180 
+               C 590 120, 530 80, 480 90 
+               C 420 100, 350 180, 310 260
+               C 270 340, 220 480, 180 620
+               C 150 720, 100 800, 50 850 Z" 
+            stroke="url(#lineGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="lineGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#B8633A" stop-opacity="0.1"/>
+          <stop offset="70%" stop-color="#E8A96E" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Star Symbol of Unity -->
+  <div class="flag-star">★</div>
 
   <div class="container">
     <div class="corner-mark mark-tl"></div>
