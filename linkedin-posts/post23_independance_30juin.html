@@ -7,6 +7,7 @@
 
     :root {
       --ink: #0E0F12;
+      --ink-90: #1A1B1F;
       --copper: #B8633A;
       --copper-glow: #D4925F;
       --copper-bright: #E8A96E;
@@ -39,43 +40,90 @@
         linear-gradient(90deg, rgba(245, 240, 232, 0.02) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
+      z-index: 2;
     }
 
-    /* Soft glowing celebratory radial gradients representing flag colors but premium and desaturated */
+    /* Abstract background glow referencing sky blue on left, copper on right */
     body::after {
       content: '';
       position: absolute;
       inset: 0;
       background: 
-        radial-gradient(circle at 10% 10%, rgba(0, 127, 255, 0.08) 0%, transparent 60%),
-        radial-gradient(circle at 90% 90%, rgba(232, 169, 110, 0.07) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(184, 99, 58, 0.05) 0%, transparent 70%);
+        radial-gradient(circle at 10% 20%, rgba(0, 127, 255, 0.14) 0%, transparent 60%),
+        radial-gradient(circle at 90% 80%, rgba(184, 99, 58, 0.1) 0%, transparent 60%);
       pointer-events: none;
+      z-index: 1;
     }
 
-    /* Abstract design elements */
-    .star-bg {
+    /* Flag diagonal stripes (representing yellow-bordered red stripe) */
+    .flag-diagonal {
       position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 580px;
-      font-weight: 900;
-      color: rgba(232, 169, 110, 0.015);
-      font-family: 'Inter', sans-serif;
-      line-height: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      user-select: none;
+      z-index: 1;
     }
 
+    .stripe-red {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200%;
+      height: 36px;
+      background: linear-gradient(90deg, var(--copper), var(--copper-bright), var(--copper));
+      transform: translate(-50%, -50%) rotate(-38deg);
+      box-shadow: 0 0 40px rgba(184, 99, 58, 0.4);
+      opacity: 0.85;
+    }
+
+    .stripe-yellow-top {
+      position: absolute;
+      top: calc(50% - 24px);
+      left: 50%;
+      width: 200%;
+      height: 4px;
+      background: var(--copper-bright);
+      transform: translate(-50%, -50%) rotate(-38deg);
+      opacity: 0.6;
+    }
+
+    .stripe-yellow-bottom {
+      position: absolute;
+      top: calc(50% + 24px);
+      left: 50%;
+      width: 200%;
+      height: 4px;
+      background: var(--copper-bright);
+      transform: translate(-50%, -50%) rotate(-38deg);
+      opacity: 0.6;
+    }
+
+    /* Glowing Star in top-left */
+    .flag-star {
+      position: absolute;
+      top: 140px;
+      left: 140px;
+      font-size: 84px;
+      color: var(--copper-bright);
+      text-shadow: 
+        0 0 20px rgba(232, 169, 110, 0.8),
+        0 0 50px rgba(232, 169, 110, 0.4);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Geometric rings */
     .geo-ring {
       position: absolute;
-      border: 1px solid rgba(245, 240, 232, 0.04);
+      border: 1px solid rgba(245, 240, 232, 0.03);
       border-radius: 50%;
       pointer-events: none;
+      z-index: 2;
     }
     .ring-1 { width: 900px; height: 900px; top: -350px; left: -150px; }
-    .ring-2 { width: 600px; height: 600px; bottom: -200px; right: -100px; border-color: rgba(184, 99, 58, 0.05); }
+    .ring-2 { width: 600px; height: 600px; bottom: -200px; right: -100px; border-color: rgba(184, 99, 58, 0.04); }
 
     /* Main container */
     .container {
@@ -86,10 +134,10 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border: 1px solid rgba(245, 240, 232, 0.05);
+      border: 1px solid rgba(245, 240, 232, 0.06);
       padding: 60px;
-      background: rgba(14, 15, 18, 0.4);
-      backdrop-filter: blur(10px);
+      background: rgba(14, 15, 18, 0.6);
+      backdrop-filter: blur(12px);
     }
 
     .corner-mark {
@@ -140,7 +188,7 @@
     /* Hero section */
     .hero {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 60px;
     }
 
     .date-label {
@@ -154,8 +202,8 @@
 
     .main-title {
       font-family: 'Instrument Serif', serif;
-      font-size: 110px;
-      line-height: 1;
+      font-size: 104px;
+      line-height: 1.05;
       color: var(--cream);
       font-weight: 400;
     }
@@ -171,15 +219,8 @@
     /* Subtitle or Quote */
     .quote-section {
       text-align: center;
-      max-width: 85%;
-      margin: 40px auto 0 auto;
-    }
-
-    .gold-star {
-      font-size: 48px;
-      color: var(--copper-bright);
-      margin-bottom: 24px;
-      text-shadow: 0 0 20px rgba(232, 169, 110, 0.3);
+      max-width: 80%;
+      margin: 20px auto 0 auto;
     }
 
     .quote-text {
@@ -201,7 +242,7 @@
       color: rgba(245, 240, 232, 0.4);
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-top: 20px;
+      margin-top: 24px;
     }
 
     /* Footer */
@@ -232,7 +273,14 @@
 </head>
 <body>
 
-  <div class="star-bg">★</div>
+  <!-- Abstract RDC Flag Representation -->
+  <div class="flag-diagonal">
+    <div class="stripe-red"></div>
+    <div class="stripe-yellow-top"></div>
+    <div class="stripe-yellow-bottom"></div>
+  </div>
+  <div class="flag-star">★</div>
+
   <div class="geo-ring ring-1"></div>
   <div class="geo-ring ring-2"></div>
 
@@ -258,7 +306,6 @@
 
     <!-- Center Quote -->
     <div class="quote-section">
-      <div class="gold-star">★</div>
       <div class="quote-text">
         Célébrons la force, la résilience et la <em>joie unique</em> qui unissent notre peuple. Que l'avenir soit dessiné par <em>notre propre lumière</em>.
       </div>
