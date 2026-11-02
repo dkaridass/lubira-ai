@@ -1,12 +1,12 @@
-import { ShieldCheck, KeyRound, Swords, DatabaseZap } from 'lucide-react';
+import { Database, Key, ShieldCheck, Target } from '@phosphor-icons/react';
 import Reveal from '../Reveal';
 import SectionHead from '../SectionHead';
 
 const items = [
   { Icon: ShieldCheck, h: 'NDA signé avant tout échange', p: "Vos données, votre projet et vos idées restent strictement confidentiels avant même que nous commencions à travailler." },
-  { Icon: KeyRound, h: 'Propriété complète du système', p: "À la livraison, le code source, la base de données et l'agent IA vous appartiennent à 100%. Aucun droit retenu." },
-  { Icon: Swords, h: 'Exclusivité sectorielle', p: "Nous ne travaillons pas avec vos concurrents directs dans votre secteur à Lubumbashi. Votre avantage est protégé." },
-  { Icon: DatabaseZap, h: 'Infrastructure dédiée', p: "Chaque client dispose de sa propre instance Supabase isolée. Vos données ne sont jamais partagées." },
+  { Icon: Key, h: 'Propriété complète du système', p: "À la livraison, le code source, la base de données et l'agent IA vous appartiennent à 100%. Aucun droit retenu." },
+  { Icon: Target, h: 'Exclusivité sectorielle', p: "Nous ne travaillons pas avec vos concurrents directs dans votre secteur à Lubumbashi. Votre avantage est protégé." },
+  { Icon: Database, h: 'Infrastructure dédiée', p: "Chaque client dispose de sa propre instance Supabase isolée. Vos données ne sont jamais partagées." },
 ];
 
 export default function Trust() {

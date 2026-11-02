@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check } from '@phosphor-icons/react';
 import SEO from '../components/SEO';
 import Reveal from '../components/Reveal';
 
@@ -72,9 +72,9 @@ export default function Services() {
             {services.map((srv, i) => (
               <Reveal key={srv.n} delay={(i % 2) * 0.06} className="card service-card">
                 <span className="num-tag" aria-hidden="true">{srv.n}</span>
-                <h2 style={{ fontSize: 'var(--fs-h3)', marginTop: 8, marginBottom: 12, letterSpacing: '-.015em' }}>{srv.t}</h2>
+                <h2 className="heading-6" style={{ marginTop: 8, marginBottom: 12 }}>{srv.t}</h2>
                 <p>{srv.d}</p>
-                <p style={{ marginTop: 20, fontWeight: 600, color: 'var(--text)' }}>Livrables typiques</p>
+                <p style={{ marginTop: 24, fontWeight: 600, color: 'var(--text)' }}>Livrables typiques</p>
                 <ul>
                   {srv.deliv.map((item) => (
                     <li key={item}><Check size={16} aria-hidden="true" />{item}</li>

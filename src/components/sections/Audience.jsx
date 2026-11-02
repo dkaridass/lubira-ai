@@ -1,10 +1,10 @@
-import { Pickaxe, Landmark, Briefcase } from 'lucide-react';
+import { Bank, Briefcase, Mountains } from '@phosphor-icons/react';
 import Reveal from '../Reveal';
 import SectionHead from '../SectionHead';
 
 const cards = [
-  { Icon: Pickaxe, title: 'Industrie Minière & BTP', desc: 'Rapports de chantier manuels, documents de conformité OCDE en retard, données éparpillées dans des fichiers Excel.', tag: 'Mines · Katanga' },
-  { Icon: Landmark, title: 'Services Financiers & Assurances', desc: "Polices d'assurance traitées à la main, échéances manquées, reporting investisseurs qui prend des jours à préparer.", tag: 'Finance · Kinshasa' },
+  { Icon: Mountains, title: 'Industrie Minière & BTP', desc: 'Rapports de chantier manuels, documents de conformité OCDE en retard, données éparpillées dans des fichiers Excel.', tag: 'Mines · Katanga' },
+  { Icon: Bank, title: 'Services Financiers & Assurances', desc: "Polices d'assurance traitées à la main, échéances manquées, reporting investisseurs qui prend des jours à préparer.", tag: 'Finance · Kinshasa' },
   { Icon: Briefcase, title: 'Cabinets Professionnels & ONG', desc: 'Processus administratifs chronophages qui mobilisent vos équipes sur des tâches sans valeur ajoutée.', tag: 'Conseil · ONG' },
 ];
 
@@ -27,9 +27,6 @@ export default function Audience() {
             </Reveal>
           ))}
         </div>
-        <Reveal as="p" className="audience-quote">
-          « Si votre équipe passe plus de <span className="acc">2 heures par semaine</span> sur une tâche répétitive — nous pouvons l&apos;automatiser. »
-        </Reveal>
       </div>
     </section>
   );

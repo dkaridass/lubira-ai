@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@phosphor-icons/react';
 import Reveal from '../components/Reveal';
 import SEO from '../components/SEO';
 
@@ -23,7 +23,7 @@ export default function Projects() {
         <div className="container">
           <Reveal>
             <span className="chip chip--accent">Secteur minier</span>
-            <h2 id="featured-case" style={{ fontSize: 'clamp(1.75rem, 3vw + .5rem, 2.75rem)', margin: '16px 0 8px', maxWidth: '24ch' }}>
+            <h2 id="featured-case" className="heading-3" style={{ margin: '16px 0 8px', maxWidth: '24ch' }}>
               Comment LUBIRA AI a transformé les opérations de Hong Ning Mining
             </h2>
             <p className="caption" style={{ marginBottom: 48 }}>Lubumbashi, RDC · 2026</p>
@@ -40,7 +40,7 @@ export default function Projects() {
 
               <aside>
                 <div className="card">
-                  <h3 style={{ fontSize: 'var(--fs-small)', color: 'var(--text-2)', marginBottom: 24 }}>Impact opérationnel</h3>
+                  <h3 className="body-4" style={{ color: 'var(--text-2)', marginBottom: 24 }}>Impact opérationnel</h3>
                   <dl>
                     {[
                       { v: '10 sec', l: 'Temps de génération par dossier (contre 3 jours)' },
@@ -54,7 +54,7 @@ export default function Projects() {
                     ))}
                   </dl>
                 </div>
-                <h3 style={{ fontSize: 'var(--fs-small)', color: 'var(--text-2)', margin: '32px 0 12px' }}>Technologies déployées</h3>
+                <h3 className="body-4" style={{ color: 'var(--text-2)', margin: '32px 0 12px' }}>Technologies déployées</h3>
                 <ul style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   {['React', 'Supabase', 'Claude 3.5 Sonnet', 'jsPDF', 'Node.js'].map((t) => <li key={t} className="chip">{t}</li>)}
                 </ul>
@@ -67,7 +67,7 @@ export default function Projects() {
       <section className="section" aria-labelledby="upcoming">
         <div className="container">
           <Reveal className="section-head">
-            <h2 id="upcoming" style={{ fontSize: 'var(--fs-h3)' }}>Projets en cours de déploiement</h2>
+            <h2 id="upcoming" className="heading-6">Projets en cours de déploiement</h2>
           </Reveal>
           <div className="grid grid--3">
             {['Secteur bancaire', 'Secteur agricole', 'ONG internationale'].map((sector, i) => (

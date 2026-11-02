@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, Check, MessageCircle } from 'lucide-react';
+import { ArrowRight, Check, WhatsappLogo } from '@phosphor-icons/react';
 import Reveal from '../components/Reveal';
 import Field from '../components/Field';
 import SEO from '../components/SEO';
@@ -34,7 +34,9 @@ function ContactForm() {
     if (!formData.service) e.service = 'Veuillez sélectionner un service';
     if (!formData.description.trim()) e.description = 'Veuillez décrire votre besoin';
     setErrors(e);
-    return Object.keys(e).length === 0;
+    const names = Object.keys(e);
+    if (names.length) setTimeout(() => document.querySelector(`.form-card [name="${names[0]}"]`)?.focus(), 0);
+    return names.length === 0;
   };
 
   const handleSubmit = async (e) => {
@@ -93,13 +95,13 @@ function ContactForm() {
                 </li>
                 <li>
                   <a href="https://wa.me/243995974770" target="_blank" rel="noopener noreferrer" className="btn btn--whatsapp btn--sm">
-                    <MessageCircle size={18} aria-hidden="true" /> Discuter sur WhatsApp
+                    <WhatsappLogo size={18} aria-hidden="true" /> Discuter sur WhatsApp
                     <span className="sr-only"> (nouvel onglet)</span>
                   </a>
                 </li>
               </ul>
-              <h2 style={{ fontSize: 'var(--fs-h3)', margin: '40px 0 16px' }}>Notre processus</h2>
-              <ol className="contact-steps" style={{ gap: 20 }}>
+              <h2 className="heading-6" style={{ margin: '40px 0 16px' }}>Notre processus</h2>
+              <ol className="contact-steps" style={{ gap: 24 }}>
                 {[
                   { n: 1, t: 'Vous nous contactez', d: 'Remplissez le formulaire ou envoyez un message.' },
                   { n: 2, t: 'Audit gratuit sous 24h', d: 'Un expert analyse votre problème spécifique.' },
@@ -118,8 +120,8 @@ function ContactForm() {
                 {submitSuccess ? (
                   <div className="success-card" role="status">
                     <div className="success-icon"><Check size={30} aria-hidden="true" /></div>
-                    <h2 style={{ fontSize: '1.75rem' }}>Demande envoyée</h2>
-                    <p className="muted" style={{ margin: '12px 0 28px' }}>
+                    <h2 className="heading-4">Demande envoyée</h2>
+                    <p className="muted" style={{ margin: '12px 0 32px' }}>
                       Nous avons bien reçu votre demande. Un expert LUBIRA AI vous contactera sous 2 heures.
                     </p>
                     <button type="button" onClick={() => setSubmitSuccess(false)} className="btn btn--secondary">

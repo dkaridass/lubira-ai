@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@phosphor-icons/react';
 import Reveal from '../components/Reveal';
 import SEO from '../components/SEO';
 
@@ -30,7 +30,7 @@ export default function About() {
               <div className="founder-photo" style={{ maxWidth: 340 }}>
                 <img src="/founder.jpg" alt="Darius Tshibangu, fondateur LUBIRA AI" width="340" height="425" decoding="async" />
               </div>
-              <p style={{ marginTop: 20, fontWeight: 600 }}>Darius Tshibangu</p>
+              <p style={{ marginTop: 24, fontWeight: 600 }}>Darius Tshibangu</p>
               <p className="muted small">Fondateur &amp; CEO, LUBIRA AI</p>
             </Reveal>
             <Reveal delay={0.1}>
@@ -71,7 +71,7 @@ export default function About() {
           <div className="grid grid--3">
             {values.map((v, i) => (
               <Reveal key={v.t} delay={i * 0.06}>
-                <h3 style={{ fontSize: '1.75rem', letterSpacing: '-.025em', marginBottom: 12 }}>{v.t}</h3>
+                <h3 className="heading-4" style={{ marginBottom: 12 }}>{v.t}</h3>
                 <p className="muted">{v.d}</p>
               </Reveal>
             ))}
@@ -82,7 +82,7 @@ export default function About() {
       <section className="section section--dark" aria-label="Mission">
         <div className="container" style={{ textAlign: 'center' }}>
           <Reveal>
-            <p lang="en" className="display" style={{ fontSize: 'clamp(2.25rem, 6vw, 4.5rem)', fontWeight: 600, color: 'var(--on-dark)' }}>
+            <p lang="en" className="display" style={{ color: 'var(--on-dark)' }}>
               Built from <span className="acc">Congo</span>.<br />Built for the <span className="acc">World</span>.
             </p>
             <Link to="/contact" className="btn btn--on-dark" style={{ marginTop: 40 }}>

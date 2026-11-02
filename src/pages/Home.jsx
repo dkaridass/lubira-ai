@@ -10,6 +10,7 @@ import Pricing from '../components/sections/Pricing';
 import FAQ from '../components/sections/FAQ';
 import ContactSection from '../components/sections/ContactSection';
 import Reveal from '../components/Reveal';
+import TaglineReveal from '../components/TaglineReveal';
 
 const stats = [
   { v: '48h', l: 'Livraison garantie' },
@@ -42,6 +43,11 @@ export default function Home() {
       <Hero />
       <ProofStrip />
       <Audience />
+      <TaglineReveal
+        label="Notre promesse"
+        accent={[6, 7, 8, 9]}
+        words={"Si votre équipe passe plus de 2 heures par semaine sur une tâche répétitive, nous pouvons l'automatiser.".split(' ')}
+      />
       <Trust />
       <Process />
       <Services />

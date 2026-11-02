@@ -1,9 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Zap, Bot, MessageCircle, BarChart3, ClipboardCheck, GraduationCap, Compass,
-  Brain, Smartphone, ShoppingCart, Cloud, ArrowRight, ArrowLeft, Check, Lock, Clock, Users,
-} from 'lucide-react';
+import { ArrowLeft, ArrowRight, Brain, ChartBar, Check, ClipboardText, Clock, Cloud, Compass, DeviceMobile, GraduationCap, Lightning, Lock, Robot, ShoppingCart, Users, WhatsappLogo } from '@phosphor-icons/react';
 import { supabase } from '../../lib/supabase';
 import Field from '../Field';
 import Reveal from '../Reveal';
@@ -17,15 +14,15 @@ const SECTEURS = [
 ];
 
 const SERVICES = [
-  { id: 'automatisation', label: 'Automatisation', Icon: Zap },
-  { id: 'agents-ia', label: 'Agent IA', Icon: Bot },
-  { id: 'whatsapp', label: 'Bot WhatsApp', Icon: MessageCircle },
-  { id: 'dashboard', label: 'Dashboard', Icon: BarChart3 },
-  { id: 'conformite', label: 'Conformité', Icon: ClipboardCheck },
+  { id: 'automatisation', label: 'Automatisation', Icon: Lightning },
+  { id: 'agents-ia', label: 'Agent IA', Icon: Robot },
+  { id: 'whatsapp', label: 'Bot WhatsApp', Icon: WhatsappLogo },
+  { id: 'dashboard', label: 'Dashboard', Icon: ChartBar },
+  { id: 'conformite', label: 'Conformité', Icon: ClipboardText },
   { id: 'formation', label: 'Formation', Icon: GraduationCap },
   { id: 'conseil', label: 'Conseil', Icon: Compass },
   { id: 'ia-ml', label: 'IA & Machine Learning', Icon: Brain },
-  { id: 'web-mobile-saas', label: 'Web/Mobile/SaaS', Icon: Smartphone },
+  { id: 'web-mobile-saas', label: 'Web/Mobile/SaaS', Icon: DeviceMobile },
   { id: 'ecommerce', label: 'E-commerce', Icon: ShoppingCart },
   { id: 'cloud', label: 'Cloud & DevOps', Icon: Cloud },
   { id: 'autre', label: 'Autre', Icon: ArrowRight },
@@ -73,6 +70,7 @@ export default function ContactSection() {
   });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
+  const formRef = useRef(null);
   const stepHeading = useRef(null);
   const successHeading = useRef(null);
   const firstRender = useRef(true);
@@ -97,7 +95,10 @@ export default function ContactSection() {
     if (!formData.email.trim()) e.email = 'Veuillez indiquer votre email';
     else if (!/^\S+@\S+\.\S+$/.test(formData.email)) e.email = 'Adresse email invalide';
     setErrors(e);
-    return Object.keys(e).length === 0;
+    const names = Object.keys(e);
+    // Move focus to the first invalid field so keyboard and screen reader users land on it
+    if (names.length) setTimeout(() => formRef.current?.querySelector(`[name="${names[0]}"]`)?.focus(), 0);
+    return names.length === 0;
   };
 
   const submit = async (e) => {
@@ -154,7 +155,7 @@ export default function ContactSection() {
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
               <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer" className="btn btn--whatsapp btn--sm">
-                <MessageCircle size={18} aria-hidden="true" /> Écrire sur WhatsApp
+                <WhatsappLogo size={18} aria-hidden="true" /> Écrire sur WhatsApp
                 <span className="sr-only"> (nouvel onglet)</span>
               </a>
               <a href="mailto:contact@lubira.ai" className="btn btn--secondary btn--sm">contact@lubira.ai</a>
@@ -173,7 +174,7 @@ export default function ContactSection() {
                 <motion.div key="success" className="form-card success-card"
                   initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }}>
                   <div className="success-icon"><Check size={30} aria-hidden="true" /></div>
-                  <h3 ref={successHeading} tabIndex={-1}>Merci {formData.nom.split(' ')[0]} !</h3>
+                  <h3 ref={successHeading} tabIndex={-1}>Merci {formData.nom.split(' ')[0]}.</h3>
                   <p className="muted" style={{ marginTop: 8 }}>Votre demande a bien été enregistrée.</p>
                   <p className="muted">Darius vous contacte sous <strong>24h</strong> sur WhatsApp.</p>
                   <div className="next-steps">
@@ -186,7 +187,7 @@ export default function ContactSection() {
                   </div>
                 </motion.div>
               ) : (
-                <motion.form key="form" className="form-card" onSubmit={submit} noValidate
+                <motion.form key="form" ref={formRef} className="form-card" onSubmit={submit} noValidate
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} aria-label="Demande d'audit gratuit">
                   <ol className="stepper" aria-label={`Étape ${step} sur 2`}>
                     <li className={step >= 1 ? 'on' : ''} aria-current={step === 1 ? 'step' : undefined}><span className="dot">1</span>Vos coordonnées</li>

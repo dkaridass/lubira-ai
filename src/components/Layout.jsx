@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
 import ScrollToTop from './ScrollToTop';
 import WhatsAppButton from './WhatsAppButton';
 
@@ -14,7 +13,7 @@ const NAV = [
 
 function Brand({ onClick }) {
   return (
-    <Link to="/" className="brand" onClick={onClick} aria-label="LUBIRA AI — accueil">
+    <Link to="/" className="brand" onClick={onClick} aria-label="LUBIRA AI, accueil">
       <span className="brand-mark" aria-hidden="true">L</span>
       <span className="brand-name">LUBIRA <span>AI</span></span>
     </Link>
@@ -22,18 +21,33 @@ function Brand({ onClick }) {
 }
 
 export default function Layout() {
-  // The menu is "open" only for the location it was opened on, so it closes
-  // automatically on any navigation without a setState-in-effect.
-  const { key } = useLocation();
+  const { key, pathname, hash } = useLocation();
+  // The menu is "open" only for the location it was opened on, so it closes on any navigation.
   const [openKey, setOpenKey] = useState(null);
   const open = openKey === key;
-  const setOpen = (v) => setOpenKey(v ? key : null);
+  const toggleRef = useRef(null);
+  const panelRef = useRef(null);
+
+  // A nav link is current when its hash matches (home sections) — exposed via aria-current.
+  const isCurrent = (to) => pathname === '/' && hash && to === `/${hash}`;
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e) => { if (e.key === 'Escape') setOpenKey(null); };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    panelRef.current?.querySelector('a')?.focus();
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') { setOpenKey(null); toggleRef.current?.focus(); return; }
+      if (e.key !== 'Tab') return;
+      // Keep Tab inside the open menu (panel links + the toggle button)
+      const items = [...panelRef.current.querySelectorAll('a,button'), toggleRef.current];
+      const first = items[0]; const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prevOverflow; };
   }, [open]);
 
   const wa = `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '243995974770'}`;
@@ -44,30 +58,35 @@ export default function Layout() {
       <a href="#main" className="skip-link">Aller au contenu principal</a>
 
       <header className="site-header">
-        <div className="container bar">
+        <div className="nav-pill">
           <Brand onClick={() => window.scrollTo(0, 0)} />
           <nav className="nav-primary" aria-label="Navigation principale">
-            {NAV.map((n) => <Link key={n.to} to={n.to}>{n.label}</Link>)}
+            {NAV.map((n) => (
+              <Link key={n.to} to={n.to} aria-current={isCurrent(n.to) ? 'location' : undefined}>{n.label}</Link>
+            ))}
           </nav>
           <div className="nav-actions">
             <Link to="/#contact" className="btn btn--primary btn--sm">Audit gratuit</Link>
             <button
-              type="button" className="menu-btn" aria-expanded={open} aria-controls="mobile-nav"
-              aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} onClick={() => setOpen(!open)}
+              ref={toggleRef} type="button" className="menu-btn" aria-expanded={open} aria-controls="mobile-panel"
+              aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} onClick={() => setOpenKey(open ? null : key)}
             >
-              {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+              <span /><span /><span />
             </button>
           </div>
         </div>
         {open && (
-          <nav id="mobile-nav" className="mobile-nav" aria-label="Navigation mobile">
-            {NAV.map((n) => <Link key={n.to} to={n.to}>{n.label}</Link>)}
-            <Link to="/#contact" className="btn btn--primary btn--block" style={{ marginTop: 20, borderBottom: 0 }}>Audit gratuit</Link>
+          <nav id="mobile-panel" ref={panelRef} className="mobile-panel" aria-label="Navigation mobile">
+            {NAV.map((n, i) => (
+              <Link key={n.to} to={n.to} className="m-link" style={{ '--i': i }}
+                aria-current={isCurrent(n.to) ? 'location' : undefined}>{n.label}</Link>
+            ))}
+            <Link to="/#contact" className="btn btn--primary btn--block" style={{ '--i': NAV.length }}>Audit gratuit</Link>
           </nav>
         )}
       </header>
 
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <Outlet />
       </main>
 

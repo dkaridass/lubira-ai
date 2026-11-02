@@ -1,4 +1,5 @@
-import { Check } from 'lucide-react';
+import { useState } from 'react';
+import { Check, CaretDown } from '@phosphor-icons/react';
 import Reveal from '../Reveal';
 import SectionHead from '../SectionHead';
 
@@ -18,6 +19,7 @@ const services = [
 ];
 
 export default function Services() {
+  const [all, setAll] = useState(false);
   return (
     <section className="section section--alt" id="services" aria-labelledby="services-title">
       <div className="container">
@@ -27,9 +29,9 @@ export default function Services() {
           title={<>Douze façons de transformer <span className="acc">vos opérations</span>.</>}
           lead="Chaque mission inclut audit gratuit, NDA signé, transfert complet du code et formation de votre équipe."
         />
-        <div className="grid grid--3">
+        <div className="grid grid--3" id="services-grid">
           {services.map((srv, i) => (
-            <Reveal key={srv.num} delay={(i % 3) * 0.06} className="card card--lift service-card">
+            <Reveal key={srv.num} delay={(i % 3) * 0.06} className="card card--lift service-card" hidden={i >= 6 && !all}>
               <span className="num-tag" aria-hidden="true">{srv.num}</span>
               <h3 style={{ marginTop: 8 }}>{srv.title}</h3>
               <p>{srv.desc}</p>
@@ -40,6 +42,12 @@ export default function Services() {
               </ul>
             </Reveal>
           ))}
+        </div>
+        <div className="more-row">
+          <button type="button" className="btn btn--secondary" aria-expanded={all} aria-controls="services-grid" onClick={() => setAll((v) => !v)}>
+            {all ? 'Afficher moins' : 'Afficher les 6 autres services'}
+            <CaretDown size={18} aria-hidden="true" style={{ transform: all ? 'rotate(180deg)' : 'none', transition: 'transform 300ms cubic-bezier(.22,1,.36,1)' }} />
+          </button>
         </div>
       </div>
     </section>
