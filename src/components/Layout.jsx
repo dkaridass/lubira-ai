@@ -1,106 +1,119 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
+import ScrollToTop from './ScrollToTop';
+import WhatsAppButton from './WhatsAppButton';
+
+const NAV = [
+  { to: '/#services', label: 'Services' },
+  { to: '/#realisations', label: 'Réalisations' },
+  { to: '/#processus', label: 'Processus' },
+  { to: '/#tarifs', label: 'Formules' },
+  { to: '/#faq', label: 'FAQ' },
+];
+
+function Brand({ onClick }) {
+  return (
+    <Link to="/" className="brand" onClick={onClick} aria-label="LUBIRA AI — accueil">
+      <span className="brand-mark" aria-hidden="true">L</span>
+      <span className="brand-name">LUBIRA <span>AI</span></span>
+    </Link>
+  );
+}
 
 export default function Layout() {
-  const location = useLocation();
+  // The menu is "open" only for the location it was opened on, so it closes
+  // automatically on any navigation without a setState-in-effect.
+  const { key } = useLocation();
+  const [openKey, setOpenKey] = useState(null);
+  const open = openKey === key;
+  const setOpen = (v) => setOpenKey(v ? key : null);
 
-  const handleNavClick = (e, path) => {
-    if (path.startsWith('#') && location.pathname === '/') {
-      e.preventDefault();
-      const el = document.getElementById(path.slice(1));
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') setOpenKey(null); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  const wa = `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '243995974770'}`;
 
   return (
     <>
-      {/* BANNER */}
-      <div className="banner">
-        <div className="container-x row">
-          <span>// LUBUMBASHI · RDC</span>
-          <span>Premier audit gratuit · livraison sous 48h · <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>Réserver →</a></span>
-        </div>
-      </div>
+      <ScrollToTop />
+      <a href="#main" className="skip-link">Aller au contenu principal</a>
 
-      {/* HEADER */}
-      <header className="nav">
-        <div className="container-x row">
-          <Link to="/" className="brand" onClick={() => window.scrollTo(0, 0)}>
-            <div className="mark-sun">
-              <div className="disc"></div>
-              <div className="L">L</div>
-            </div>
-            <div className="wordmark">
-              <span className="name">LUBIRA</span>
-              <span className="ai">AI</span>
-            </div>
-          </Link>
-          <nav className="primary">
-            <a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Services</a>
-            <a href="#realisations" onClick={(e) => handleNavClick(e, '#realisations')}>Réalisations</a>
-            <a href="#processus" onClick={(e) => handleNavClick(e, '#processus')}>Processus</a>
-            <a href="#tarifs" onClick={(e) => handleNavClick(e, '#tarifs')}>Tarifs</a>
-            <a href="#faq" onClick={(e) => handleNavClick(e, '#faq')}>FAQ</a>
+      <header className="site-header">
+        <div className="container bar">
+          <Brand onClick={() => window.scrollTo(0, 0)} />
+          <nav className="nav-primary" aria-label="Navigation principale">
+            {NAV.map((n) => <Link key={n.to} to={n.to}>{n.label}</Link>)}
           </nav>
-          <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="btn btn--primary btn--sm">Audit gratuit</a>
+          <div className="nav-actions">
+            <Link to="/#contact" className="btn btn--primary btn--sm">Audit gratuit</Link>
+            <button
+              type="button" className="menu-btn" aria-expanded={open} aria-controls="mobile-nav"
+              aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} onClick={() => setOpen(!open)}
+            >
+              {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+            </button>
+          </div>
         </div>
+        {open && (
+          <nav id="mobile-nav" className="mobile-nav" aria-label="Navigation mobile">
+            {NAV.map((n) => <Link key={n.to} to={n.to}>{n.label}</Link>)}
+            <Link to="/#contact" className="btn btn--primary btn--block" style={{ marginTop: 20, borderBottom: 0 }}>Audit gratuit</Link>
+          </nav>
+        )}
       </header>
 
-      {/* MAIN CONTENT */}
-      <main>
+      <main id="main">
         <Outlet />
       </main>
 
-      {/* FOOTER */}
-      <footer className="site">
-        <div className="container-x">
-          <div className="grid">
-            <div className="col">
-              <div className="brand">
-                <div className="mark-sun">
-                  <div className="disc"></div>
-                  <div className="L">L</div>
-                </div>
-                <div className="wordmark">
-                  <span className="name">LUBIRA</span>
-                  <span className="ai">AI</span>
-                </div>
-              </div>
-              <p>Conseil en intelligence artificielle pour les entreprises congolaises. Basés à Lubumbashi, RDC.</p>
+      <footer className="site-footer">
+        <div className="container">
+          <div className="cols">
+            <div>
+              <Brand />
+              <p className="about">Conseil en intelligence artificielle pour les entreprises congolaises. Basés à Lubumbashi, RDC.</p>
             </div>
-            <div className="col">
-              <h4>Services</h4>
+            <nav aria-label="Services">
+              <h2 className="footer-h">Services</h2>
               <ul>
-                <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Automatisation</a></li>
-                <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Agents IA</a></li>
-                <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Tableaux de bord</a></li>
-                <li><a href="#tarifs" onClick={(e) => handleNavClick(e, '#tarifs')}>Tarifs</a></li>
+                <li><Link to="/services">Automatisation</Link></li>
+                <li><Link to="/services">Agents IA</Link></li>
+                <li><Link to="/services">Tableaux de bord</Link></li>
+                <li><Link to="/#tarifs">Formules</Link></li>
               </ul>
-            </div>
-            <div className="col">
-              <h4>Société</h4>
+            </nav>
+            <nav aria-label="Société">
+              <h2 className="footer-h">Société</h2>
               <ul>
-                <li><a href="#realisations" onClick={(e) => handleNavClick(e, '#realisations')}>Réalisations</a></li>
-                <li><a href="#processus" onClick={(e) => handleNavClick(e, '#processus')}>Méthodologie</a></li>
-                <li><a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>Contact</a></li>
-                <li><a href="#faq" onClick={(e) => handleNavClick(e, '#faq')}>FAQ</a></li>
+                <li><Link to="/realisations">Réalisations</Link></li>
+                <li><Link to="/#processus">Méthodologie</Link></li>
+                <li><Link to="/a-propos">À propos</Link></li>
+                <li><Link to="/#faq">FAQ</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
               </ul>
-            </div>
-            <div className="col">
-              <h4>Contact</h4>
+            </nav>
+            <div>
+              <h2 className="footer-h">Contact</h2>
               <ul>
                 <li><a href="mailto:contact@lubira.ai">contact@lubira.ai</a></li>
-                <li><a href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '243995974770'}`}>+243 99 597 47 70</a></li>
+                <li><a href={wa} target="_blank" rel="noopener noreferrer">+243 99 597 47 70<span className="sr-only"> (WhatsApp, nouvel onglet)</span></a></li>
                 <li>Lubumbashi · RDC</li>
               </ul>
             </div>
           </div>
-          <div className="bot">
+          <div className="legal">
             <span>© 2026 LUBIRA AI · Tous droits réservés</span>
             <span>Mentions légales · Confidentialité</span>
           </div>
         </div>
       </footer>
+
+      <aside aria-label="Contact rapide"><WhatsAppButton /></aside>
     </>
   );
 }
