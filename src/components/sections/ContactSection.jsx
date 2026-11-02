@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Brain, ChartBar, Check, ClipboardText, Clock, Cloud, Compass, DeviceMobile, GraduationCap, Lightning, Lock, Robot, ShoppingCart, Users, WhatsappLogo } from '@phosphor-icons/react';
+import { ArrowLeft, ArrowRight, Brain, Briefcase, Buildings, ChartBar, Check, ClipboardText, Clock, Cloud, Compass, DeviceMobile, EnvelopeSimple, GraduationCap, Lightning, Lock, Phone, Robot, ShoppingCart, User, Users, WhatsappLogo } from '@phosphor-icons/react';
 import { supabase } from '../../lib/supabase';
 import Field from '../Field';
 import Reveal from '../Reveal';
@@ -199,22 +199,22 @@ export default function ContactSection() {
                     <div>
                       <h3 ref={stepHeading} tabIndex={-1} className="sr-only">Vos coordonnées</h3>
                       <div className="form-row">
-                        <Field label="Nom complet" required error={errors.nom}>
+                        <Field label="Nom complet" required error={errors.nom} icon={User} valid={formData.nom.trim().length > 1}>
                           {(p) => <input {...p} name="nom" value={formData.nom} onChange={handle} placeholder="Jean Mutombo" autoComplete="name" />}
                         </Field>
-                        <Field label="Entreprise" required error={errors.entreprise}>
+                        <Field label="Entreprise" required error={errors.entreprise} icon={Buildings} valid={formData.entreprise.trim().length > 1}>
                           {(p) => <input {...p} name="entreprise" value={formData.entreprise} onChange={handle} placeholder="HNM Mining SARL" autoComplete="organization" />}
                         </Field>
                       </div>
                       <div className="form-row">
-                        <Field label="WhatsApp" required error={errors.telephone}>
+                        <Field label="WhatsApp" required error={errors.telephone} icon={Phone} valid={formData.telephone.replace(/\D/g, '').length >= 8}>
                           {(p) => <input {...p} type="tel" name="telephone" value={formData.telephone} onChange={handle} placeholder="+243 99 597 47 70" autoComplete="tel" inputMode="tel" />}
                         </Field>
-                        <Field label="Email professionnel" required error={errors.email}>
+                        <Field label="Email professionnel" required error={errors.email} icon={EnvelopeSimple} valid={/^\S+@\S+\.\S+$/.test(formData.email)}>
                           {(p) => <input {...p} type="email" name="email" value={formData.email} onChange={handle} placeholder="jean@entreprise.cd" autoComplete="email" />}
                         </Field>
                       </div>
-                      <Field label="Secteur d'activité" required>
+                      <Field label="Secteur d'activité" required icon={Briefcase}>
                         {(p) => (
                           <select {...p} name="secteur" value={formData.secteur} onChange={handle}>
                             {SECTEURS.map((s) => <option key={s} value={s}>{s}</option>)}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, Check, WhatsappLogo } from '@phosphor-icons/react';
+import { ArrowRight, Briefcase, Buildings, Check, EnvelopeSimple, Lightning, User, WhatsappLogo } from '@phosphor-icons/react';
 import Reveal from '../components/Reveal';
 import Field from '../components/Field';
 import SEO from '../components/SEO';
@@ -131,20 +131,20 @@ function ContactForm() {
                 ) : (
                   <form onSubmit={handleSubmit} noValidate aria-label="Demande de contact">
                     <div className="form-row">
-                      <Field label="Nom complet" required error={errors.nom}>
+                      <Field label="Nom complet" required error={errors.nom} icon={User} valid={formData.nom.trim().length > 1}>
                         {(p) => <input {...p} name="nom" value={formData.nom} onChange={handleChange} placeholder="Jean Dupont" autoComplete="name" />}
                       </Field>
-                      <Field label="Email professionnel" required error={errors.email}>
+                      <Field label="Email professionnel" required error={errors.email} icon={EnvelopeSimple} valid={/^\S+@\S+\.\S+$/.test(formData.email)}>
                         {(p) => <input {...p} type="email" name="email" value={formData.email} onChange={handleChange} placeholder="jean@entreprise.cd" autoComplete="email" />}
                       </Field>
                     </div>
                     <div style={{ marginBottom: 16 }}>
-                      <Field label="Nom de l'entreprise" required error={errors.entreprise}>
+                      <Field label="Nom de l'entreprise" required error={errors.entreprise} icon={Buildings} valid={formData.entreprise.trim().length > 1}>
                         {(p) => <input {...p} name="entreprise" value={formData.entreprise} onChange={handleChange} placeholder="Votre Entreprise SARL" autoComplete="organization" />}
                       </Field>
                     </div>
                     <div className="form-row">
-                      <Field label="Secteur d'activité" required error={errors.secteur}>
+                      <Field label="Secteur d'activité" required error={errors.secteur} icon={Briefcase}>
                         {(p) => (
                           <select {...p} name="secteur" value={formData.secteur} onChange={handleChange}>
                             {[['', 'Sélectionner…'], ['Mines', 'Secteur minier'], ['Logistique', 'Logistique & Transport'],
@@ -153,7 +153,7 @@ function ContactForm() {
                           </select>
                         )}
                       </Field>
-                      <Field label="Service souhaité" required error={errors.service}>
+                      <Field label="Service souhaité" required error={errors.service} icon={Lightning}>
                         {(p) => (
                           <select {...p} name="service" value={formData.service} onChange={handleChange}>
                             {[['', 'Sélectionner…'], ['Automatisation', 'Automatisation des processus'], ['Agents IA', 'Agents IA sur mesure'],
