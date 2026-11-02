@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, WhatsappLogo } from '@phosphor-icons/react';
+import HeroScene from '../HeroScene';
 
 const WA = `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '243995974770'}?text=${encodeURIComponent('Bonjour Darius, je souhaite un audit gratuit pour mon entreprise.')}`;
 
@@ -35,23 +36,7 @@ export default function Hero() {
           </ul>
         </motion.div>
 
-        <motion.div
-          className="hero-panel"
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div>
-            <p className="kicker">Cas client · HNM Mining</p>
-            <p className="big" aria-label="Moins 70 pour cent">−70<span>%</span></p>
-            <p className="caption-on-dark">Temps de reporting</p>
-          </div>
-          <ul aria-label="Garanties techniques">
-            <li>OCDE · conforme</li>
-            <li>Supabase · instance isolée</li>
-            <li>Support en français · 24h</li>
-          </ul>
-        </motion.div>
+        <HeroScene />
       </div>
     </section>
   );

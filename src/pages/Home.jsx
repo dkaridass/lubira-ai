@@ -11,10 +11,11 @@ import FAQ from '../components/sections/FAQ';
 import ContactSection from '../components/sections/ContactSection';
 import Reveal from '../components/Reveal';
 import TaglineReveal from '../components/TaglineReveal';
+import CountUp from '../components/CountUp';
 
 const stats = [
-  { v: '48h', l: 'Livraison garantie' },
-  { v: '100%', l: 'Code vous appartient' },
+  { v: <CountUp to={48} suffix="h" />, l: 'Livraison garantie' },
+  { v: <CountUp to={100} suffix="%" />, l: 'Code vous appartient' },
   { v: '0 €', l: 'Licence retenue' },
   { v: 'NDA', l: 'Signé avant échange' },
 ];
