@@ -1,4 +1,7 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { Check, CaretDown } from '@phosphor-icons/react';
+import Reveal from '../Reveal';
+import SectionHead from '../SectionHead';
 
 const services = [
   { num: '01', title: 'Automatisation des Processus', desc: 'Remplacez vos tâches répétitives par des agents IA opérationnels 24h/24.', items: ['Audit des processus existants', 'Workflows automatisés sur mesure', 'Intégrations Excel, Email, SAP, etc.', 'Dashboards temps réel'], price: 'à partir de 2 500 $', delivery: 'Livraison 48h' },
@@ -16,40 +19,35 @@ const services = [
 ];
 
 export default function Services() {
+  const [all, setAll] = useState(false);
   return (
-    <section className="section dark on-dark" id="services">
-      <div className="container-x">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="section-head"
-        >
-          <span className="eyebrow">Nos services</span>
-          <h2>Douze façons de transformer<br/><em className="acc">vos opérations</em>.</h2>
-          <p className="lead">Chaque mission inclut audit gratuit, NDA signé, transfert complet du code et formation de votre équipe.</p>
-        </motion.div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '24px' }}>
+    <section className="section section--alt" id="services" aria-labelledby="services-title">
+      <div className="container">
+        <SectionHead
+          id="services-title"
+          eyebrow="Nos services"
+          title={<>Douze façons de transformer <span className="acc">vos opérations</span>.</>}
+          lead="Chaque mission inclut audit gratuit, NDA signé, transfert complet du code et formation de votre équipe."
+        />
+        <div className="grid grid--3" id="services-grid">
           {services.map((srv, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="service-card"
-            >
-              <span className="num-tag">// {srv.num}</span>
-              <h3>{srv.title}</h3>
-              <p className="desc">{srv.desc}</p>
+            <Reveal key={srv.num} delay={(i % 3) * 0.06} className="card card--lift service-card" hidden={i >= 6 && !all}>
+              <span className="num-tag" aria-hidden="true">{srv.num}</span>
+              <h3 style={{ marginTop: 8 }}>{srv.title}</h3>
+              <p>{srv.desc}</p>
               <ul>
-                {srv.items.map((item, j) => (
-                  <li key={j}>{item}</li>
+                {srv.items.map((item) => (
+                  <li key={item}><Check size={16} aria-hidden="true" />{item}</li>
                 ))}
               </ul>
-            </motion.div>
+            </Reveal>
           ))}
+        </div>
+        <div className="more-row">
+          <button type="button" className="btn btn--secondary" aria-expanded={all} aria-controls="services-grid" onClick={() => setAll((v) => !v)}>
+            {all ? 'Afficher moins' : 'Afficher les 6 autres services'}
+            <CaretDown size={18} aria-hidden="true" style={{ transform: all ? 'rotate(180deg)' : 'none', transition: 'transform 300ms cubic-bezier(.22,1,.36,1)' }} />
+          </button>
         </div>
       </div>
     </section>

@@ -1,54 +1,39 @@
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import Reveal from '../Reveal';
+import SectionHead from '../SectionHead';
+
+const plans = [
+  { label: 'Audit', price: 'Gratuit', sub: '1h · sans engagement', desc: 'Diagnostic de votre problème principal et estimation chiffrée. Repartez avec un plan d\'action concret.', cta: 'Réserver' },
+  { label: 'Sprint 48h', price: 'Sur consultation', sub: 'Livré en 2 jours ouvrés', desc: 'Une automatisation ciblée, livrée et déployée en 48h. Idéal pour démarrer rapidement avec un cas concret.', cta: 'Démarrer', featured: true },
+  { label: 'Sprint Agent IA', price: 'Sur consultation', sub: 'Livré en 5 jours', desc: 'Assistant IA conversationnel sur mesure, entraîné sur vos données, intégré à vos canaux (web, WhatsApp, Teams).', cta: 'Démarrer' },
+  { label: 'Sur mesure', price: 'Sur devis', sub: 'Projets complexes · multi-modules', desc: "Transformation complète d'un département ou processus métier. Audit approfondi inclus.", cta: 'Discuter' },
+];
 
 export default function Pricing() {
   return (
-    <section className="section cream" id="tarifs">
-      <div className="container-x">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="section-head"
-        >
-          <span className="eyebrow">Tarifs</span>
-          <h2>Quatre formules.<br/><em className="acc">Tout est inclus</em>.</h2>
-          <p className="lead">Audit gratuit, NDA signé, code livré, équipe formée. Pas d'abonnement caché, pas de licence retenue.</p>
-        </motion.div>
-        <div className="pricing-grid">
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.05 }} className="plan">
-            <div className="label">// Audit</div>
-            <div className="price">Gratuit</div>
-            <div className="subprice">1h · sans engagement</div>
-            <p className="desc">Diagnostic de votre problème principal et estimation chiffrée. Repartez avec un plan d'action concret.</p>
-            <a href="#contact" className="cta outline">Réserver →</a>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.1 }} className="plan featured">
-            <div className="badge">Plus demandé</div>
-            <div className="label">// Sprint 48h</div>
-            <div className="price">Sur consultation</div>
-            <div className="subprice">Livré en 2 jours ouvrés</div>
-            <p className="desc">Une automatisation ciblée, livrée et déployée en 48h. Idéal pour démarrer rapidement avec un cas concret.</p>
-            <a href="#contact" className="cta solid">Démarrer →</a>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.15 }} className="plan">
-            <div className="label">// Sprint Agent IA</div>
-            <div className="price">Sur consultation</div>
-            <div className="subprice">Livré en 5 jours</div>
-            <p className="desc">Assistant IA conversationnel sur mesure, entraîné sur vos données, intégré à vos canaux (web, WhatsApp, Teams).</p>
-            <a href="#contact" className="cta outline">Démarrer →</a>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.2 }} className="plan">
-            <div className="label">// Sur mesure</div>
-            <div className="price">Sur devis</div>
-            <div className="subprice">Projets complexes · multi-modules</div>
-            <p className="desc">Transformation complète d'un département ou processus métier. Audit approfondi inclus.</p>
-            <a href="#contact" className="cta outline">Discuter →</a>
-          </motion.div>
+    <section className="section" id="tarifs" aria-labelledby="plans-title">
+      <div className="container">
+        <SectionHead
+          id="plans-title"
+          eyebrow="Formules"
+          title={<>Quatre formules. <span className="acc">Tout est inclus</span>.</>}
+          lead="Audit gratuit, NDA signé, code livré, équipe formée. Pas d'abonnement caché, pas de licence retenue."
+        />
+        <div className="grid grid--4">
+          {plans.map((p, i) => (
+            <Reveal key={p.label} delay={i * 0.06} className={`card plan${p.featured ? ' plan--featured' : ''}`}>
+              {p.featured && <span className="badge">Plus demandé</span>}
+              <p className="label">{p.label}</p>
+              <p className="price">{p.price}</p>
+              <p className="subprice">{p.sub}</p>
+              <p className="desc">{p.desc}</p>
+              <Link to="/#contact" className={`btn btn--block ${p.featured ? 'btn--primary' : 'btn--secondary'}`}>
+                {p.cta}<span className="sr-only"> — {p.label}</span>
+              </Link>
+            </Reveal>
+          ))}
         </div>
-        <p style={{ textAlign: 'center', fontSize: '14px', color: 'var(--slate)', maxWidth: '680px', margin: '0 auto' }}>
-          Modalités&nbsp;: 50&nbsp;% à la commande · 50&nbsp;% à la livraison · Maintenance optionnelle.
-        </p>
+        <p className="terms">Modalités&nbsp;: 50&nbsp;% à la commande · 50&nbsp;% à la livraison · Maintenance optionnelle.</p>
       </div>
     </section>
   );

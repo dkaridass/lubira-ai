@@ -1,106 +1,141 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
+import WhatsAppButton from './WhatsAppButton';
+import { getLenis } from '../lib/smooth';
+import { track } from '../lib/track';
+
+const NAV = [
+  { to: '/#services', label: 'Services' },
+  { to: '/#realisations', label: 'Réalisations' },
+  { to: '/#processus', label: 'Processus' },
+  { to: '/#tarifs', label: 'Formules' },
+  { to: '/#faq', label: 'FAQ' },
+];
+
+function Brand({ onClick }) {
+  return (
+    <Link to="/" className="brand" onClick={onClick} aria-label="LUBIRA AI, accueil">
+      <span className="brand-mark" aria-hidden="true">L</span>
+      <span className="brand-name">LUBIRA <span>AI</span></span>
+    </Link>
+  );
+}
 
 export default function Layout() {
-  const location = useLocation();
+  const { key, pathname, hash } = useLocation();
+  // The menu is "open" only for the location it was opened on, so it closes on any navigation.
+  const [openKey, setOpenKey] = useState(null);
+  const open = openKey === key;
+  const toggleRef = useRef(null);
+  const panelRef = useRef(null);
 
-  const handleNavClick = (e, path) => {
-    if (path.startsWith('#') && location.pathname === '/') {
-      e.preventDefault();
-      const el = document.getElementById(path.slice(1));
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  // A nav link is current when its hash matches (home sections) — exposed via aria-current.
+  const isCurrent = (to) => pathname === '/' && hash && to === `/${hash}`;
+
+  useEffect(() => {
+    if (!open) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    getLenis()?.stop();
+    panelRef.current?.querySelector('a')?.focus();
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') { setOpenKey(null); toggleRef.current?.focus(); return; }
+      if (e.key !== 'Tab') return;
+      // Keep Tab inside the open menu (panel links + the toggle button)
+      const items = [...panelRef.current.querySelectorAll('a,button'), toggleRef.current];
+      const first = items[0]; const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prevOverflow; getLenis()?.start(); };
+  }, [open]);
+
+  const wa = `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '243995974770'}`;
 
   return (
     <>
-      {/* BANNER */}
-      <div className="banner">
-        <div className="container-x row">
-          <span>// LUBUMBASHI · RDC</span>
-          <span>Premier audit gratuit · livraison sous 48h · <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>Réserver →</a></span>
-        </div>
-      </div>
+      <ScrollToTop />
+      <a href="#main" className="skip-link">Aller au contenu principal</a>
 
-      {/* HEADER */}
-      <header className="nav">
-        <div className="container-x row">
-          <Link to="/" className="brand" onClick={() => window.scrollTo(0, 0)}>
-            <div className="mark-sun">
-              <div className="disc"></div>
-              <div className="L">L</div>
-            </div>
-            <div className="wordmark">
-              <span className="name">LUBIRA</span>
-              <span className="ai">AI</span>
-            </div>
-          </Link>
-          <nav className="primary">
-            <a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Services</a>
-            <a href="#realisations" onClick={(e) => handleNavClick(e, '#realisations')}>Réalisations</a>
-            <a href="#processus" onClick={(e) => handleNavClick(e, '#processus')}>Processus</a>
-            <a href="#tarifs" onClick={(e) => handleNavClick(e, '#tarifs')}>Tarifs</a>
-            <a href="#faq" onClick={(e) => handleNavClick(e, '#faq')}>FAQ</a>
+      <header className="site-header">
+        <div className="nav-pill">
+          <Brand onClick={() => window.scrollTo(0, 0)} />
+          <nav className="nav-primary" aria-label="Navigation principale">
+            {NAV.map((n) => (
+              <Link key={n.to} to={n.to} aria-current={isCurrent(n.to) ? 'location' : undefined}>{n.label}</Link>
+            ))}
           </nav>
-          <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="btn btn--primary btn--sm">Audit gratuit</a>
+          <div className="nav-actions">
+            <Link to="/#contact" className="btn btn--primary btn--sm" onClick={() => track('audit_cta_click', 'header')}>Audit gratuit</Link>
+            <button
+              ref={toggleRef} type="button" className="menu-btn" aria-expanded={open} aria-controls="mobile-panel"
+              aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} onClick={() => setOpenKey(open ? null : key)}
+            >
+              <span /><span /><span />
+            </button>
+          </div>
         </div>
+        {open && (
+          <nav id="mobile-panel" ref={panelRef} className="mobile-panel" aria-label="Navigation mobile">
+            {NAV.map((n, i) => (
+              <Link key={n.to} to={n.to} className="m-link" style={{ '--i': i }}
+                aria-current={isCurrent(n.to) ? 'location' : undefined}>{n.label}</Link>
+            ))}
+            <Link to="/#contact" className="btn btn--primary btn--block" style={{ '--i': NAV.length }}>Audit gratuit</Link>
+          </nav>
+        )}
       </header>
 
-      {/* MAIN CONTENT */}
-      <main>
+      <main id="main" tabIndex={-1}>
         <Outlet />
       </main>
 
-      {/* FOOTER */}
-      <footer className="site">
-        <div className="container-x">
-          <div className="grid">
-            <div className="col">
-              <div className="brand">
-                <div className="mark-sun">
-                  <div className="disc"></div>
-                  <div className="L">L</div>
-                </div>
-                <div className="wordmark">
-                  <span className="name">LUBIRA</span>
-                  <span className="ai">AI</span>
-                </div>
-              </div>
-              <p>Conseil en intelligence artificielle pour les entreprises congolaises. Basés à Lubumbashi, RDC.</p>
+      <footer className="site-footer">
+        <div className="container">
+          <div className="cols">
+            <div>
+              <Brand />
+              <p className="about">Conseil en intelligence artificielle pour les entreprises congolaises. Basés à Lubumbashi, RDC.</p>
             </div>
-            <div className="col">
-              <h4>Services</h4>
+            <nav aria-label="Services">
+              <h2 className="footer-h">Services</h2>
               <ul>
-                <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Automatisation</a></li>
-                <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Agents IA</a></li>
-                <li><a href="#services" onClick={(e) => handleNavClick(e, '#services')}>Tableaux de bord</a></li>
-                <li><a href="#tarifs" onClick={(e) => handleNavClick(e, '#tarifs')}>Tarifs</a></li>
+                <li><Link to="/services">Automatisation</Link></li>
+                <li><Link to="/services">Agents IA</Link></li>
+                <li><Link to="/services">Tableaux de bord</Link></li>
+                <li><Link to="/#tarifs">Formules</Link></li>
               </ul>
-            </div>
-            <div className="col">
-              <h4>Société</h4>
+            </nav>
+            <nav aria-label="Société">
+              <h2 className="footer-h">Société</h2>
               <ul>
-                <li><a href="#realisations" onClick={(e) => handleNavClick(e, '#realisations')}>Réalisations</a></li>
-                <li><a href="#processus" onClick={(e) => handleNavClick(e, '#processus')}>Méthodologie</a></li>
-                <li><a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>Contact</a></li>
-                <li><a href="#faq" onClick={(e) => handleNavClick(e, '#faq')}>FAQ</a></li>
+                <li><Link to="/realisations">Réalisations</Link></li>
+                <li><Link to="/#processus">Méthodologie</Link></li>
+                <li><Link to="/a-propos">À propos</Link></li>
+                <li><Link to="/#faq">FAQ</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
               </ul>
-            </div>
-            <div className="col">
-              <h4>Contact</h4>
+            </nav>
+            <div>
+              <h2 className="footer-h">Contact</h2>
               <ul>
                 <li><a href="mailto:contact@lubira.ai">contact@lubira.ai</a></li>
-                <li><a href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '243995974770'}`}>+243 99 597 47 70</a></li>
+                <li><a href={wa} target="_blank" rel="noopener noreferrer" onClick={() => track('whatsapp_click', 'footer')}>+243 99 597 47 70<span className="sr-only"> (WhatsApp, nouvel onglet)</span></a></li>
                 <li>Lubumbashi · RDC</li>
               </ul>
             </div>
           </div>
-          <div className="bot">
+          <div className="legal">
             <span>© 2026 LUBIRA AI · Tous droits réservés</span>
             <span>Mentions légales · Confidentialité</span>
           </div>
         </div>
       </footer>
+
+      <aside aria-label="Contact rapide"><WhatsAppButton /></aside>
     </>
   );
 }

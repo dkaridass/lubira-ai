@@ -1,46 +1,45 @@
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from '@phosphor-icons/react';
+import Reveal from '../Reveal';
+import SectionHead from '../SectionHead';
+import Magnet from '../reactbits/Magnet';
+import { track } from '../../lib/track';
+
+const steps = [
+  { day: 'Jour 0', h: 'Audit gratuit', p: "Visite ou visio d'1 heure. Nous identifions votre problème principal et proposons une solution concrète. Sans engagement." },
+  { day: 'Jour 0+', h: 'NDA + cahier des charges', p: 'Accord de confidentialité signé. Spécifications validées ensemble. 50% à la commande.' },
+  { day: 'Jours 1–2', h: 'Construction du prototype', p: 'Nous construisons votre solution fonctionnelle. Vous suivez l\'avancement en temps réel.' },
+  { day: 'Jour 2', h: 'Livraison & transfert', p: 'Démo en direct. Formation de votre équipe. Transfert complet du code. Propriété à 100%.' },
+];
 
 export default function Process() {
   return (
-    <section className="section dark on-dark" id="processus">
-      <div className="container-x">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="section-head"
-        >
-          <span className="eyebrow">Le processus</span>
-          <h2>De l'audit à la livraison :<br/><em className="acc">4 étapes, 48 heures</em>.</h2>
-        </motion.div>
-        <div className="process-timeline">
-          <div className="process-line"></div>
-          <div className="process-grid">
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }} className="process-step">
-              <div className="dot">1</div><div className="day">Jour 0</div><h3>Audit gratuit</h3><p>Visite ou visio d'1 heure. Nous identifions votre problème principal et proposons une solution concrète. Sans engagement.</p>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="process-step">
-              <div className="dot">2</div><div className="day">Jour 0+</div><h3>NDA + cahier des charges</h3><p>Accord de confidentialité signé. Spécifications validées ensemble. 50% à la commande.</p>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }} className="process-step">
-              <div className="dot">3</div><div className="day">Jours 1–2</div><h3>Construction du prototype</h3><p>Nous construisons votre solution fonctionnelle. Vous suivez l'avancement en temps réel.</p>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.4 }} className="process-step">
-              <div className="dot">4</div><div className="day">Jour 2</div><h3>Livraison &amp; transfert</h3><p>Démo en direct. Formation de votre équipe. Transfert complet du code. Propriété à 100%.</p>
-            </motion.div>
-          </div>
+    <section className="section" id="processus" aria-labelledby="process-title">
+      <div className="container">
+        <div className="process-stage">
+          <SectionHead
+            id="process-title"
+            eyebrow="Le processus"
+            title={<>De l&apos;audit à la <span className="nb">livraison&nbsp;:</span> <span className="acc">4 étapes, 48 heures</span>.</>}
+          />
+          <div className="process-progress" aria-hidden="true"><i /></div>
+          <ol className="grid grid--4 process-steps">
+            {steps.map((s, i) => (
+              <li key={s.h} className="card step">
+                <div className="step-num" aria-hidden="true">{i + 1}</div>
+                <p className="step-day">{s.day}</p>
+                <h3>{s.h}</h3>
+                <p>{s.p}</p>
+              </li>
+            ))}
+          </ol>
         </div>
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="process-cta"
-        >
-          <p>« Votre concurrent découvrira l'IA dans 2 ans. Vous pouvez avoir l'avantage <em className="acc" style={{color: '#FBF8F2', textDecoration: 'underline', textUnderlineOffset: '6px'}}>dès cette semaine</em>. »</p>
-          <a href="#contact" className="btn btn--primary">Réserver mon audit <span className="arrow">→</span></a>
-        </motion.div>
+        <Reveal className="cta-band">
+          <p>« Votre concurrent découvrira l&apos;IA dans 2 ans. Vous pouvez avoir l&apos;avantage <span className="acc">dès cette semaine</span>. »</p>
+          <Magnet padding={80} magnetStrength={4}>
+            <Link to="/#contact" className="btn btn--on-dark" onClick={() => track('audit_cta_click', 'process_band')}>Réserver mon audit <ArrowRight size={18} className="arrow" aria-hidden="true" /></Link>
+          </Magnet>
+        </Reveal>
       </div>
     </section>
   );

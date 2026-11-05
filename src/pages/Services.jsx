@@ -1,5 +1,7 @@
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Check } from '@phosphor-icons/react';
 import SEO from '../components/SEO';
+import Reveal from '../components/Reveal';
 
 const services = [
   {
@@ -46,7 +48,7 @@ const services = [
 
 export default function Services() {
   return (
-    <div style={{ background: 'var(--paper)' }}>
+    <>
       <SEO
         title="Services IA — Automatisation, Agents IA, WhatsApp Bots, Conformité OCDE"
         description="Découvrez les 8 services d'intelligence artificielle de LUBIRA AI à Lubumbashi, RDC : automatisation des processus, agents IA sur mesure, bots WhatsApp Business, conformité OCDE, tableaux de bord intelligents. Premier audit gratuit."
@@ -54,80 +56,54 @@ export default function Services() {
         keywords="services IA Lubumbashi, automatisation processus Congo, agent IA sur mesure RDC, bot WhatsApp Business Congo, conformité OCDE IA, tableau de bord intelligent RDC, formation IA Congo, conseil stratégique IA Afrique"
       />
 
-      {/* Header */}
-      <section className="section">
-        <div className="container-x">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="section-head"
-          >
+      <section className="page-hero">
+        <div className="container">
+          <Reveal>
             <span className="eyebrow">Nos services détaillés</span>
-            <h1 style={{ fontSize: 'clamp(36px, 5vw, 60px)', lineHeight: 1.02, marginTop: '20px' }}>Des solutions IA pour chaque<br/><em className="acc">problème opérationnel</em>.</h1>
-            <p className="lead">De l'extraction de données à l'automatisation de la conformité, nous concevons des systèmes sur mesure pour les entreprises de Lubumbashi. Premier audit gratuit et sans engagement.</p>
-          </motion.div>
+            <h1>Des solutions IA pour chaque <span className="acc">problème opérationnel</span>.</h1>
+            <p className="lead">De l&apos;extraction de données à l&apos;automatisation de la conformité, nous concevons des systèmes sur mesure pour les entreprises de Lubumbashi. Premier audit gratuit et sans engagement.</p>
+          </Reveal>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section style={{ paddingBottom: '96px' }}>
-        <div className="container-x">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(480px, 1fr))', gap: '32px' }}>
-            {services.map((srv, index) => (
-              <motion.div
-                key={srv.n}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="service-card"
-                style={{ position: 'relative' }}
-              >
-                <span className="num-tag" style={{ position: 'absolute', top: '36px', right: '36px' }}>// {srv.n}</span>
-                <h3 style={{ paddingRight: '64px' }}>{srv.t}</h3>
-                <p className="desc">{srv.d}</p>
-                <div style={{ marginBottom: '28px' }}>
-                  <p style={{ fontFamily: '"Geist Mono", monospace', fontSize: '11px', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--slate)', marginBottom: '14px', fontWeight: 500 }}>Livrables typiques</p>
-                  {srv.deliv.map((item, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '6px 0', fontSize: '14px', color: 'var(--ink)' }}>
-                      <span style={{ color: 'var(--copper)', fontFamily: '"Geist Mono", monospace' }}>→</span>
-                      {item}
-                    </div>
+      <section className="section section--alt" style={{ paddingTop: 'var(--s-8)' }} aria-label="Liste des services">
+        <div className="container">
+          <div className="grid grid--2">
+            {services.map((srv, i) => (
+              <Reveal key={srv.n} delay={(i % 2) * 0.06} className="card service-card">
+                <span className="num-tag" aria-hidden="true">{srv.n}</span>
+                <h2 className="heading-6" style={{ marginTop: 8, marginBottom: 12 }}>{srv.t}</h2>
+                <p>{srv.d}</p>
+                <p style={{ marginTop: 24, fontWeight: 600, color: 'var(--text)' }}>Livrables typiques</p>
+                <ul>
+                  {srv.deliv.map((item) => (
+                    <li key={item}><Check size={16} aria-hidden="true" />{item}</li>
                   ))}
+                </ul>
+                <div style={{ marginTop: 'auto', paddingTop: 24 }}>
+                  <Link to="/#contact" className="btn btn--secondary btn--sm btn--block">
+                    Demander ce service <ArrowRight size={16} className="arrow" aria-hidden="true" />
+                    <span className="sr-only"> : {srv.t}</span>
+                  </Link>
                 </div>
-                <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid rgba(14,15,18,.08)' }}>
-                  <a
-                    href={`/#contact?service=${encodeURIComponent(srv.t)}`}
-                    className="btn btn--ghost btn--sm"
-                    style={{ width: '100%', justifyContent: 'center' }}
-                  >
-                    Demander ce service <span className="arrow">→</span>
-                  </a>
-                </div>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="section cream" style={{ textAlign: 'center' }}>
-        <div className="container-narrow">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <p style={{ fontFamily: '"Instrument Serif", serif', fontStyle: 'italic', fontSize: 'clamp(22px, 3vw, 28px)', color: 'var(--ink)', lineHeight: 1.35, marginBottom: '32px' }}>
+      <section className="section">
+        <div className="container container--narrow" style={{ textAlign: 'center' }}>
+          <Reveal>
+            <p className="audience-quote" style={{ marginTop: 0 }}>
               « Chaque solution est tarifée selon vos besoins. Nous signons un NDA avant même de commencer à discuter des détails. »
             </p>
-            <a href="/#contact" className="btn btn--primary">
-              Obtenir mon audit gratuit <span className="arrow">→</span>
-            </a>
-          </motion.div>
+            <Link to="/#contact" className="btn btn--primary" style={{ marginTop: 32 }}>
+              Obtenir mon audit gratuit <ArrowRight size={18} className="arrow" aria-hidden="true" />
+            </Link>
+          </Reveal>
         </div>
       </section>
-    </div>
+    </>
   );
 }

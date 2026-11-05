@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS public.leads (
     email TEXT NOT NULL,
     secteur TEXT NOT NULL,
     besoin TEXT,
+    services_demandes TEXT,
+    budget TEXT,
     status TEXT DEFAULT 'nouveau',
     source TEXT DEFAULT 'website',
     created_at TIMESTAMPTZ DEFAULT now()
@@ -41,3 +43,8 @@ CREATE POLICY "Allow admin delete" ON public.leads
     FOR DELETE 
     TO authenticated
     USING (true);
+
+-- Migration for databases created from an earlier version of this file
+-- (the website form also sends services_demandes and budget):
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS services_demandes TEXT;
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS budget TEXT;
