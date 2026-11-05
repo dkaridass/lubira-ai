@@ -2,6 +2,8 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import Layout from './components/Layout';
+import SmoothScroll from './components/SmoothScroll';
+import Choreography from './components/Choreography';
 import Home from './pages/Home';
 const Services = lazy(() => import('./pages/Services'));
 const Projects = lazy(() => import('./pages/Projects'));
@@ -14,7 +16,9 @@ function App() {
     // reducedMotion="user": Framer Motion drops transform/layout animation
     // when the OS asks for reduced motion.
     <MotionConfig reducedMotion="user">
+      <SmoothScroll />
       <BrowserRouter>
+        <Choreography />
         <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Layout />}>

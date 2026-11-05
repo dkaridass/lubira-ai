@@ -8,6 +8,7 @@ import ROICalculator from '../components/sections/ROICalculator';
 import CaseStudy from '../components/sections/CaseStudy';
 import Pricing from '../components/sections/Pricing';
 import FAQ from '../components/sections/FAQ';
+import SectorBand from '../components/sections/SectorBand';
 import ContactSection from '../components/sections/ContactSection';
 import Reveal from '../components/Reveal';
 import TaglineReveal from '../components/TaglineReveal';
@@ -50,6 +51,7 @@ export default function Home() {
         words={"Si votre équipe passe plus de 2 heures par semaine sur une tâche répétitive, nous pouvons l'automatiser.".split(' ')}
       />
       <Trust />
+      <SectorBand />
       <Process />
       <Services />
       <ROICalculator />

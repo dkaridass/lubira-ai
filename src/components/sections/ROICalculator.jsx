@@ -34,7 +34,7 @@ export default function ROICalculator() {
         <SectionHead
           id="roi-title"
           eyebrow="Calculez votre ROI"
-          title={<>Combien d&apos;heures votre équipe perd-elle <span className="acc">chaque mois</span>&nbsp;?</>}
+          title={<>Combien d&apos;heures votre équipe perd-elle <span className="nb"><span className="acc">chaque mois</span>&nbsp;?</span></>}
           lead="Ajustez les paramètres ci-dessous. Le calcul se met à jour en temps réel."
         />
         <div className="roi-grid">

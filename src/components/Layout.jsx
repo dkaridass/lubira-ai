@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 import WhatsAppButton from './WhatsAppButton';
+import { getLenis } from '../lib/smooth';
 
 const NAV = [
   { to: '/#services', label: 'Services' },
@@ -35,6 +36,7 @@ export default function Layout() {
     if (!open) return;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    getLenis()?.stop();
     panelRef.current?.querySelector('a')?.focus();
 
     const onKey = (e) => {
@@ -47,7 +49,7 @@ export default function Layout() {
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     };
     document.addEventListener('keydown', onKey);
-    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prevOverflow; };
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prevOverflow; getLenis()?.start(); };
   }, [open]);
 
   const wa = `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '243995974770'}`;

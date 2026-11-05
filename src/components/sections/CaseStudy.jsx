@@ -8,7 +8,7 @@ export default function CaseStudy() {
         <SectionHead
           id="case-title"
           eyebrow="Étude de cas"
-          title={<>HNM Mining&nbsp;: −70&nbsp;% sur le <span className="acc">reporting opérationnel</span>.</>}
+          title={<><span className="nb">HNM Mining&nbsp;:</span> −70&nbsp;% sur le <span className="acc">reporting opérationnel</span>.</>}
           lead="PME minière de 45 employés, opérations dans le Katanga. Reporting hebdomadaire qui mobilisait 2 personnes pendant 3 jours."
         />
         <div className="case-grid">

@@ -33,6 +33,49 @@ export default function HeroScene() {
   };
   const onLeave = () => { mx.set(0); my.set(0); };
 
+  // Vanta NET (three.js) behind the card: loaded only on desktop pointers, after the page is idle,
+  // and never with reduced motion or data saver. Three.js is a separate lazy chunk.
+  const vantaEl = useRef(null);
+  const [vantaReady, setVantaReady] = useState(false);
+  useEffect(() => {
+    const saveData = navigator.connection?.saveData;
+    if (!fine || reduce || saveData || window.innerWidth < 1024) return;
+    let effect = null; let io = null; let cancelled = false;
+    const load = async () => {
+      try {
+        const [netMod, THREE] = await Promise.all([import('vanta/dist/vanta.net.min'), import('three')]);
+        if (cancelled || !vantaEl.current) return;
+        // The UMD bundle's export is wrapped differently by dev and production builds: find the function.
+        const NET = [netMod, netMod.default, netMod.default?.default, window.VANTA?.NET].find((f) => typeof f === 'function');
+        if (!NET) throw new Error('Vanta NET not found');
+        effect = NET({
+          el: vantaEl.current, THREE,
+          mouseControls: false, touchControls: false, gyroControls: false,
+          color: 0xE8A27C, backgroundColor: 0x181818,
+          points: 7, maxDistance: 22, spacing: 22, showDots: true, scale: 1, scaleMobile: 1,
+        });
+        setVantaReady(true);
+        // Pause the render loop while the card is off screen, resume when it returns.
+        io = new IntersectionObserver(([e]) => {
+          if (!effect) return;
+          if (e.isIntersecting) { if (!effect.req) effect.animationLoop(); }
+          else { window.cancelAnimationFrame(effect.req); effect.req = 0; }
+        }, { threshold: 0 });
+        io.observe(vantaEl.current);
+      } catch (err) { console.warn('Hero background unavailable:', err?.message || err); /* the card is complete without it */ }
+    };
+    // Wait ~3s so Three.js parsing never competes with the first seconds of scrolling, then use an idle slot.
+    let idle = 0;
+    const wait = setTimeout(() => { idle = window.requestIdleCallback ? window.requestIdleCallback(load, { timeout: 2000 }) : setTimeout(load, 0); }, 3000);
+    return () => {
+      cancelled = true;
+      clearTimeout(wait);
+      if (idle) (window.cancelIdleCallback || clearTimeout)(idle);
+      io?.disconnect();
+      effect?.destroy();
+    };
+  }, [fine, reduce]);
+
   // Count-up for the headline number
   const count = useMotionValue(reduce ? 70 : 0);
   const shown = useTransform(count, (v) => Math.round(v));
@@ -64,6 +107,7 @@ export default function HeroScene() {
         transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
       >
         <div className="scene-card">
+          <div ref={vantaEl} className={`scene-vanta${vantaReady ? ' is-ready' : ''}`} aria-hidden="true" />
           <div className="scene-main">
             <p className="kicker">Cas client · HNM Mining</p>
             <p className="big" aria-hidden="true">−<motion.span>{shown}</motion.span><span>%</span></p>
