@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Brain, Briefcase, Buildings, ChartBar, Check, ClipboardText, Clock, Cloud, Compass, DeviceMobile, EnvelopeSimple, GraduationCap, Lightning, Lock, Phone, Robot, ShoppingCart, User, Users, WhatsappLogo } from '@phosphor-icons/react';
-import { supabase } from '../../lib/supabase';
+import { submitLead } from '../../lib/leads';
+import { track } from '../../lib/track';
 import Field from '../Field';
 import Reveal from '../Reveal';
 
@@ -106,7 +107,7 @@ export default function ContactSection() {
     if (step === 1) { if (validateStep1()) setStep(2); return; }
     setStatus('submitting');
     try {
-      const payload = {
+      await submitLead({
         nom: formData.nom,
         entreprise: formData.entreprise,
         telephone: formData.telephone,
@@ -115,15 +116,8 @@ export default function ContactSection() {
         besoin: formData.besoin,
         services_demandes: formData.services.join(', '),
         budget: formData.budget,
-        status: 'nouveau',
-        source: 'website',
-      };
-      if (supabase) {
-        const { error } = await supabase.from('leads').insert([payload]);
-        if (error) throw error;
-      } else {
-        await new Promise((r) => setTimeout(r, 1200));
-      }
+      });
+      track('lead_submitted', 'home_form');
       setStatus('success');
     } catch (err) {
       console.error(err);
@@ -154,7 +148,7 @@ export default function ContactSection() {
               Congolais. Bâtisseur de solutions IA pour les PME de Lubumbashi et de toute la RDC. Il vous répond personnellement.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
-              <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer" className="btn btn--whatsapp btn--sm">
+              <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer" className="btn btn--whatsapp btn--sm" onClick={() => track('whatsapp_click', 'contact_section')}>
                 <WhatsappLogo size={18} aria-hidden="true" /> Écrire sur WhatsApp
                 <span className="sr-only"> (nouvel onglet)</span>
               </a>

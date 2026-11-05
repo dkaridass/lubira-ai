@@ -3,6 +3,8 @@ import { ArrowRight, Briefcase, Buildings, Check, EnvelopeSimple, Lightning, Use
 import Reveal from '../components/Reveal';
 import Field from '../components/Field';
 import SEO from '../components/SEO';
+import { leadSource } from '../lib/utm';
+import { track } from '../lib/track';
 
 export default function Contact() {
   return (
@@ -50,12 +52,13 @@ function ContactForm() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           name: formData.nom, email: formData.email, company: formData.entreprise,
-          sector: formData.secteur, service: formData.service, message: formData.description,
+          sector: formData.secteur, service: formData.service, message: formData.description, source: leadSource(),
           _subject: `[LUBIRA AI] Nouvelle demande de ${formData.nom} — ${formData.entreprise}`,
           _template: 'table',
         }),
       });
       if (res.ok) {
+        track('lead_submitted', 'contact_page');
         setSubmitSuccess(true);
         setFormData({ nom: '', email: '', entreprise: '', secteur: '', service: '', description: '' });
       } else { setSubmitError(true); }
@@ -94,7 +97,7 @@ function ContactForm() {
                   <p className="muted small">Réponse en moins de 2 heures</p>
                 </li>
                 <li>
-                  <a href="https://wa.me/243995974770" target="_blank" rel="noopener noreferrer" className="btn btn--whatsapp btn--sm">
+                  <a href="https://wa.me/243995974770" target="_blank" rel="noopener noreferrer" className="btn btn--whatsapp btn--sm" onClick={() => track('whatsapp_click', 'contact_page')}>
                     <WhatsappLogo size={18} aria-hidden="true" /> Discuter sur WhatsApp
                     <span className="sr-only"> (nouvel onglet)</span>
                   </a>

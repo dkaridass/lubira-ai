@@ -3,6 +3,7 @@ import { ArrowRight } from '@phosphor-icons/react';
 import Reveal from '../Reveal';
 import SectionHead from '../SectionHead';
 import Magnet from '../reactbits/Magnet';
+import { track } from '../../lib/track';
 
 const steps = [
   { day: 'Jour 0', h: 'Audit gratuit', p: "Visite ou visio d'1 heure. Nous identifions votre problème principal et proposons une solution concrète. Sans engagement." },
@@ -36,7 +37,7 @@ export default function Process() {
         <Reveal className="cta-band">
           <p>« Votre concurrent découvrira l&apos;IA dans 2 ans. Vous pouvez avoir l&apos;avantage <span className="acc">dès cette semaine</span>. »</p>
           <Magnet padding={80} magnetStrength={4}>
-            <Link to="/#contact" className="btn btn--on-dark">Réserver mon audit <ArrowRight size={18} className="arrow" aria-hidden="true" /></Link>
+            <Link to="/#contact" className="btn btn--on-dark" onClick={() => track('audit_cta_click', 'process_band')}>Réserver mon audit <ArrowRight size={18} className="arrow" aria-hidden="true" /></Link>
           </Magnet>
         </Reveal>
       </div>

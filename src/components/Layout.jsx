@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 import WhatsAppButton from './WhatsAppButton';
 import { getLenis } from '../lib/smooth';
+import { track } from '../lib/track';
 
 const NAV = [
   { to: '/#services', label: 'Services' },
@@ -68,7 +69,7 @@ export default function Layout() {
             ))}
           </nav>
           <div className="nav-actions">
-            <Link to="/#contact" className="btn btn--primary btn--sm">Audit gratuit</Link>
+            <Link to="/#contact" className="btn btn--primary btn--sm" onClick={() => track('audit_cta_click', 'header')}>Audit gratuit</Link>
             <button
               ref={toggleRef} type="button" className="menu-btn" aria-expanded={open} aria-controls="mobile-panel"
               aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} onClick={() => setOpenKey(open ? null : key)}
@@ -122,7 +123,7 @@ export default function Layout() {
               <h2 className="footer-h">Contact</h2>
               <ul>
                 <li><a href="mailto:contact@lubira.ai">contact@lubira.ai</a></li>
-                <li><a href={wa} target="_blank" rel="noopener noreferrer">+243 99 597 47 70<span className="sr-only"> (WhatsApp, nouvel onglet)</span></a></li>
+                <li><a href={wa} target="_blank" rel="noopener noreferrer" onClick={() => track('whatsapp_click', 'footer')}>+243 99 597 47 70<span className="sr-only"> (WhatsApp, nouvel onglet)</span></a></li>
                 <li>Lubumbashi · RDC</li>
               </ul>
             </div>

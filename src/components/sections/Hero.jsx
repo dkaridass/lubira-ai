@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Check, WhatsappLogo } from '@phosphor-icons/react';
 import HeroScene from '../HeroScene';
 import Magnet from '../reactbits/Magnet';
+import { track } from '../../lib/track';
 
 const WA = `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '243995974770'}?text=${encodeURIComponent('Bonjour Darius, je souhaite un audit gratuit pour mon entreprise.')}`;
 
@@ -23,11 +24,11 @@ export default function Hero() {
           </p>
           <div className="ctas">
             <Magnet padding={80} magnetStrength={4}>
-              <Link to="/#contact" className="btn btn--primary">
+              <Link to="/#contact" className="btn btn--primary" onClick={() => track('audit_cta_click', 'hero')}>
                 Réserver un audit gratuit <ArrowRight size={18} className="arrow" aria-hidden="true" />
               </Link>
             </Magnet>
-            <a href={WA} className="btn btn--secondary" target="_blank" rel="noopener noreferrer">
+            <a href={WA} className="btn btn--secondary" target="_blank" rel="noopener noreferrer" onClick={() => track('whatsapp_click', 'hero')}>
               <WhatsappLogo size={18} aria-hidden="true" /> Écrire sur WhatsApp
               <span className="sr-only"> (nouvel onglet)</span>
             </a>

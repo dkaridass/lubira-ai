@@ -1,3 +1,4 @@
+import { track } from '../lib/track';
 import { WhatsappLogo } from '@phosphor-icons/react';
 
 export default function WhatsAppButton() {
@@ -11,6 +12,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       className="wa-fab"
+      onClick={() => track('whatsapp_click', 'floating_button')}
       aria-label="Discuter sur WhatsApp (s'ouvre dans un nouvel onglet)"
     >
       <WhatsappLogo size={26} aria-hidden="true" />
